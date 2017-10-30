@@ -1,0 +1,381 @@
+package com.cashier.ui;
+
+import com.database.FirebaseDB;
+import com.google.firebase.database.*;
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+//package com.cashier.ui;
+
+
+import com.database.Bus;
+import com.database.Database;
+import com.database.Fee;
+import com.jfoenix.controls.JFXButton;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+
+/**
+ * @author alboresallyssa
+ */
+public class FXMLArrivalWindowController implements Initializable {
+    //These items are for the buttons in arrival window
+    @FXML
+    private Button busPrintButton;
+    @FXML
+    private Button minibusPrintButton;
+
+    @FXML
+    private Button transactButton;
+    @FXML
+    private JFXButton voidButton;
+    @FXML
+    private Button cashierButton;
+    @FXML
+    private Button logoutButton;
+
+    //These items are for the combo boxes in arrival window
+    @FXML
+    private ComboBox busFDD;
+    @FXML
+    private ComboBox minibusFDD;
+
+    //These items are for the check boxes in arrival window
+    @FXML
+    private CheckBox arrivalFee;
+    @FXML
+    private CheckBox loadingFee;
+
+    //These items are for the text fields in arrival window
+    @FXML
+    private TextField busNumber;
+    @FXML
+    private TextField plateNumber;
+
+    @FXML
+    private ObservableList<Fee> fees;
+    @FXML
+    private DatabaseReference database;
+
+    //private int currentOrNum;
+    private boolean busExists;
+    private int ORNUM;
+
+    /**
+     * When this method is called, a pop up window will appear.
+     * The pop up window is the confirmation window for the BUS.
+     *
+     * @param event
+     * @throws IOException
+     */
+    public void busConfirmButtonPushed(ActionEvent event) throws IOException, InterruptedException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd"); // idk where ni na use
+        LocalDate localDate = LocalDate.now();
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String dateFormat = sdf.format(date.getTime());
+
+        try {
+            String typeOfFee = ""; //idk where ni na use
+            boolean paidArrival = false;
+            boolean paidLoading = false;
+            if (arrivalFee.isSelected()) {
+                paidArrival = true;
+            }
+            if (loadingFee.isSelected()) {
+                paidLoading = true;
+            }
+
+            String busNum = busNumber.getText();
+
+            if (!loadingFee.isSelected() && !arrivalFee.isSelected()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("No Fee type");
+                alert.setHeaderText("Select Fee to be paid");
+                alert.setContentText("");
+
+                alert.showAndWait();
+
+            } else {
+                busExists = false;
+                final boolean hasArrival = paidArrival;   //inner class calls needs to be final
+                final boolean hasLoading = paidLoading;    //same reason as to paid arrival
+                String franchiseSelected = busFDD.getValue().toString();
+                //String orNumber = "#" + String.valueOf(currentOrNum);
+
+
+                /**
+                 * referenced adto sa fees table
+                 * first listener below is to determine unsay pinakalast na OR number naa sa firebase para plus 1 nalang
+                 */
+                DatabaseReference ref = database.child("Fees");
+
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        Long l = snapshot.getChildrenCount();
+                        ORNUM = l.intValue() + 1;
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+
+                /**
+                 * Listener below check if such Bus exists
+                 * having problems sa pag throw sa error  if no bus exist. pero di ra siya mu add ug fee if sayop ang bus,
+                 * ang problem kay di lang mugawas ang alert window
+                 */
+                ref = database.child("Buses");
+
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    //@Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        /**
+                         * checks if bus number with the given franchise exists
+                         */
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            Bus bus = snap.getValue(Bus.class);
+                            if(bus.getBusNumber().equals(busNum) && bus.getCompany().equals(franchiseSelected)){
+                                busExists = true;
+                                if(bus.isMiniBus()){ //alerts error since pang bus ni nga transaction, not minibus. musulod siya diri pero na alert will be displayed
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("INCORRECT DATA");
+                                    alert.setHeaderText("Please check your data");
+                                    alert.setContentText("");
+                                    alert.showAndWait();
+                                }
+                                else{
+
+                                    Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, "Cashier 01", localDate, bus.getPlateNo());
+                                    //currentOrNum++;
+                                    FirebaseDB.addFee(forDatabase);
+                                }
+                            }
+                        }
+                        if(!busExists){// alert will not pop out :(
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("NO BUS");
+                            alert.setHeaderText("No buses on record");
+                            alert.setContentText("Contact admin");
+
+                            alert.showAndWait();
+                        }
+                    }
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+            }
+        } catch (NullPointerException e) { //works fine
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("INCOMPLETE DATA");
+            alert.setHeaderText("Please fill in all data.");
+            alert.setContentText("");
+
+            alert.showAndWait();
+        }
+
+
+    }
+
+    /**
+     * When this method is called, a pop up window will appear.
+     * The pop up window is the confirmation window for the MINIBUS.
+     *
+     * @param event
+     * @throws IOException
+     */
+    public void minibusConfirmButtonPushed(ActionEvent event) throws IOException, InterruptedException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String dateFormat = sdf.format(date.getTime());
+
+        try {
+            busExists = false;
+            String franchiseSelected = minibusFDD.getValue().toString(); //idk unsay use ani nga naa namay plate number which is unique
+            String plateNum1 = plateNumber.getText();
+            // autocaps the plate number inputted
+            String plateNum = plateNum1.toUpperCase();
+
+            /**
+             * Sme with bus, determines the OR number
+             */
+            DatabaseReference ref = database.child("Fees");
+
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    Long l = snapshot.getChildrenCount();
+                    ORNUM = l.intValue() + 1;
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+
+                }
+            });
+
+            /**
+             * works same with BusConfirmButton
+             */
+            ref = database.child("Buses");
+
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                ArrayList<Fee> feeslist = new ArrayList<>();
+                //@Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if(snapshot.hasChild(plateNum1)) {
+                        DatabaseReference busRef = database.child("Buses").child(plateNum1);
+                        busRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot bussnapshot) {
+                                Bus bus = bussnapshot.getValue(Bus.class);
+                                if(bus.isMiniBus()) { //true since minibus na ni nga button
+                                    busExists = true;
+                                    String orNumber = "#" + String.valueOf(ORNUM);
+                                    Fee forDatabase = new Fee(true, false, dateFormat, orNumber, "Cashier 01", localDate, plateNum);
+                                    FirebaseDB.addFee(forDatabase);
+                                }
+                                else { //same problem, goes here but no alert will be displayed
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("INCORRECT DATA");
+                                    alert.setHeaderText("Check input");
+                                    alert.setContentText("");
+
+                                    alert.showAndWait();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+
+                            }
+                        });
+
+                    }
+                    else{//alert will not be displayed
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("NO BUS");
+                        alert.setHeaderText("No buses on record");
+                        alert.setContentText("Please contact the admin.");
+
+                        alert.showAndWait();
+                    }
+
+                }
+                public void onCancelled(DatabaseError error) {
+
+                }
+            });
+        }catch(NullPointerException e) { //sad. 2nd alert that works
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("INCOMPLETE DATA");
+            alert.setHeaderText("Please fill in all data.");
+            alert.setContentText(" ");
+
+            alert.showAndWait();
+        }
+    }
+
+
+    @FXML
+    void arrivalWindowCashierPressed(ActionEvent event) { //already commented out
+        /*Parent tableViewParent = FXMLLoader.load(getClass().getResource(""));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();*/
+    }
+
+    @FXML
+    void arrivalWindowLogoutPressed(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../../resources/LoginFormLayout.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    @FXML
+    void arrivalWindowTransactPressed(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLArrivalWindow.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    @FXML
+    void arrivalWindowVoidPressed(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLVoidWindow.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    public void initialize(URL url, ResourceBundle rb) {
+        /**
+         * These items are for configuring the Combo Box.
+         * BUS Combo Box
+         */
+
+        busFDD.getItems().add("CERES LINER");
+        busFDD.getItems().addAll("SUNRAYS", "SOCORRO", "METROLINK");
+        busFDD.setVisibleRowCount(3);
+        busFDD.setEditable(true);
+        busFDD.setPromptText("BUS");
+
+        /**
+         * These items are for configuring the Combo Box.
+         * MINIBUS Combo Box
+         */
+
+        minibusFDD.getItems().add("CERES LINER");
+        minibusFDD.getItems().addAll("JEGANS", "CALVO", "COROMINAS", "GABE TRANSIT", "CANONEO", "JHADE");
+        minibusFDD.setVisibleRowCount(6);
+        minibusFDD.setEditable(true);
+        minibusFDD.setPromptText("MINIBUS");
+
+
+        //TODO DELETE THIS AFTER DATABASE IS DONE
+        //database = Database.database;
+        database = FirebaseDatabase.getInstance().getReference();
+        busExists = false;
+    }
+}

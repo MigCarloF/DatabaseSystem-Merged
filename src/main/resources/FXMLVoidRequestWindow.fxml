@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLVoidRequestWindowController">
+   <children>
+      <AnchorPane opacity="0.75" prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #DDACB8;">
+         <children>
+            <Text layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEND VOID REQUEST">
+               <font>
+                  <Font name="Open Sans Bold" size="23.0" />
+               </font>
+            </Text>
+            <JFXButton fx:id="voidRequestWindowCancel" buttonType="RAISED" layoutX="500.0" onAction="#voidRequestWindowCancelPressed" prefHeight="40.0" prefWidth="100.0" style="-fx-text-fill: #000000;" text="Cancel" textOverrun="CLIP">
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                     </light>
+                  </Lighting>
+               </effect>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="voidRequestWindowSend" buttonType="RAISED" layoutY="313.0" onAction="#voidRequestWindowSendPressed" opacity="0.75" prefHeight="35.0" prefWidth="600.0" style="-fx-background-color: #DDACB8; -fx-text-fill: #000000;" text="SEND">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <Text layoutX="74.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to send this void request?">
+         <font>
+            <Font name="Open Sans" size="20.0" />
+         </font>
+      </Text>
+      <VBox alignment="CENTER_LEFT" layoutX="74.0" layoutY="124.0" prefHeight="125.0" prefWidth="211.0" spacing="15.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OR#">
+               <font>
+                  <Font name="Open Sans" size="20.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Requested by:">
+               <font>
+                  <Font name="Open Sans" size="20.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reason for voiding:">
+               <font>
+                  <Font name="Open Sans" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <Text fx:id="voidRequestWindowText1" layoutX="120.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0001 (V0001)" wrappingWidth="335.0">
+         <font>
+            <Font name="Open Sans" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="voidRequestWindowText2" layoutX="210.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Santos (Cashier 1)" wrappingWidth="335.0">
+         <font>
+            <Font name="Open Sans" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="voidRequestWindowText3" layoutX="258.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong amount (P150 + P50)" wrappingWidth="302.0">
+         <font>
+            <Font name="Open Sans" size="20.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
