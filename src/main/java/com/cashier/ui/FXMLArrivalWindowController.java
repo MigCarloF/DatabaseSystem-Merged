@@ -5,7 +5,7 @@ import com.google.firebase.database.*;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 //package com.cashier.ui;
 
@@ -28,8 +28,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * @author alboresallyssa
@@ -167,8 +165,8 @@ public class FXMLArrivalWindowController implements Initializable {
                                 else{
 
                                     Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, "Cashier 01", localDate, bus.getPlateNo());
-                                    //currentOrNum++;
-                                    FirebaseDB.addFee(forDatabase);
+                                    DatabaseReference aref = database.child("Fees");
+                                    aref.child(forDatabase.getOrNum()).setValue(forDatabase);
                                 }
                             }
                         }
@@ -257,7 +255,8 @@ public class FXMLArrivalWindowController implements Initializable {
                                     busExists = true;
                                     String orNumber = "#" + String.valueOf(ORNUM);
                                     Fee forDatabase = new Fee(true, false, dateFormat, orNumber, "Cashier 01", localDate, plateNum);
-                                    FirebaseDB.addFee(forDatabase);
+                                    DatabaseReference aref = database.child("Fees");
+                                    aref.child(forDatabase.getOrNum()).setValue(forDatabase);
                                 }
                                 else { //same problem, goes here but no alert will be displayed
                                     Alert alert = new Alert(Alert.AlertType.ERROR);

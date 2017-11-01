@@ -43,8 +43,8 @@ public class FirebaseDB {
         }
 
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        database = FirebaseDatabase.getInstance().getReference();
-        startDataListener();
+        //database = FirebaseDatabase.getInstance().getReference();
+        //startDataListener();
     }
 
 
