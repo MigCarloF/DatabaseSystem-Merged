@@ -1,5 +1,6 @@
 package com.loginform;
 
+import com.database.FirebaseDB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +11,8 @@ import java.io.IOException;
 
 public class LoginForm extends Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        FirebaseDB.initFirebase();
         launch(args);
     }
 

@@ -38,6 +38,16 @@ public class LoginController implements Initializable {
         window.setScene(tableViewScene);
         window.show();
     }
+    public void adminButtonPushed(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../resources/FXMLBusProfiles.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Database database = Database.database;
@@ -52,6 +62,5 @@ public class LoginController implements Initializable {
         database.addBus(new Bus("ACE213", "COROMINAS"));
         database.addBus(new Bus("ACF213", "GABE TRANSIT"));
         database.addBus(new Bus("ACG213", "CANONEO"));
-
     }
 }

@@ -54,8 +54,6 @@ public class FXMLAccountantWindowController implements Initializable {
 
     private ObservableList<FeeTable> fees;
     private DatabaseReference database;
-    private Map<String, Fee> feesMap = new HashMap<>();
-    private Map<String, Bus> busMap = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,9 +89,9 @@ public class FXMLAccountantWindowController implements Initializable {
         //Calls for the singleton class
         //database = Database.database;
         database = FirebaseDatabase.getInstance().getReference();
+        fees = FXCollections.observableArrayList();
         //initAllFees();
         startDataListener();
-        fees = FXCollections.observableArrayList();
         //updateTable(0, 0);
     }
 
