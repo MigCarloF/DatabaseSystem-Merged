@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class FXMLAccountantWindowController implements Initializable {
 
     @FXML
     private TableView<FeeTable> tableView;

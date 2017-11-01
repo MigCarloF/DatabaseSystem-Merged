@@ -9,14 +9,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Main extends Application {
+public class AccountantMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("/accountant-ui.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLAccountantWindow.fxml"));
         primaryStage.setTitle("Accountant");
-        primaryStage.setScene(new Scene(root, 853, 593));
+        primaryStage.setScene(new Scene(root));
         //primaryStage.setResizable(false);
         primaryStage.show();
     }

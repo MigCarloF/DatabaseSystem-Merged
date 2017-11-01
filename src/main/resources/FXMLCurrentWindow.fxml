@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane id="busProfilesCss" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLCurrentWindowController">
    <children>
       <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
@@ -54,12 +52,148 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="busProfilesCreateProfileButton" layoutX="708.0" layoutY="628.0" onAction="#busProfilesCreateProfilePressed" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #D3E1AC;" text="CREATE PROFILE">
-         <font>
-            <Font name="Open Sans Semibold" size="15.0" />
-         </font>
-      </JFXButton>
-      <JFXComboBox fx:id="currentMenu" focusColor="BLACK" layoutX="23.0" layoutY="112.0" prefHeight="30.0" prefWidth="300.0" promptText="CURRENT" style="-fx-background-color: #D3E1AC;" />
       <JFXButton fx:id="currentGoButton" layoutX="331.0" layoutY="112.0" onAction="#currentGoButtonPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #D3E1AC;" text="GO" />
+      <ComboBox fx:id="currentMenu" layoutX="24.0" layoutY="112.0" prefHeight="30.0" prefWidth="300.0" promptText="CURRENT" style="-fx-background-color: #D3E1AC;" />
+      <AnchorPane layoutX="24.0" layoutY="151.0" prefHeight="210.0" prefWidth="900.0" style="-fx-background-color: #ffffff; -fx-border-color: #d3d3d3;">
+         <children>
+            <AnchorPane layoutX="1.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #D3E1AC;">
+               <children>
+                  <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUMMARY">
+                     <font>
+                        <Font name="Open Sans Semibold" size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField alignment="TOP_CENTER" layoutX="768.0" layoutY="5.0" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" text="DATE TODAY">
+                     <font>
+                        <Font name="Open Sans Bold" size="12.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="1.0" layoutY="35.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;">
+               <children>
+                  <Text layoutX="206.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Arrival:">
+                     <font>
+                        <Font name="Open Sans Semibold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="546.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading:">
+                     <font>
+                        <Font name="Open Sans Semibold" size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutX="300.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField layoutX="608.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="1.0" layoutY="70.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Text layoutX="257.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fees:">
+                     <font>
+                        <Font name="Open Sans Semibold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="545.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Docking:">
+                     <font>
+                        <Font name="Open Sans Semibold" size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutX="300.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P100">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField layoutX="608.0" layoutY="2.0" style="-fx-background-color: #FFFFFF;" text="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="1.0" layoutY="105.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;">
+               <children>
+                  <Text layoutX="196.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Loading:">
+                     <font>
+                        <Font name="Open Sans Semibold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="524.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passengers:">
+                     <font>
+                        <Font name="Open Sans Semibold" size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutX="301.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField layoutX="609.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="97">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="1.0" layoutY="140.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Text layoutX="256.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fees:">
+                     <font>
+                        <Font name="Open Sans Semibold" size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutX="301.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P450">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="1.0" layoutY="175.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;">
+               <children>
+                  <Text layoutX="242.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL:">
+                     <font>
+                        <Font name="Open Sans Semibold" size="14.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutX="301.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="P550">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <TreeTableView layoutX="24.0" layoutY="374.0" prefHeight="230.0" prefWidth="903.0">
+        <columns>
+          <TreeTableColumn prefWidth="89.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="FRANCHISE" />
+          <TreeTableColumn prefWidth="90.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="BUS TYPE" />
+            <TreeTableColumn resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="PLATE #" />
+            <TreeTableColumn prefWidth="139.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="ROUTE" />
+            <TreeTableColumn minWidth="0.0" prefWidth="130.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="STATUS" />
+            <TreeTableColumn minWidth="0.0" prefWidth="75.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-TIME" />
+            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="D-TIME" />
+            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
+            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="L-FEE" />
+            <TreeTableColumn minWidth="0.0" prefWidth="73.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="OR #" />
+            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
+        </columns>
+      </TreeTableView>
+      <TextField layoutX="704.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
+      <TextField layoutX="778.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
+      <TextField layoutX="704.0" layoutY="632.0" prefHeight="30.0" prefWidth="150.0" />
+      <Text layoutX="652.0" layoutY="651.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

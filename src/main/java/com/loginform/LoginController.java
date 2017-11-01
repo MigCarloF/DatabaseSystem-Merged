@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
     public void accountantButtonPushed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../resources/accountant-ui.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLAccountantWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information

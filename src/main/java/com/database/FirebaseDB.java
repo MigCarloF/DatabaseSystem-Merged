@@ -1,6 +1,6 @@
 package com.database;
 
-import com.accountant.ui.Controller;
+import com.accountant.ui.FXMLAccountantWindowController;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseCredentials;
@@ -20,9 +20,9 @@ public class FirebaseDB {
     private static DatabaseReference database;
     private static Map<String, Fee> feesMap = new HashMap<>();
     private static Map<String, Bus> busMap = new HashMap<>();
-    //private final Controller controller;
+    //private final FXMLAccountantWindowController controller;
     //private static ArrayList<Fee> feeslist = new ArrayList<>();
-    private static Controller accountant;
+    private static FXMLAccountantWindowController accountant;
 
 
     public static void initFirebase() throws IOException {
@@ -89,7 +89,7 @@ public class FirebaseDB {
 //                System.out.println("y: " + fee.getOrNum());
 //                System.out.println("Previous Post ID: " + prevChildKey);
                 Fee fee = dataSnapshot.getValue(Fee.class);
-                //Controller.dataChanged(fee);
+                //FXMLAccountantWindowController.dataChanged(fee);
             }
 
             @Override
