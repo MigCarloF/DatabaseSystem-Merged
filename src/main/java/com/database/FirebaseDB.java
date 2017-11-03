@@ -168,7 +168,7 @@ public class FirebaseDB {
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     Bus bus = snap.getValue(Bus.class);
                     System.out.println("BUSSSS: " + bus.getPlateNo());
-                    listofbus.add(new Bus(bus.getBusNumber(), bus.getBusType(), bus.getCompany(),bus.isMiniBus(), bus.getPlateNo()));
+                    //listofbus.add(new Bus(bus.getBusNumber(), bus.getBusType(), bus.getCompany(),bus.isMiniBus(), bus.getPlateNo()));
 
                 }
                 dotaListener.dataReceived(listofbus);

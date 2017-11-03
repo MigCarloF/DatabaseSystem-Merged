@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Display extends JFrame{
 	Database database = Database.database;
@@ -19,6 +20,7 @@ public class Display extends JFrame{
 	JButton button = new JButton("Add");
 	JButton print = new JButton("Print");
 	JButton busAdd = new JButton("Bus");
+	JButton minibusAdd = new JButton("Mini Bus");
 	JButton printBus = new JButton("Bus Print");
 	ArrayList<Fee> listoffees = new ArrayList<>();
 
@@ -31,6 +33,7 @@ public class Display extends JFrame{
 		add(button);
 		add(print);
 		add(busAdd);
+		add(minibusAdd);
 		add(printBus);
 		add(txt);
 
@@ -48,7 +51,24 @@ public class Display extends JFrame{
 		busAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Bus bus = new Bus("ABC" + ctr, "CERES LINER", "" +ctr + 3);
+				String buses[] = {"CERES LINER", "SUNRAYS", "SOCORRO", "METROLINK"};
+				String contactperson[] = {"GreenTeaExpert", "Double A", "Jimbro", "Natsci", "WAOW", "WaterBender"};
+				Bus bus = new Bus("ABC" + ctr, buses[ThreadLocalRandom.current().nextInt(0, 3 + 1)],
+						"" + ctr + 3, contactperson[ThreadLocalRandom.current().nextInt(0, 5 + 1)],
+						"09333784505", "100 cubic meter", "CEB - DUBAI", "100", "1000");
+				FirebaseDB.addBus(bus);
+				ctr++;
+			}
+		});
+
+		minibusAdd.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String buses[] = {"CERES LINER", "JEGANS", "CALVO", "COROMINAS", "GABE TRANSIT", "CANONEO", "JHADE"};
+				String contactperson[] = {"GreenTeaExpert", "Double A", "Jimbro", "Natsci", "WAOW", "WaterBender"};
+				Bus bus = new Bus("ABC" + ctr, buses[ThreadLocalRandom.current().nextInt(0, 6 + 1)],
+						contactperson[ThreadLocalRandom.current().nextInt(0, 5 + 1)], "09333784505",
+						"90 cubic meter","CEB - DUBAI", "100", "1000");
 				FirebaseDB.addBus(bus);
 				ctr++;
 			}

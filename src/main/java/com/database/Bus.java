@@ -7,29 +7,58 @@ public class Bus {
     private String busType;
     private boolean miniBus = false;
     private String busNumber;
+    private String contactPerson;
+    private String contactNumber;
+    private String busSize;
+    private String busRoute;
+    private String busCapacity;
+    private String busFare;
 
-    public Bus(String busNumber, String busType, String company, boolean miniBus, String plateNo){ //constructor added for Firebase
+
+    public Bus(String busNumber, String busType, String company, boolean miniBus, String plateNo, String contactPerson,
+               String contactNumber, String busSize, String busRoute, String busCapacity, String busFare){ //constructor added for Firebase
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = miniBus;
         this.busType = busType;
         this.busNumber = busNumber;
+        this.contactPerson = contactPerson;
+        this.contactNumber = contactNumber;
+        this.busSize = busSize;
+        this.busRoute = busRoute;
+        this.busCapacity = busCapacity;
+        this.busFare = busFare;
     }
 
-    public Bus(String plateNo, String company, String busNumber) {
+    public Bus(String plateNo, String company, String busNumber, String contactPerson,
+               String contactNumber, String busSize, String busRoute, String busCapacity, String busFare) {
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = false;
         setBusType("bus");
         this.busNumber = busNumber;
+        this.contactPerson = contactPerson;
+        this.contactNumber = contactNumber;
+        this.busSize = busSize;
+        this.busRoute = busRoute;
+        this.busCapacity = busCapacity;
+        this.busFare = busFare;
     }
-    public Bus(String plateNo, String company){
+    public Bus(String plateNo, String company, String contactPerson, String contactNumber,
+               String busSize, String busRoute, String busCapacity, String busFare){
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = true;
         setBusType("minibus");
         this.busNumber = "0";
+        this.contactPerson = contactPerson;
+        this.contactNumber = contactNumber;
+        this.busSize = busSize;
+        this.busRoute = busRoute;
+        this.busCapacity = busCapacity;
+        this.busFare = busFare;
     }
+
 
     public Bus(){
 
@@ -79,8 +108,52 @@ public class Bus {
     public void setBusNumber(String busNumber){
         this.busNumber = busNumber;
     }
-    
-    
-    
-    
+
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getBusSize() {
+        return busSize;
+    }
+
+    public void setBusSize(String busSize) {
+        this.busSize = busSize;
+    }
+
+    public String getBusRoute() {
+        return busRoute;
+    }
+
+    public void setBusRoute(String busRoute) {
+        this.busRoute = busRoute;
+    }
+
+    public String getBusCapacity() {
+        return busCapacity;
+    }
+
+    public void setBusCapacity(String busCapacity) {
+        this.busCapacity = busCapacity;
+    }
+
+    public String getBusFare() {
+        return busFare;
+    }
+
+    public void setBusFare(String busFare) {
+        this.busFare = busFare;
+    }
 }

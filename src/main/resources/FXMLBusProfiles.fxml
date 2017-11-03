@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="busProfilesCss" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLBusProfilesController">
+<AnchorPane id="busProfilesCss" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLBusProfilesController">
    <children>
       <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
          <children>
@@ -82,7 +82,7 @@
          <columns>
             <TableColumn fx:id="columnBusType" minWidth="0.0" prefWidth="74.0" text="TYPE" />
             <TableColumn fx:id="columnFranchise" prefWidth="89.0" text="FRANCHISE" />
-            <TableColumn prefWidth="157.0" text="CONTACT PERSON" />
+            <TableColumn fx:id="columnContactPerson" prefWidth="157.0" text="CONTACT PERSON" />
             <TableColumn fx:id="columnContactNumber" prefWidth="147.0" text="CONTACT NUMBER" />
             <TableColumn fx:id="columnPlateNo" prefWidth="102.0" text="PLATE #" />
             <TableColumn fx:id="columnSize" prefWidth="76.0" text="SIZE" />

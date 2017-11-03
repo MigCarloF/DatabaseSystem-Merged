@@ -55,12 +55,12 @@ public class LoginController implements Initializable {
         LocalDate date2 = LocalDate.of(2017, Month.OCTOBER, 13);
         LocalDate date3 = LocalDate.of(2017, Month.OCTOBER, 14);
         LocalDate date4 = LocalDate.of(2017, Month.OCTOBER, 15);
-        database.addBus(new Bus("ABC123", "SUNRAYS", "1"));
-        database.addBus(new Bus("ACB223", "CERES LINER", "1"));
-        database.addBus(new Bus("ACC213", "JEGANS"));
-        database.addBus(new Bus("ACD213", "CALVO"));
-        database.addBus(new Bus("ACE213", "COROMINAS"));
-        database.addBus(new Bus("ACF213", "GABE TRANSIT"));
-        database.addBus(new Bus("ACG213", "CANONEO"));
+//        database.addBus(new Bus("ABC123", "SUNRAYS", "1"));
+//        database.addBus(new Bus("ACB223", "CERES LINER", "1"));
+//        database.addBus(new Bus("ACC213", "JEGANS"));
+//        database.addBus(new Bus("ACD213", "CALVO"));
+//        database.addBus(new Bus("ACE213", "COROMINAS"));
+//        database.addBus(new Bus("ACF213", "GABE TRANSIT"));
+//        database.addBus(new Bus("ACG213", "CANONEO"));
     }
 }

@@ -55,6 +55,9 @@ public class FXMLBusProfilesController implements Initializable {
     private TableColumn<Bus, String> columnFranchise;
 
     @FXML
+    private TableColumn<Bus, String> columnContactPerson; //added fxid to column contact person in fxml
+
+    @FXML
     private TableColumn<Bus, String> columnContactNumber;
 
     @FXML
@@ -149,6 +152,12 @@ public class FXMLBusProfilesController implements Initializable {
         columnFranchise.setCellValueFactory(new PropertyValueFactory<Bus, String>("company"));
         columnBusType.setCellValueFactory(new PropertyValueFactory<Bus, String>("busType"));
         columnPlateNo.setCellValueFactory(new PropertyValueFactory<Bus, String>("plateNo"));
+        columnContactPerson.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactPerson")); //added
+        columnContactNumber.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactNumber"));
+        columnSize.setCellValueFactory(new PropertyValueFactory<Bus, String>("busSize"));
+        columnRoute.setCellValueFactory(new PropertyValueFactory<Bus, String>("busRoute"));
+        columnCapactiy.setCellValueFactory(new PropertyValueFactory<Bus, String>("busCapacity"));
+        columnFare.setCellValueFactory(new PropertyValueFactory<Bus, String>("busFare"));
 
         database = FirebaseDatabase.getInstance().getReference();
         startDataListener();
@@ -172,8 +181,8 @@ public class FXMLBusProfilesController implements Initializable {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 Bus bus = snapshot.getValue(Bus.class);
-                System.out.println(bus.getPlateNo());
-                System.out.println("lol");
+                //System.out.println(bus.getPlateNo());
+                //System.out.println("lol");
                 buses.add(bus);
                 busProfilesTable.setItems(buses);
             }

@@ -248,10 +248,11 @@ public class FXMLArrivalWindowController implements Initializable {
                             @Override
                             public void onDataChange(DataSnapshot bussnapshot) {
                                 Bus bus = bussnapshot.getValue(Bus.class);
-                                if(bus.isMiniBus()) { //true since minibus na ni nga button
+                                if(bus.isMiniBus() && bus.getCompany().equals(franchiseSelected)) { //true since minibus na ni nga button
+                                    System.out.println("nisulod ko diri");
                                     busExists = true;
                                     String orNumber = "#" + String.valueOf(ORNUM);
-                                    Fee forDatabase = new Fee(true, false, dateFormat, orNumber, "Cashier 01", localDate, plateNum);
+                                    Fee forDatabase = new Fee(true, false, dateFormat, "" + ORNUM, "Cashier 01", localDate, plateNum);
                                     DatabaseReference aref = database.child("Fees");
                                     aref.child(forDatabase.getOrNum()).setValue(forDatabase);
                                 }
