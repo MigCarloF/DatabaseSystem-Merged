@@ -22,7 +22,7 @@ public class FeeTable {
         this.plateNo = new SimpleStringProperty(fee.getBus_plate());
         this.bus = bus;
         busCompany = new SimpleStringProperty(bus.getCompany());
-        busType = new SimpleStringProperty(bus.getBusType());
+        busType = new SimpleStringProperty(bus.getBusSize());
     }
 
     public FeeTable(Fee fee) {
@@ -44,7 +44,7 @@ public class FeeTable {
 
         bus = database.getBus("plateNo", getPlateNo()).get(0);
         busCompany = new SimpleStringProperty(bus.getCompany());
-        busType = new SimpleStringProperty(bus.getBusType());
+        busType = new SimpleStringProperty(bus.getBusSize());
     }
 
 

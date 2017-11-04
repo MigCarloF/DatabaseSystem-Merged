@@ -53,9 +53,10 @@ public class Display extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				String buses[] = {"CERES LINER", "SUNRAYS", "SOCORRO", "METROLINK"};
 				String contactperson[] = {"GreenTeaExpert", "Double A", "Jimbro", "Natsci", "WAOW", "WaterBender"};
+				String type[] = {"AC", "NO AC"};
 				Bus bus = new Bus("ABC" + ctr, buses[ThreadLocalRandom.current().nextInt(0, 3 + 1)],
 						"" + ctr + 3, contactperson[ThreadLocalRandom.current().nextInt(0, 5 + 1)],
-						"09333784505", "100 cubic meter", "CEB - DUBAI", "100", "1000");
+						"09333784505", type[ThreadLocalRandom.current().nextInt(0, 1 + 1)], "CEB - DUBAI", "100", "1000");
 				FirebaseDB.addBus(bus);
 				ctr++;
 			}
@@ -66,9 +67,10 @@ public class Display extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				String buses[] = {"CERES LINER", "JEGANS", "CALVO", "COROMINAS", "GABE TRANSIT", "CANONEO", "JHADE"};
 				String contactperson[] = {"GreenTeaExpert", "Double A", "Jimbro", "Natsci", "WAOW", "WaterBender"};
+				String type[] = {"AC", "NO AC"};
 				Bus bus = new Bus("ABC" + ctr, buses[ThreadLocalRandom.current().nextInt(0, 6 + 1)],
 						contactperson[ThreadLocalRandom.current().nextInt(0, 5 + 1)], "09333784505",
-						"90 cubic meter","CEB - DUBAI", "100", "1000");
+						type[ThreadLocalRandom.current().nextInt(0, 1 + 1)],"CEB - DUBAI", "100", "1000");
 				FirebaseDB.addBus(bus);
 				ctr++;
 			}

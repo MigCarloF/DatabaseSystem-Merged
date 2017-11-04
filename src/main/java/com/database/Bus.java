@@ -2,58 +2,63 @@
 package com.database;
 
 public class Bus {
+    /**
+     * bus size = bus/mini
+     * capacity = no. of passengers
+     * type = ac/ noac
+     */
     private String plateNo;
     private String company;
-    private String busType;
+    private String busSize;
     private boolean miniBus = false;
     private String busNumber;
     private String contactPerson;
     private String contactNumber;
-    private String busSize;
+    private String busType;
     private String busRoute;
     private String busCapacity;
     private String busFare;
 
 
-    public Bus(String busNumber, String busType, String company, boolean miniBus, String plateNo, String contactPerson,
-               String contactNumber, String busSize, String busRoute, String busCapacity, String busFare){ //constructor added for Firebase
+    public Bus(String busNumber, String busSize, String company, boolean miniBus, String plateNo, String contactPerson,
+               String contactNumber, String busType, String busRoute, String busCapacity, String busFare){ //constructor added for Firebase
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = miniBus;
-        this.busType = busType;
+        this.busSize = busSize;
         this.busNumber = busNumber;
         this.contactPerson = contactPerson;
         this.contactNumber = contactNumber;
-        this.busSize = busSize;
+        this.busType = busType;
         this.busRoute = busRoute;
         this.busCapacity = busCapacity;
         this.busFare = busFare;
     }
 
     public Bus(String plateNo, String company, String busNumber, String contactPerson,
-               String contactNumber, String busSize, String busRoute, String busCapacity, String busFare) {
+               String contactNumber, String busType, String busRoute, String busCapacity, String busFare) {
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = false;
-        setBusType("bus");
+        setBusSize("bus");
         this.busNumber = busNumber;
         this.contactPerson = contactPerson;
         this.contactNumber = contactNumber;
-        this.busSize = busSize;
+        this.busType = busType;
         this.busRoute = busRoute;
         this.busCapacity = busCapacity;
         this.busFare = busFare;
     }
     public Bus(String plateNo, String company, String contactPerson, String contactNumber,
-               String busSize, String busRoute, String busCapacity, String busFare){
+               String busType, String busRoute, String busCapacity, String busFare){
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = true;
-        setBusType("minibus");
+        setBusSize("minibus");
         this.busNumber = "0";
         this.contactPerson = contactPerson;
         this.contactNumber = contactNumber;
-        this.busSize = busSize;
+        this.busType = busType;
         this.busRoute = busRoute;
         this.busCapacity = busCapacity;
         this.busFare = busFare;
