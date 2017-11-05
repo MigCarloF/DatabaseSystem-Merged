@@ -39,7 +39,7 @@
         <TableView id="table" fx:id="tableView" layoutX="86.0" layoutY="202.0" prefHeight="313.0" prefWidth="697.0">
             <columns>
                 <TableColumn id="col" fx:id="columnFranchise" prefWidth="136.0" resizable="false" text="FRANCHISE" />
-                <TableColumn id="col" fx:id="columnBusType" prefWidth="136.0" resizable="false" text="BUS TYPE" />
+                <TableColumn id="col" fx:id="columnBusSize" prefWidth="136.0" resizable="false" text="BUS TYPE" />
                 <TableColumn id="col" fx:id="columnArrivalFee" prefWidth="136.0" text="AF" />
                 <TableColumn id="col" fx:id="columnLoadingFee" prefWidth="136.0" text="LF" />
                 <TableColumn id="col" fx:id="columnOrNum" prefWidth="136.0" text="OR#" />

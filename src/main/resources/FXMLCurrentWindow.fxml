@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane id="busProfilesCss" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLCurrentWindowController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="busProfilesCss" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" stylesheets="@tableProfile.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLCurrentWindowController">
    <children>
       <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
          <children>
@@ -82,12 +89,12 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="300.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="3">
+                  <TextField fx:id="lblTotalArrival" layoutX="300.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="3">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <TextField layoutX="608.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="1">
+                  <TextField fx:id="lblLoading" layoutX="608.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -106,12 +113,12 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="300.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P100">
+                  <TextField fx:id="lblArrivalFees" layoutX="300.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P100">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <TextField layoutX="608.0" layoutY="2.0" style="-fx-background-color: #FFFFFF;" text="1">
+                  <TextField fx:id="lblDocking" layoutX="608.0" layoutY="2.0" style="-fx-background-color: #FFFFFF;" text="1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -130,12 +137,12 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="301.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="3">
+                  <TextField fx:id="lblTotalLoading" layoutX="301.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="3">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <TextField layoutX="609.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="97">
+                  <TextField fx:id="lblPassengers" layoutX="609.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="97">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -149,7 +156,7 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="301.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P450">
+                  <TextField fx:id="lblLoadingFees" layoutX="301.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P450">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -163,7 +170,7 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="301.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="P550">
+                  <TextField fx:id="lblTotal" layoutX="301.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="P550">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -187,9 +194,23 @@
             <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
         </columns>
       </TreeTableView>
-      <TextField layoutX="704.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
-      <TextField layoutX="778.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
-      <TextField layoutX="704.0" layoutY="632.0" prefHeight="30.0" prefWidth="150.0" />
+      <TableView layoutX="24.0" layoutY="374.0" prefHeight="230.0" prefWidth="903.0" style="-fx-color: #D3E1AC;">
+        <columns>
+          <TableColumn fx:id="columnFranchise" id="tableColumn" prefWidth="89.0" style="-fx-border-color: #efefef;" text="FRANCHISE" />
+          <TableColumn fx:id="columnBusType" id="tableColumn" prefWidth="90.0" style="-fx-border-color: #efefef;" text="BUS TYPE" />
+            <TableColumn fx:id="columnPlateNo" id="tableColumn" text="PLATE #" />
+            <TableColumn fx:id="columnRoute" id="tableColumn" prefWidth="139.0" text="ROUTE" />
+            <TableColumn fx:id="columnStatus" id="tableColumn" prefWidth="130.0" text="STATUS" />
+            <TableColumn fx:id="columnArrivalTime" id="tableColumn" prefWidth="75.0" text="A-TIME" />
+            <TableColumn fx:id="columnDepartureTime" id="tableColumn" prefWidth="75.0" text="D-TIME" />
+            <TableColumn fx:id="columnArrivalFee" id="tableColumn" prefWidth="75.0" text="A-FEE" />
+            <TableColumn fx:id="columnLoadingFee" id="tableColumn" prefWidth="75.0" text="L-FEE" />
+            <TableColumn fx:id="columnOrNum" id="tableColumn" prefWidth="73.0" text="OR #" />
+        </columns>
+      </TableView>
+      <TextField fx:id="txtArrivalFee" layoutX="704.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
+      <TextField fx:id="txtLoadingFee" layoutX="778.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
+      <TextField fx:id="txtTotal" layoutX="704.0" layoutY="632.0" prefHeight="30.0" prefWidth="150.0" />
       <Text layoutX="652.0" layoutY="651.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL">
          <font>
             <Font name="System Bold" size="12.0" />

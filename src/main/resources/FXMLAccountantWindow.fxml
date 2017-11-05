@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.accountant.ui.FXMLAccountantWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" stylesheets="@tableProfile.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.accountant.ui.FXMLAccountantWindowController">
    <children>
       <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
          <children>
@@ -73,13 +73,13 @@
             </Label>
          </children>
       </AnchorPane>
-      <TableView id="table" fx:id="tableView" layoutX="102.0" layoutY="223.0" prefHeight="350.0" prefWidth="750.0">
+      <TableView id="table" fx:id="tableView" layoutX="102.0" layoutY="223.0" prefHeight="350.0" prefWidth="750.0" stylesheets="@tableProfile.css">
         <columns>
-          <TableColumn fx:id="columnFranchise" prefWidth="195.0" style="-fx-background-color: #D3E1AC; -fx-border-color: #efefef;" text="FRANCHISE" />
-          <TableColumn fx:id="columnBusType" minWidth="0.0" prefWidth="168.0" style="-fx-background-color: #D3E1AC; -fx-border-color: #efefef;" text="BUS TYPE" />
-            <TableColumn fx:id="columnArrivalFee" minWidth="0.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC; -fx-border-color: #efefef;" text="AF" />
-            <TableColumn fx:id="columnLoadingFee" minWidth="0.0" prefWidth="125.0" style="-fx-background-color: D3E1AC; -fx-border-color: #efefef;" text="LF" />
-            <TableColumn fx:id="columnOrNum" minWidth="0.0" prefWidth="143.0" style="-fx-background-color: D3E1AC; -fx-border-color: #efefef;" text="OR#" />
+          <TableColumn id="tableColumn" fx:id="columnFranchise" prefWidth="195.0" text="FRANCHISE" />
+          <TableColumn id="tableColumn" fx:id="columnBusSize" minWidth="0.0" prefWidth="168.0" text="BUS TYPE" />
+            <TableColumn id="tableColumn" fx:id="columnArrivalFee" minWidth="0.0" prefWidth="125.0" text="AF" />
+            <TableColumn id="tableColumn" fx:id="columnLoadingFee" minWidth="0.0" prefWidth="125.0" text="LF" />
+            <TableColumn id="tableColumn" fx:id="columnOrNum" minWidth="0.0" prefWidth="143.0" text="OR#" />
         </columns>
       </TableView>
       <TextField fx:id="txtTotalArrivalFees" layoutX="466.0" layoutY="572.0" prefHeight="30.0" prefWidth="125.0" />

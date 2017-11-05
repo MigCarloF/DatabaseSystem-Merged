@@ -1,6 +1,11 @@
 package com.admin.ui;
 
+import com.database.Bus;
+import com.database.Fee;
+import com.database.FeeTable;
+import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +14,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.joda.time.LocalDate;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,20 +26,45 @@ import java.util.ResourceBundle;
 
 public class FXMLCurrentWindowController implements Initializable {
 
-    @FXML
-    private JFXButton currentAdminButton;
-
-    @FXML
-    private JFXButton currentLogoutButton;
-
-    @FXML
-    private JFXButton busProfilesCreateProfileButton;
 
     @FXML
     private ComboBox currentMenu;
 
     @FXML
-    private JFXButton currentGoButton;
+    private TableView<FeeTable> tableView;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnFranchise;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnBusType;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnPlateNo;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnRoute;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnStatus;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnArrivalTime;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnDepartureTime;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnArrivalFee;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnLoadingFee;
+
+    @FXML
+    private TableColumn<FeeTable, String> columnOrNum;
+
+    private DatabaseReference database;
+    private ObservableList<FeeTable> fees;
 
     @FXML
     void busProfilesCreateProfilePressed(ActionEvent event) {
@@ -86,6 +120,35 @@ public class FXMLCurrentWindowController implements Initializable {
          * This is to avoid a null pointer exception thrown by instantly pressing GO again right after changing
          */
         currentMenu.setValue(("CURRENT"));
+
+        /**
+         * Initializing columns
+         */
+        columnFranchise.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busCompany"));
+        columnArrivalFee.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("arrivalFee"));
+        columnLoadingFee.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("loadingFee"));
+        columnArrivalTime.setCellValueFactory(new PropertyValueFactory<FeeTable, String>(""));
+        columnDepartureTime.setCellValueFactory(new PropertyValueFactory<FeeTable, String>(""));
+        columnBusType.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busType"));
+        columnOrNum.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("orNum"));
+        columnStatus.setCellValueFactory(new PropertyValueFactory<FeeTable, String>(""));
+        columnRoute.setCellValueFactory(new PropertyValueFactory<FeeTable, String>(""));
+        columnPlateNo.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("plateNo"));
+        /**
+         *
+         private SimpleStringProperty arrivalFee, loadingFee, timePaid,  orNum, emploeeID;
+         private SimpleStringProperty busCompany, busType, plateNo;
+         private LocalDate date;
+         private Bus bus;
+         */
+
+        /**
+         * Listener for database here
+         */
+
+        database = FirebaseDatabase.getInstance().getReference();
+        startDataListener();
+
         /**
          * This part is for the initialization of the Combo Box.
          * TODO: Every item in the menu when chosen, another scene will be
@@ -96,5 +159,37 @@ public class FXMLCurrentWindowController implements Initializable {
         currentMenu.setVisibleRowCount(4);
         currentMenu.setEditable(false);
         currentMenu.setPromptText("CURRENT");
+    }
+
+    private void startDataListener() {
+        DatabaseReference ref = database.child("Fees");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Fee fee = snapshot.getValue(Fee.class);
+                DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                bref.addListenerForSingleValueEvent(new ValueEventListener() { //functions just the same sa listener above pero lain lang reference (instead of Fees, Buses na na table)
+                    @Override
+                    public void onDataChange(DataSnapshot bussnapshot) {
+                        System.out.println("l");
+                        Bus bus = bussnapshot.getValue(Bus.class);
+                        //if(LocalDate.parse(fee.getDatePaid()).equals(LocalDate.now())) {
+                            fees.add(new FeeTable(fee, bus));
+                       // }
+                        tableView.setItems(fees);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 }

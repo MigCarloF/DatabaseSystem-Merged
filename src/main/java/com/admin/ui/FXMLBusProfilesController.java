@@ -6,6 +6,8 @@
 package com.admin.ui;
 
 import com.database.Bus;
+import com.database.FeeTable;
+import com.database.FirebaseDB;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
@@ -17,9 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -32,36 +32,22 @@ import java.util.ResourceBundle;
  * @author alboresallyssa
  */
 public class FXMLBusProfilesController implements Initializable {
-    
-    @FXML
-    private JFXButton busProfilesAdminButton;
 
-    @FXML
-    private JFXButton busProfilesLogoutButton;
 
     @FXML
     private TableView<Bus> busProfilesTable;
-    
-    @FXML
-    private JFXButton busProfilesCreateProfileButton;
-    
+
     @FXML
     private ComboBox busProfilesMenu;
-    
-    @FXML
-    private JFXButton busProfilesGoButton;
 
     @FXML
     private TableColumn<Bus, String> columnFranchise;
 
     @FXML
-    private TableColumn<Bus, String> columnContactPerson; //added fxid to column contact person in fxml
-
-    @FXML
     private TableColumn<Bus, String> columnContactNumber;
 
     @FXML
-    private TableColumn<Bus, String> columnPlateNo;
+    private TableColumn<Bus, String> columnContactPerson;
 
     @FXML
     private TableColumn<Bus, String> columnSize;
@@ -73,7 +59,10 @@ public class FXMLBusProfilesController implements Initializable {
     private TableColumn<Bus, String> columnBusType;
 
     @FXML
-    private TableColumn<Bus, String> columnCapactiy;
+    private TableColumn<Bus, String> columnCapacity;
+
+    @FXML
+    private TableColumn<Bus, String> columnPlateNo;
 
     @FXML
     private TableColumn<Bus, String> columnFare;
@@ -149,15 +138,31 @@ public class FXMLBusProfilesController implements Initializable {
          *       Delete and edit a bus profile (with the database)
          */
         buses = FXCollections.observableArrayList();
+
+        columnPlateNo.setCellValueFactory(new PropertyValueFactory<Bus, String>("plateNo"));
         columnFranchise.setCellValueFactory(new PropertyValueFactory<Bus, String>("company"));
         columnBusType.setCellValueFactory(new PropertyValueFactory<Bus, String>("busType"));
-        columnPlateNo.setCellValueFactory(new PropertyValueFactory<Bus, String>("plateNo"));
-        columnContactPerson.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactPerson")); //added
         columnContactNumber.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactNumber"));
         columnSize.setCellValueFactory(new PropertyValueFactory<Bus, String>("busSize"));
-        columnRoute.setCellValueFactory(new PropertyValueFactory<Bus, String>("busRoute"));
-        columnCapactiy.setCellValueFactory(new PropertyValueFactory<Bus, String>("busCapacity"));
+        columnCapacity.setCellValueFactory(new PropertyValueFactory<Bus, String>("busCapacity"));
+        columnContactPerson.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactPerson"));
         columnFare.setCellValueFactory(new PropertyValueFactory<Bus, String>("busFare"));
+        columnRoute.setCellValueFactory(new PropertyValueFactory<Bus, String>("busRoute"));
+
+        /**
+         *
+         private String plateNo;
+         private String company;
+         private String busType;
+         private boolean miniBus = false;
+         private String busNumber;
+         private String contactPerson;
+         private String contactNumber;
+         private String busSize;
+         private String busRoute;
+         private String busCapacity;
+         private String busFare;
+         */
 
         database = FirebaseDatabase.getInstance().getReference();
         startDataListener();
@@ -181,8 +186,7 @@ public class FXMLBusProfilesController implements Initializable {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 Bus bus = snapshot.getValue(Bus.class);
-                //System.out.println(bus.getPlateNo());
-                //System.out.println("lol");
+                System.out.println(bus.getPlateNo());
                 buses.add(bus);
                 busProfilesTable.setItems(buses);
             }

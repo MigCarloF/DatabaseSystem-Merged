@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="busProfilesCss" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLBusProfilesController">
+<AnchorPane id="busProfilesCss" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" stylesheets="@tableProfile.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLBusProfilesController">
    <children>
       <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
          <children>
@@ -78,17 +78,17 @@
             <TreeTableColumn minWidth="0.0" prefWidth="79.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="FARE" />
          </columns>
       </TreeTableView>
-      <TableView fx:id="busProfilesTable" layoutX="24.0" layoutY="156.0" prefHeight="473.0" prefWidth="903.0" style="-fx-color: #D3E1AC;">
+      <TableView fx:id="busProfilesTable" layoutX="24.0" layoutY="156.0" prefHeight="473.0" prefWidth="903.0">
          <columns>
-            <TableColumn fx:id="columnBusType" minWidth="0.0" prefWidth="74.0" text="TYPE" />
-            <TableColumn fx:id="columnFranchise" prefWidth="89.0" text="FRANCHISE" />
-            <TableColumn fx:id="columnContactPerson" prefWidth="157.0" text="CONTACT PERSON" />
-            <TableColumn fx:id="columnContactNumber" prefWidth="147.0" text="CONTACT NUMBER" />
-            <TableColumn fx:id="columnPlateNo" prefWidth="102.0" text="PLATE #" />
-            <TableColumn fx:id="columnSize" prefWidth="76.0" text="SIZE" />
-            <TableColumn fx:id="columnRoute" prefWidth="101.0" text="ROUTE" />
-            <TableColumn fx:id="columnCapactiy" prefWidth="75.0" text="CAPACITY" />
-            <TableColumn fx:id="columnFare" prefWidth="79.0" text="FARE" />
+            <TableColumn id="tableColumn" fx:id="columnBusType" minWidth="0.0" prefWidth="74.0" text="TYPE" />
+            <TableColumn id="tableColumn" fx:id="columnFranchise" prefWidth="89.0" text="FRANCHISE" />
+            <TableColumn id="tableColumn" fx:id="columnContactPerson" prefWidth="157.0" text="CONTACT PERSON" />
+            <TableColumn id="tableColumn" fx:id="columnContactNumber" prefWidth="147.0" text="CONTACT NUMBER" />
+            <TableColumn id="tableColumn" fx:id="columnPlateNo" prefWidth="102.0" text="PLATE #" />
+            <TableColumn id="tableColumn" fx:id="columnSize" prefWidth="76.0" text="SIZE" />
+            <TableColumn id="tableColumn" fx:id="columnRoute" prefWidth="101.0" text="ROUTE" />
+            <TableColumn id="tableColumn" fx:id="columnCapacity" prefWidth="75.0" text="CAPACITY" />
+            <TableColumn id="tableColumn" fx:id="columnFare" prefWidth="79.0" text="FARE" />
          </columns></TableView>
    </children>
 </AnchorPane>

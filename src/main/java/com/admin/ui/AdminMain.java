@@ -5,11 +5,14 @@
  */
 package com.admin.ui;
 
+import com.database.FirebaseDB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  *
@@ -30,7 +33,8 @@ public class AdminMain extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        FirebaseDB.initFirebase();
         launch(args);
     }
     
