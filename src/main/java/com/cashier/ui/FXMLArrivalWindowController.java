@@ -30,20 +30,6 @@ import java.util.ResourceBundle;
  * @author alboresallyssa
  */
 public class FXMLArrivalWindowController implements Initializable {
-    //These items are for the buttons in arrival window
-    @FXML
-    private Button busPrintButton;
-    @FXML
-    private Button minibusPrintButton;
-
-    @FXML
-    private Button transactButton;
-    @FXML
-    private JFXButton voidButton;
-    @FXML
-    private Button cashierButton;
-    @FXML
-    private Button logoutButton;
 
     //These items are for the combo boxes in arrival window
     @FXML
@@ -63,8 +49,6 @@ public class FXMLArrivalWindowController implements Initializable {
     @FXML
     private TextField plateNumber;
 
-    @FXML
-    private ObservableList<Fee> fees;
     @FXML
     private DatabaseReference database;
 

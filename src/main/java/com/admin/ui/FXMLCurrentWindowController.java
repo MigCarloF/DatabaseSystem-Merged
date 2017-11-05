@@ -5,6 +5,7 @@ import com.database.Fee;
 import com.database.FeeTable;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -134,19 +135,13 @@ public class FXMLCurrentWindowController implements Initializable {
         columnStatus.setCellValueFactory(new PropertyValueFactory<FeeTable, String>(""));
         columnRoute.setCellValueFactory(new PropertyValueFactory<FeeTable, String>(""));
         columnPlateNo.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("plateNo"));
-        /**
-         *
-         private SimpleStringProperty arrivalFee, loadingFee, timePaid,  orNum, emploeeID;
-         private SimpleStringProperty busCompany, busType, plateNo;
-         private LocalDate date;
-         private Bus bus;
-         */
 
         /**
          * Listener for database here
          */
 
         database = FirebaseDatabase.getInstance().getReference();
+        fees = FXCollections.observableArrayList();
         startDataListener();
 
         /**
@@ -163,27 +158,47 @@ public class FXMLCurrentWindowController implements Initializable {
 
     private void startDataListener() {
         DatabaseReference ref = database.child("Fees");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.orderByKey().addChildEventListener(new ChildEventListener(){
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 Fee fee = snapshot.getValue(Fee.class);
                 DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
-                bref.addListenerForSingleValueEvent(new ValueEventListener() { //functions just the same sa listener above pero lain lang reference (instead of Fees, Buses na na table)
+                bref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot bussnapshot) {
-                        System.out.println("l");
                         Bus bus = bussnapshot.getValue(Bus.class);
                         //if(LocalDate.parse(fee.getDatePaid()).equals(LocalDate.now())) {
-                            fees.add(new FeeTable(fee, bus));
-                       // }
+                        System.out.println("gap1");
+                        fees.add(new FeeTable(fee, bus));
+                        System.out.println("gap2");
+                        System.out.println(fees.get(0).getBusType());
+                        System.out.println("gap!");
+                        //}
                         tableView.setItems(fees);
                     }
 
                     @Override
                     public void onCancelled(DatabaseError error) {
+                        System.out.println("ERROR!");
 
                     }
                 });
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
+
             }
 
             @Override

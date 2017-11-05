@@ -7,18 +7,17 @@ public class Bus {
      * capacity = no. of passengers
      * type = ac/ noac
      */
-    private String plateNo;
-    private String company;
-    private String busSize;
-    private boolean miniBus = false;
-    private String busNumber;
-    private String contactPerson;
-    private String contactNumber;
-    private String busType;
-    private String busRoute;
     private String busCapacity;
     private String busFare;
-
+    private String busNumber;
+    private String busRoute;
+    private String busSize;
+    private String busType;
+    private String company;
+    private String contactNumber;
+    private String contactPerson;
+    private boolean miniBus = false;
+    private String plateNo;
 
     public Bus(String busNumber, String busSize, String company, boolean miniBus, String plateNo, String contactPerson,
                String contactNumber, String busType, String busRoute, String busCapacity, String busFare){ //constructor added for Firebase
