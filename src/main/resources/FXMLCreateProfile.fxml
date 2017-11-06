@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="com.admin.ui.FXMLCreateProfileController">
+   <children>
+      <AnchorPane opacity="0.8" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #D3E1AC;">
+         <children>
+            <JFXButton fx:id="createProfileCancelButton" buttonType="RAISED" layoutX="700.0" layoutY="1.0" onAction="#createProfileCancelPressed" prefHeight="40.0" prefWidth="100.0" text="Cancel">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <Text layoutX="15.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREATE A PROFILE">
+               <font>
+                  <Font name="Open Sans Bold" size="23.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="createProfileCreateButton" layoutY="413.0" onAction="#createProfileCreatePressed" prefHeight="35.0" prefWidth="800.0" style="-fx-background-color: #D3E1AC;" text="CREATE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <Text layoutX="14.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account no.">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="createProfileAccountNo" layoutX="97.0" layoutY="43.0" prefHeight="37.0" prefWidth="91.0" promptText="6" style="-fx-background-color: #ffffff;" text="69">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Text layoutX="40.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact person:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="40.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact number:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="createProfileCPerson" layoutX="40.0" layoutY="111.0" prefHeight="33.0" prefWidth="250.0" promptText="Rodney E. Santarin" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="createProfileCNumber" layoutX="40.0" layoutY="184.0" prefHeight="33.0" prefWidth="250.0" promptText="09569081042" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Text layoutX="40.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Franchise:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="40.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plate no.:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="39.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bus no.:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="40.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="createProfileFranchise" layoutX="127.0" layoutY="233.0" prefHeight="33.0" prefWidth="250.0" promptText="CERES" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="createProfilePlateNo" layoutX="127.0" layoutY="275.0" prefHeight="33.0" prefWidth="250.0" promptText="ABC123" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="createProfileBusNo" layoutX="127.0" layoutY="317.0" prefHeight="33.0" prefWidth="250.0" promptText="34" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="createProfileSize" layoutX="127.0" layoutY="359.0" prefHeight="33.0" prefWidth="250.0" promptText="MINI BUS" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="createProfileCapacity" layoutX="508.0" layoutY="233.0" prefHeight="33.0" prefWidth="250.0" promptText="150" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Text layoutX="427.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="createProfileType" layoutX="508.0" layoutY="275.0" prefHeight="33.0" prefWidth="250.0" promptText="AIRCON" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="createProfileRoute" layoutX="508.0" layoutY="317.0" prefHeight="33.0" prefWidth="250.0" promptText="CEBU - DUMAGUETE" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="createProfileFare" layoutX="508.0" layoutY="359.0" prefHeight="33.0" prefWidth="250.0" promptText="80" style="-fx-border-color: #A9A9A9;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Text layoutX="427.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="427.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Route:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="427.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fare:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

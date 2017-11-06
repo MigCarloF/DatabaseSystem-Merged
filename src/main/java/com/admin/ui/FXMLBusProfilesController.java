@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -67,6 +68,7 @@ public class FXMLBusProfilesController implements Initializable {
     @FXML
     private TableColumn<Bus, String> columnFare;
 
+    private Stage createProfileStage = new Stage();
 
     private DatabaseReference database;
     private ObservableList<Bus> buses;
@@ -89,10 +91,31 @@ public class FXMLBusProfilesController implements Initializable {
         window.setScene(tableViewScene);
         window.show();
     }
-    
-    @FXML
-    void busProfilesCreateProfilePressed(ActionEvent event) {
 
+    @FXML
+    void busProfilesCreateProfilePressed(ActionEvent event) throws IOException {
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateProfile.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        Scene anotherScene = new Scene(anotherRoot);
+        createProfileStage.setScene(anotherScene);
+        createProfileStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
+
+        /**
+         *  The bus profiles window is "refreshed" every time the create profile
+         *  button is pressed due to an error. The error is caused from removing
+         *  the title bar of the window. The same as what I did in void request.
+         */
+
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLBusProfiles.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+
+        createProfileStage.show();
     }
     
     @FXML
