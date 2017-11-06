@@ -28,7 +28,7 @@
             </JFXButton>
             <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="17.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../cashier/ui/Ph_seal_cebucity.png" />
+                  <Image url="@/Ph_seal_cebucity.png" />
                </image>
             </ImageView>
             <Text layoutX="125.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cebu South Bus Terminal">

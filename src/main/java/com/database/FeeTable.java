@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class FeeTable {
 
     private SimpleStringProperty arrivalFee, loadingFee, timePaid,  orNum, emploeeID;
-    private SimpleStringProperty busCompany, busType, plateNo;
+    private SimpleStringProperty busCompany, busType, plateNo, busRoute;
     private LocalDate date;
     private Bus bus;
 
@@ -21,8 +21,22 @@ public class FeeTable {
         this.emploeeID = new SimpleStringProperty(fee.getEmployeeID());
         this.plateNo = new SimpleStringProperty(fee.getBus_plate());
         this.bus = bus;
-        busCompany = new SimpleStringProperty(bus.getCompany());
-        busType = new SimpleStringProperty(bus.getBusSize());
+        initBus();
+//        busCompany = new SimpleStringProperty(bus.getCompany());
+//        busType = new SimpleStringProperty(bus.getBusSize());
+    }
+
+    public FeeTable(String string){
+        this.arrivalFee = new SimpleStringProperty("afee");
+        this.loadingFee = new SimpleStringProperty("lfee");
+        this.timePaid = new SimpleStringProperty("time");
+        this.date = LocalDate.parse(LocalDate.now().toString());
+        this.orNum = new SimpleStringProperty("ornum");
+        this.emploeeID = new SimpleStringProperty("employee");
+        this.plateNo = new SimpleStringProperty("plate");
+        busCompany = new SimpleStringProperty("company");
+        busType = new SimpleStringProperty("bustype");
+        busRoute = new SimpleStringProperty("route");
     }
 
     public FeeTable(Fee fee) {
@@ -40,11 +54,12 @@ public class FeeTable {
      * retrieve bus info from plate number
      */
     private void initBus() {
-        Database database = Database.database;
-
-        bus = database.getBus("plateNo", getPlateNo()).get(0);
+//        Database database = Database.database;
+//
+//        bus = database.getBus("plateNo", getPlateNo()).get(0);
         busCompany = new SimpleStringProperty(bus.getCompany());
         busType = new SimpleStringProperty(bus.getBusSize());
+        busRoute = new SimpleStringProperty(bus.getBusRoute());
     }
 
 
@@ -153,5 +168,25 @@ public class FeeTable {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getBusRoute() {
+        return busRoute.get();
+    }
+
+    public SimpleStringProperty busRouteProperty() {
+        return busRoute;
+    }
+
+    public void setBusRoute(String busRoute) {
+        this.busRoute.set(busRoute);
+    }
+
+    public Bus getBus() {
+        return bus;
+    }
+
+    public void setBus(Bus bus) {
+        this.bus = bus;
     }
 }

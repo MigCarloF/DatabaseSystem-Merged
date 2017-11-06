@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
    <children>
       <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
          <children>
@@ -41,8 +47,8 @@
                         <Font name="Open Sans Semibold" size="18.0" />
                      </font>
                   </Text>
-                  <DatePicker layoutX="613.0" layoutY="4.0" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" />
-                  <DatePicker layoutX="772.0" layoutY="4.0" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" />
+                  <DatePicker id="dateStartDate" fx:id="dateStartDate" layoutX="613.0" layoutY="4.0" onAction="#dateStartDateUpdated" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" />
+                  <DatePicker id="dateEndDate" fx:id="dateEndDate" layoutX="772.0" layoutY="4.0" onAction="#dateEndDateUpdated" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" />
                   <Text layoutX="749.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="to">
                      <font>
                         <Font name="Open Sans Light" size="14.0" />
@@ -57,7 +63,7 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="300.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="3">
+                  <TextField fx:id="totalArrival" layoutX="300.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="3">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -71,7 +77,7 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="300.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P100">
+                  <TextField fx:id="totalArrivalFees" layoutX="300.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P100">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -85,7 +91,7 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="301.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="3">
+                  <TextField fx:id="totalLoading" layoutX="301.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="3">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -99,7 +105,7 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="301.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P450">
+                  <TextField fx:id="totalLoadingFees" layoutX="301.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P450">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -113,7 +119,7 @@
                         <Font name="Open Sans Semibold" size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="301.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="P550">
+                  <TextField fx:id="totalFees" layoutX="301.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="P550">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -122,26 +128,26 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <TreeTableView layoutX="24.0" layoutY="374.0" prefHeight="230.0" prefWidth="903.0">
+      <TreeTableView fx:id="treeTableView" layoutX="24.0" layoutY="374.0" prefHeight="230.0" prefWidth="903.0">
          <columns>
-            <TreeTableColumn prefWidth="89.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="FRANCHISE" />
-            <TreeTableColumn prefWidth="90.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="BUS TYPE" />
-            <TreeTableColumn resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="PLATE #" />
-            <TreeTableColumn prefWidth="139.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="ROUTE" />
-            <TreeTableColumn minWidth="0.0" prefWidth="130.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="STATUS" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-TIME" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="D-TIME" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="L-FEE" />
-            <TreeTableColumn minWidth="0.0" prefWidth="73.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="OR #" />
+            <TreeTableColumn fx:id="recordsFranchise" prefWidth="89.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="FRANCHISE" />
+            <TreeTableColumn fx:id="recordsBusType" prefWidth="90.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="BUS TYPE" />
+            <TreeTableColumn fx:id="recordsPlateNo" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="PLATE #" />
+            <TreeTableColumn fx:id="recordsRoute" prefWidth="139.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="ROUTE" />
+            <TreeTableColumn fx:id="recordsStatus" minWidth="0.0" prefWidth="130.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="STATUS" />
+            <TreeTableColumn fx:id="recordsArrivalTime" minWidth="0.0" prefWidth="75.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-TIME" />
+            <TreeTableColumn fx:id="recordsDepartureTime" minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="D-TIME" />
+            <TreeTableColumn fx:id="recordsArrivalFee" minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
+            <TreeTableColumn fx:id="recordsLoadingFee" minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="L-FEE" />
+            <TreeTableColumn fx:id="recordsORNum" minWidth="0.0" prefWidth="73.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="OR #" />
             <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
          </columns>
       </TreeTableView>
       <JFXButton fx:id="currentGoButton" layoutX="333.0" layoutY="113.0" onAction="#recordsGoButtonPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #D3E1AC;" text="GO" />
       <ComboBox fx:id="recordsMenu" layoutX="24.0" layoutY="113.0" prefHeight="30.0" prefWidth="300.0" promptText="RECORDS" style="-fx-background-color: #D3E1AC;" />
-      <TextField layoutX="704.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
-      <TextField layoutX="778.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
-      <TextField layoutX="704.0" layoutY="632.0" prefHeight="30.0" prefWidth="150.0" />
+      <TextField fx:id="tableTotalArrival" layoutX="704.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
+      <TextField fx:id="tableTotalLoading" layoutX="778.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
+      <TextField fx:id="tableTotal" layoutX="704.0" layoutY="632.0" prefHeight="30.0" prefWidth="150.0" />
       <Text layoutX="652.0" layoutY="651.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL">
          <font>
             <Font name="System Bold" size="12.0" />

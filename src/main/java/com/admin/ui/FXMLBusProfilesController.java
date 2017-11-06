@@ -124,7 +124,40 @@ public class FXMLBusProfilesController implements Initializable {
              */
         }
     }
-    
+
+    private void startDataListener() {
+        DatabaseReference ref = database.child("Buses");
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+                Bus bus = snapshot.getValue(Bus.class);
+                buses.add(bus);
+                busProfilesTable.setItems(buses);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         /**
@@ -170,47 +203,13 @@ public class FXMLBusProfilesController implements Initializable {
 
         /**
          * This part is for the initialization of the Combo Box.
-         * TODO: Every item in the menu when chosen, another scene will be 
+         * TODO: Every item in the menu when chosen, another scene will be
          * opened to the item's corresponding scene (change scene/stage).
          */
-        
+
         busProfilesMenu.getItems().addAll("CURRENT", "RECORDS", "VOID REQUESTS", "BUS PROFILES");
         busProfilesMenu.setVisibleRowCount(4);
         busProfilesMenu.setEditable(false);
         busProfilesMenu.setPromptText("BUS PROFILES");
-    }
-
-    private void startDataListener() {
-        DatabaseReference ref = database.child("Buses");
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-                Bus bus = snapshot.getValue(Bus.class);
-                System.out.println(bus.getPlateNo());
-                buses.add(bus);
-                busProfilesTable.setItems(buses);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
-
     }
 }

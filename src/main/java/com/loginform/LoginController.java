@@ -1,6 +1,5 @@
 package com.loginform;
 
-import com.database.Bus;
 import com.database.Database;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
