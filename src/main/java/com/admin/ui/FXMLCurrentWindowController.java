@@ -133,7 +133,7 @@ public class FXMLCurrentWindowController implements Initializable {
         columnBusType.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busType"));
         columnOrNum.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("orNum"));
         columnStatus.setCellValueFactory(new PropertyValueFactory<FeeTable, String>(""));
-        columnRoute.setCellValueFactory(new PropertyValueFactory<FeeTable, String>(""));
+        columnRoute.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busRoute"));
         columnPlateNo.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("plateNo"));
 
         /**
