@@ -30,7 +30,7 @@ public class FXMLAccountantWindowController implements Initializable {
     @FXML
     private TableColumn<FeeTable, String> columnFranchise;
     @FXML
-    private TableColumn<FeeTable, String> columnBusType;
+    private TableColumn<FeeTable, String> columnBusSize;
     @FXML
     private TableColumn<FeeTable, String> columnArrivalFee;
     @FXML
@@ -202,7 +202,7 @@ public class FXMLAccountantWindowController implements Initializable {
 
         //initialize columns on table
         columnFranchise.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busCompany"));
-        columnBusType.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busType"));
+        columnBusSize.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busSize"));
         columnArrivalFee.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("arrivalFee"));
         columnLoadingFee.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("loadingFee"));
         columnOrNum.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("orNum"));

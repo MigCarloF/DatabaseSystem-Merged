@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 public class FeeTable {
 
-    private SimpleStringProperty arrivalFee, loadingFee, timePaid,  orNum, emploeeID;
-    private SimpleStringProperty busCompany, busType, plateNo, busRoute;
+    private SimpleStringProperty arrivalFee, loadingFee, timePaid,  orNum, employeeID;
+    private SimpleStringProperty busCompany, busType, plateNo, busRoute, busSize;
     private LocalDate date;
     private Bus bus;
 
@@ -18,7 +18,7 @@ public class FeeTable {
         this.timePaid = new SimpleStringProperty(fee.getTimePaid());
         this.date = LocalDate.parse(fee.getDatePaid());
         this.orNum = new SimpleStringProperty(fee.getOrNum());
-        this.emploeeID = new SimpleStringProperty(fee.getEmployeeID());
+        this.employeeID = new SimpleStringProperty(fee.getEmployeeID());
         this.plateNo = new SimpleStringProperty(fee.getBus_plate());
         this.bus = bus;
         initBus();
@@ -32,7 +32,7 @@ public class FeeTable {
         this.timePaid = new SimpleStringProperty("time");
         this.date = LocalDate.parse(LocalDate.now().toString());
         this.orNum = new SimpleStringProperty("ornum");
-        this.emploeeID = new SimpleStringProperty("employee");
+        this.employeeID = new SimpleStringProperty("employee");
         this.plateNo = new SimpleStringProperty("plate");
         busCompany = new SimpleStringProperty("company");
         busType = new SimpleStringProperty("bustype");
@@ -45,7 +45,7 @@ public class FeeTable {
         this.timePaid = new SimpleStringProperty(fee.getTimePaid());
         this.date = LocalDate.parse(fee.getDatePaid());
         this.orNum = new SimpleStringProperty(fee.getOrNum());
-        this.emploeeID = new SimpleStringProperty(fee.getEmployeeID());
+        this.employeeID = new SimpleStringProperty(fee.getEmployeeID());
         this.plateNo = new SimpleStringProperty(fee.getBus_plate());
         initBus();
     }
@@ -60,6 +60,7 @@ public class FeeTable {
         busCompany = new SimpleStringProperty(bus.getCompany());
         busType = new SimpleStringProperty(bus.getBusSize());
         busRoute = new SimpleStringProperty(bus.getBusRoute());
+        busSize = new SimpleStringProperty(bus.getBusSize());
     }
 
 
@@ -114,16 +115,16 @@ public class FeeTable {
         this.orNum.set(orNum);
     }
 
-    public String getEmploeeID() {
-        return emploeeID.get();
+    public String getEmployeeID() {
+        return employeeID.get();
     }
 
-    public SimpleStringProperty emploeeIDProperty() {
-        return emploeeID;
+    public SimpleStringProperty employeeIDProperty() {
+        return employeeID;
     }
 
-    public void setEmploeeID(String emploeeID) {
-        this.emploeeID.set(emploeeID);
+    public void setEmploeeID(String employeeID) {
+        this.employeeID.set(employeeID);
     }
 
     public String getBusCompany() {
@@ -188,5 +189,17 @@ public class FeeTable {
 
     public void setBus(Bus bus) {
         this.bus = bus;
+    }
+
+    public String getBusSize() {
+        return busSize.get();
+    }
+
+    public SimpleStringProperty busSizeProperty() {
+        return busSize;
+    }
+
+    public void setBusSize(String busSize) {
+        this.busSize.set(busSize);
     }
 }
