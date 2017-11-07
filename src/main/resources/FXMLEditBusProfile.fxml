@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="650.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLEditBusProfileController">
+   <children>
+      <AnchorPane opacity="0.8" prefHeight="40.0" prefWidth="650.0" style="-fx-background-color: #D3E1AC;">
+         <children>
+            <Text layoutX="15.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUS PROFILES">
+               <font>
+                  <Font name="Open Sans Bold" size="23.0" />
+               </font>
+            </Text>
+            <JFXButton fx:id="editProfilesCancelButton" buttonType="RAISED" layoutX="550.0" layoutY="1.0" onAction="#editProfilesCancelPressed" prefHeight="40.0" prefWidth="100.0" text="Cancel">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="editProfilesDeleteButton" buttonType="RAISED" layoutX="436.0" layoutY="1.0" onAction="#editProfilesDeletePressed" prefHeight="40.0" prefWidth="100.0" text="DELETE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <Text layoutX="32.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact person:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="32.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact number:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="32.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Franchise:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="32.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plate no.:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="32.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bus no.:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="238.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="237.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacity:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="430.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Route:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="430.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fare:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="238.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type:">
+         <font>
+            <Font name="Open Sans Semibold" size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account no.">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="editProfilesAccountNo" layoutX="98.0" layoutY="41.0" prefHeight="37.0" prefWidth="91.0" promptText="6" style="-fx-background-color: #ffffff;" text="70">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesCPerson" layoutX="168.0" layoutY="81.0" promptText="Brandon Jay Flores" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesCNumber" layoutX="177.0" layoutY="112.0" promptText="09569081042" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesFranchise" layoutX="121.0" layoutY="147.0" prefHeight="30.0" prefWidth="111.0" promptText="CERES" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesPlateNo" layoutX="121.0" layoutY="176.0" prefHeight="30.0" prefWidth="111.0" promptText="ABC123" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesBusNo" layoutX="104.0" layoutY="207.0" prefHeight="30.0" prefWidth="130.0" promptText="12" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesSize" layoutX="279.0" layoutY="146.0" prefHeight="30.0" prefWidth="140.0" promptText="MINI BUS" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesCapacity" layoutX="319.0" layoutY="176.0" prefHeight="30.0" prefWidth="91.0" promptText="120" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesType" layoutX="294.0" layoutY="207.0" prefHeight="30.0" prefWidth="130.0" promptText="AIRCON" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesRoute" layoutX="481.0" layoutY="146.0" prefHeight="30.0" prefWidth="150.0" promptText="CEBU - DUMAGUETE" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="editProfilesFare" layoutX="480.0" layoutY="175.0" prefHeight="30.0" prefWidth="111.0" promptText="76" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXButton fx:id="editProfilesEditButton" layoutY="263.0" onAction="#editProfilesEditPressed" prefHeight="20.0" prefWidth="650.0" style="-fx-background-color: #D3E1AC;" text="EDIT">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
