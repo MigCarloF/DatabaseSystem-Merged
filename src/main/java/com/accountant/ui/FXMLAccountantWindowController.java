@@ -80,7 +80,7 @@ public class FXMLAccountantWindowController implements Initializable {
         try{
             dateEndDate.getValue();
             updateTable(dateStartDate.getValue(), dateEndDate.getValue());
-        }catch(NullPointerException e){
+        }catch(NullPointerException e) {
             updateTable(LocalDate.of(1990, Month.JANUARY, 1), dateEndDate.getValue());
         }
     }

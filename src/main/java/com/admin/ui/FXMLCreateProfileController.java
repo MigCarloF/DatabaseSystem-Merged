@@ -113,7 +113,7 @@ public class FXMLCreateProfileController implements Initializable {
 
                     /**
                      * 11/7/2017
-                     * Error checking popup added
+                     * Error checking popup added //REVERTED
                      */
                 }
             }
