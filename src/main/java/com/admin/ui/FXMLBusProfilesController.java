@@ -76,6 +76,7 @@ public class FXMLBusProfilesController implements Initializable {
 
     private DatabaseReference database;
     private ObservableList<Bus> buses;
+    private ChildEventListener childEventListener;
 
 
     @FXML
@@ -108,12 +109,14 @@ public class FXMLBusProfilesController implements Initializable {
     @FXML
     void busProfilesEditProfileButtonPressed(ActionEvent event) throws IOException {
         //BRANDON!!!!!
+        Bus editBus = busProfilesTable.getSelectionModel().getSelectedItem();
+        System.out.println(editBus.getContactPerson());
+        SingletonEditBus.getInstance().setBus(editBus);
         FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
         Parent anotherRoot = anotherLoader.load();
         Scene anotherScene = new Scene(anotherRoot);
         createProfileStage.setScene(anotherScene);
         createProfileStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
-
         /**
          *  The bus profiles window is "refreshed" every time the create profile
          *  button is pressed due to an error. The error is caused from removing
@@ -158,6 +161,9 @@ public class FXMLBusProfilesController implements Initializable {
          *  the title bar of the window. The same as what I did in void request.
          */
 
+        //database.child("Buses").removeEventListener(childEventListener);
+        //buses.clear();
+        //startDataListener();
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLBusProfiles.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
@@ -202,7 +208,8 @@ public class FXMLBusProfilesController implements Initializable {
 
     private void startDataListener() {
         DatabaseReference ref = database.child("Buses");
-        ref.addChildEventListener(new ChildEventListener() {
+
+        childEventListener = ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 Bus bus = snapshot.getValue(Bus.class);
@@ -217,7 +224,9 @@ public class FXMLBusProfilesController implements Initializable {
 
             @Override
             public void onChildRemoved(DataSnapshot snapshot) {
-
+                Bus bus = snapshot.getValue(Bus.class);
+                buses.remove(bus);
+                busProfilesTable.setItems(buses);
             }
 
             @Override
@@ -273,6 +282,7 @@ public class FXMLBusProfilesController implements Initializable {
          */
 
         database = FirebaseDatabase.getInstance().getReference();
+        //buses.clear();
         startDataListener();
         //Initialize columns on table
 
