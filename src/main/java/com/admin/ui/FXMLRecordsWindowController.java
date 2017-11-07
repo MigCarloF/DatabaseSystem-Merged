@@ -3,12 +3,11 @@ package com.admin.ui;
 import com.database.Bus;
 import com.database.Fee;
 import com.database.FeeTable;
-import com.database.FirebaseDB;
 import com.google.firebase.database.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +17,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -93,8 +91,12 @@ public class FXMLRecordsWindowController implements Initializable {
     private TextField tableTotalLoading;
     @FXML
     private TextField tableTotal;
+    @FXML
+    private JFXButton recordsAdminButton;
+
 
     private Stage createAccountStage = new Stage();
+    private Stage currentStage = new Stage();
 
     @FXML
     void recordsAdminButtonPressed(ActionEvent event) throws IOException {
@@ -241,36 +243,6 @@ public class FXMLRecordsWindowController implements Initializable {
     }
 
     @FXML
-    void recordsGoButtonPressed(ActionEvent event) throws IOException {
-        if(recordsMenu.getValue().equals("CURRENT")) {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLCurrentWindow.fxml"));
-            Scene tableViewScene = new Scene(tableViewParent);
-            //This line gets the Stage information
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
-        } else if(recordsMenu.getValue().equals("RECORDS")) {
-            /**
-             * do nothing
-             */
-        } else if(recordsMenu.getValue().equals("VOID REQUESTS")) {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLAdminVoidRequestsWindow.fxml"));
-            Scene tableViewScene = new Scene(tableViewParent);
-            //This line gets the Stage information
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
-        } else if(recordsMenu.getValue().equals("BUS PROFILES")) {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLBusProfiles.fxml"));
-            Scene tableViewScene = new Scene(tableViewParent);
-            //This line gets the Stage information
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
-        }
-    }
-
-    @FXML
     void recordsLogoutButtonPressed(ActionEvent event) throws IOException {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/LoginFormLayout.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
@@ -302,6 +274,56 @@ public class FXMLRecordsWindowController implements Initializable {
         recordsMenu.setVisibleRowCount(4);
         recordsMenu.setEditable(false);
         recordsMenu.setPromptText("RECORDS");
+
+        recordsMenu.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                Stage stage = (Stage) recordsAdminButton.getScene().getWindow();
+                if(recordsMenu.getItems().get((Integer) number2).equals("CURRENT")) {
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCurrentWindow.fxml"));
+                    Parent anotherRoot = null;
+                    try {
+                        anotherRoot = anotherLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene anotherScene = new Scene(anotherRoot);
+                    currentStage.setScene(anotherScene);
+                } else if (recordsMenu.getItems().get((Integer) number2).equals("RECORDS")) {
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLRecordsWindow.fxml"));
+                    Parent anotherRoot = null;
+                    try {
+                        anotherRoot = anotherLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene anotherScene = new Scene(anotherRoot);
+                    currentStage.setScene(anotherScene);
+                } else if (recordsMenu.getItems().get((Integer) number2).equals("VOID REQUESTS")) {
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLAdminVoidRequestsWindow.fxml"));
+                    Parent anotherRoot = null;
+                    try {
+                        anotherRoot = anotherLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene anotherScene = new Scene(anotherRoot);
+                    currentStage.setScene(anotherScene);
+                } else if (recordsMenu.getItems().get((Integer) number2).equals("BUS PROFILES")) {
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLBusProfiles.fxml"));
+                    Parent anotherRoot = null;
+                    try {
+                        anotherRoot = anotherLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene anotherScene = new Scene(anotherRoot);
+                    currentStage.setScene(anotherScene);
+                }
+                stage.close();
+                currentStage.show();
+            }
+        });
 
         dateEndDate.setDayCellFactory(dayCellFactory);
         dateStartDate.setDayCellFactory(dayCellFactory);

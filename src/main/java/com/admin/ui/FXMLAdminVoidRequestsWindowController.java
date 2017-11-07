@@ -39,7 +39,7 @@ public class FXMLAdminVoidRequestsWindowController implements Initializable {
     @FXML
     void adminVoidRequestsButtonPressed(ActionEvent event) throws IOException {
         //BRANDON!!!!!
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("../../admin/ui/FXMLCreateAccount.fxml"));
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateAccount.fxml"));
         Parent anotherRoot = anotherLoader.load();
         Scene anotherScene = new Scene(anotherRoot);
         createAccountStage.setScene(anotherScene);
@@ -51,7 +51,7 @@ public class FXMLAdminVoidRequestsWindowController implements Initializable {
          *  the title bar of the window.
          */
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../admin/ui/FXMLAdminVoidRequestsWindow.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLAdminVoidRequestsWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
@@ -98,7 +98,7 @@ public class FXMLAdminVoidRequestsWindowController implements Initializable {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
                 Stage stage = (Stage) adminVoidRequestsButton.getScene().getWindow();
                 if(adminVoidRequestsMenu.getItems().get((Integer) number2).equals("CURRENT")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("../../admin/ui/FXMLCurrentWindow.fxml"));
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCurrentWindow.fxml"));
                     Parent anotherRoot = null;
                     try {
                         anotherRoot = anotherLoader.load();
@@ -108,7 +108,7 @@ public class FXMLAdminVoidRequestsWindowController implements Initializable {
                     Scene anotherScene = new Scene(anotherRoot);
                     currentStage.setScene(anotherScene);
                 } else if (adminVoidRequestsMenu.getItems().get((Integer) number2).equals("RECORDS")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("../../admin/ui/FXMLRecordsWindow.fxml"));
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLRecordsWindow.fxml"));
                     Parent anotherRoot = null;
                     try {
                         anotherRoot = anotherLoader.load();
@@ -118,7 +118,7 @@ public class FXMLAdminVoidRequestsWindowController implements Initializable {
                     Scene anotherScene = new Scene(anotherRoot);
                     currentStage.setScene(anotherScene);
                 } else if (adminVoidRequestsMenu.getItems().get((Integer) number2).equals("VOID REQUESTS")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("../../admin/ui/FXMLAdminVoidRequestsWindow.fxml"));
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLAdminVoidRequestsWindow.fxml"));
                     Parent anotherRoot = null;
                     try {
                         anotherRoot = anotherLoader.load();
@@ -128,7 +128,7 @@ public class FXMLAdminVoidRequestsWindowController implements Initializable {
                     Scene anotherScene = new Scene(anotherRoot);
                     currentStage.setScene(anotherScene);
                 } else if (adminVoidRequestsMenu.getItems().get((Integer) number2).equals("BUS PROFILES")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("../../admin/ui/FXMLBusProfiles.fxml"));
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLBusProfiles.fxml"));
                     Parent anotherRoot = null;
                     try {
                         anotherRoot = anotherLoader.load();

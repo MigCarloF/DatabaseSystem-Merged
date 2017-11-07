@@ -59,7 +59,6 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="currentGoButton" layoutX="331.0" layoutY="112.0" onAction="#currentGoButtonPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #D3E1AC;" text="GO" />
       <ComboBox fx:id="currentMenu" layoutX="24.0" layoutY="112.0" prefHeight="30.0" prefWidth="300.0" promptText="CURRENT" style="-fx-background-color: #D3E1AC;" />
       <AnchorPane layoutX="24.0" layoutY="151.0" prefHeight="210.0" prefWidth="900.0" style="-fx-background-color: #ffffff; -fx-border-color: #d3d3d3;">
          <children>

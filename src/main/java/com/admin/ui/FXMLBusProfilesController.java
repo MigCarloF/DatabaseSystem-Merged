@@ -10,6 +10,8 @@ import com.database.FeeTable;
 import com.database.FirebaseDB;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,8 +73,12 @@ public class FXMLBusProfilesController implements Initializable {
     @FXML
     private JFXButton busProfilesEditButton;
 
+    @FXML
+    private JFXButton busProfilesAdminButton;
+
     private Stage createProfileStage = new Stage();
     private Stage createAccountStage = new Stage();
+    private Stage currentStage = new Stage();
 
     private DatabaseReference database;
     private ObservableList<Bus> buses;
@@ -175,36 +181,6 @@ public class FXMLBusProfilesController implements Initializable {
 
         createProfileStage.show();
     }
-    
-    @FXML
-    void busProfilesGoButtonPressed(ActionEvent event) throws IOException {
-        if(busProfilesMenu.getValue().equals("CURRENT")) {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLCurrentWindow.fxml"));
-            Scene tableViewScene = new Scene(tableViewParent);
-            //This line gets the Stage information
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
-        } else if(busProfilesMenu.getValue().equals("RECORDS")) {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLRecordsWindow.fxml"));
-            Scene tableViewScene = new Scene(tableViewParent);
-            //This line gets the Stage information
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
-        } else if(busProfilesMenu.getValue().equals("VOID REQUESTS")) {
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLAdminVoidRequestsWindow.fxml"));
-            Scene tableViewScene = new Scene(tableViewParent);
-            //This line gets the Stage information
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(tableViewScene);
-            window.show();
-        } else if(busProfilesMenu.getValue().equals("BUS PROFILES")) {
-            /**
-             * Do nothing
-             */
-        }
-    }
 
     private void startDataListener() {
         DatabaseReference ref = database.child("Buses");
@@ -296,5 +272,55 @@ public class FXMLBusProfilesController implements Initializable {
         busProfilesMenu.setVisibleRowCount(4);
         busProfilesMenu.setEditable(false);
         busProfilesMenu.setPromptText("BUS PROFILES");
+
+        busProfilesMenu.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                Stage stage = (Stage) busProfilesAdminButton.getScene().getWindow();
+                if(busProfilesMenu.getItems().get((Integer) number2).equals("CURRENT")) {
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCurrentWindow.fxml"));
+                    Parent anotherRoot = null;
+                    try {
+                        anotherRoot = anotherLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene anotherScene = new Scene(anotherRoot);
+                    currentStage.setScene(anotherScene);
+                } else if (busProfilesMenu.getItems().get((Integer) number2).equals("RECORDS")) {
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLRecordsWindow.fxml"));
+                    Parent anotherRoot = null;
+                    try {
+                        anotherRoot = anotherLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene anotherScene = new Scene(anotherRoot);
+                    currentStage.setScene(anotherScene);
+                } else if (busProfilesMenu.getItems().get((Integer) number2).equals("VOID REQUESTS")) {
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLAdminVoidRequestsWindow.fxml"));
+                    Parent anotherRoot = null;
+                    try {
+                        anotherRoot = anotherLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene anotherScene = new Scene(anotherRoot);
+                    currentStage.setScene(anotherScene);
+                } else if (busProfilesMenu.getItems().get((Integer) number2).equals("BUS PROFILES")) {
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLBusProfiles.fxml"));
+                    Parent anotherRoot = null;
+                    try {
+                        anotherRoot = anotherLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene anotherScene = new Scene(anotherRoot);
+                    currentStage.setScene(anotherScene);
+                }
+                stage.close();
+                currentStage.show();
+            }
+        });
     }
 }
