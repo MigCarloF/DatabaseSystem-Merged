@@ -1,6 +1,5 @@
 package com.loginform;
 
-import com.database.Database;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,7 +48,6 @@ public class LoginController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Database database = Database.database;
         LocalDate date1 = LocalDate.of(2017, Month.OCTOBER, 12);
         LocalDate date2 = LocalDate.of(2017, Month.OCTOBER, 13);
         LocalDate date3 = LocalDate.of(2017, Month.OCTOBER, 14);

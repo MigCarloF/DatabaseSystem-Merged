@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLCreateAccountController">
+   <children>
+      <AnchorPane opacity="0.8" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #D3E1AC;">
+         <children>
+            <Text layoutX="15.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREATE AN ACCOUNT">
+               <font>
+                  <Font name="Open Sans Bold" size="23.0" />
+               </font>
+            </Text>
+            <JFXButton fx:id="createAccountCancelButton" buttonType="RAISED" layoutX="700.0" onAction="#createAccountCancelPressed" prefHeight="40.0" prefWidth="100.0" text="Cancel">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="createAccountCreateButton" layoutY="413.0" onAction="#createProfileCreatePressed" prefHeight="35.0" prefWidth="800.0" style="-fx-background-color: #D3E1AC;" text="CREATE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <Text layoutX="252.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME:">
+         <font>
+            <Font name="Open Sans Light" size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="252.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD:">
+         <font>
+            <Font name="Open Sans Light" size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="210.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ACCOUNT TYPE:">
+         <font>
+            <Font name="Open Sans Light" size="22.0" />
+         </font>
+      </Text>
+      <TextField fx:id="createAccountUsername" layoutX="384.0" layoutY="120.0" prefHeight="40.0" prefWidth="200.0" />
+      <TextField fx:id="createAccountPassword" layoutX="384.0" layoutY="199.0" prefHeight="40.0" prefWidth="200.0" />
+      <ComboBox fx:id="createAccountType" layoutX="384.0" layoutY="278.0" prefHeight="40.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>

@@ -119,7 +119,6 @@ public class FXMLCreateProfileController implements Initializable {
         ref.child(plateNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                successfulCreate = false;
                 if(snapshot.getChildrenCount() == 0){
                     Bus bus;
                     if(size.equals("bus")){
@@ -130,10 +129,9 @@ public class FXMLCreateProfileController implements Initializable {
                                 route,capacity,fare);
                     }
                     ref.child(plateNumber).setValue(bus);
-                    successfulCreate = true;
                 }else {
+                    showError();
                     System.out.println("Data error");
-                    successfulCreate = false;
                     /**
                      * alert nga bus with plate number xxxx already exists
                      * also walay bus number if minibus unta :)
@@ -162,20 +160,19 @@ public class FXMLCreateProfileController implements Initializable {
          * Add data to database
          */
 
-         // closes the window error checking here
-        if(successfulCreate) {
+         // closes the window
             Stage stage = (Stage) createProfileCancelButton.getScene().getWindow();
             stage.close();
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("INCOMPLETE DATA");
-            alert.setHeaderText("Please check your data");
-            alert.setContentText("");
-            alert.showAndWait();
-        }
     }
 
+    private void showError(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("INCOMPLETE DATA");
+        alert.setHeaderText("Please check your data");
+        alert.setContentText("");
+        alert.showAndWait();
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -233,9 +233,6 @@ public class FXMLCurrentWindowController implements Initializable {
     private void startDataListener() {
 
         dateToday.setText("" + LocalDate.now());
-//        Date date = new Date();
-//        String dateFormat = String.format("%s %tB %<te, %<tY", "Due date:", date);
-//        dateToday.setText(dateFormat);
 
         DatabaseReference ref = database.child("Fees");
         intArrival = 0; intLoading = 0;
@@ -246,7 +243,7 @@ public class FXMLCurrentWindowController implements Initializable {
          */
 
         ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
-                .addListenerForSingleValueEvent(new ValueEventListener() { //functions just the same sa listener above pero lain lang reference (instead of Fees, Buses na na table)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot snap : dataSnapshot.getChildren()){
@@ -283,13 +280,7 @@ public class FXMLCurrentWindowController implements Initializable {
                     @Override
                     public void onDataChange(DataSnapshot bussnapshot) {
                         Bus bus = bussnapshot.getValue(Bus.class);
-                        //if(LocalDate.parse(fee.getDatePaid()).equals(LocalDate.now())) {
-                        //System.out.println("gap1");
                         fees.add(new FeeTable(fee, bus));
-//                        System.out.println("gap2");
-//                        System.out.println(fees.get(0).getBusType());
-//                        System.out.println("gap!");
-                        //}
                         tableView.setItems(fees);
                     }
 
