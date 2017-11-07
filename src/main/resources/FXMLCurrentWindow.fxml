@@ -70,7 +70,7 @@
                         <Font name="Open Sans Semibold" size="18.0" />
                      </font>
                   </Text>
-                  <TextField alignment="TOP_CENTER" layoutX="768.0" layoutY="5.0" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" text="DATE TODAY">
+                  <TextField fx:id="dateToday" alignment="TOP_CENTER" layoutX="768.0" layoutY="5.0" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" text="DATE TODAY">
                      <font>
                         <Font name="Open Sans Bold" size="12.0" />
                      </font>
@@ -191,7 +191,7 @@
             <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
             <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="L-FEE" />
             <TreeTableColumn minWidth="0.0" prefWidth="73.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="OR #" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE"/>
+            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
         </columns>
       </TreeTableView>
       <TableView fx:id="tableView" layoutX="24.0" layoutY="374.0" prefHeight="230.0" prefWidth="903.0" style="-fx-color: #D3E1AC;">

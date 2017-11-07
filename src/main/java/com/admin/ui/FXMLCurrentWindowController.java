@@ -17,12 +17,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.joda.time.LocalDate;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class FXMLCurrentWindowController implements Initializable {
@@ -64,8 +66,39 @@ public class FXMLCurrentWindowController implements Initializable {
     @FXML
     private TableColumn<FeeTable, String> columnOrNum;
 
+    @FXML
+    private TextField lblTotalArrival;
+
+    @FXML
+    private TextField lblArrivalFees;
+
+    @FXML
+    private TextField lblTotalLoading;
+
+    @FXML
+    private TextField lblLoadingFees;
+
+    @FXML
+    private TextField lblTotal;
+
+    @FXML
+    private TextField lblLoading;
+
+    @FXML
+    private TextField lblDocking;
+
+    @FXML
+    private TextField lblPassengers;
+
+    @FXML
+    private TextField dateToday;
+
+
+
+
     private DatabaseReference database;
     private ObservableList<FeeTable> fees;
+    private int intArrival, intLoading;
 
     @FXML
     void busProfilesCreateProfilePressed(ActionEvent event) {
@@ -157,7 +190,49 @@ public class FXMLCurrentWindowController implements Initializable {
     }
 
     private void startDataListener() {
+
+        dateToday.setText("" + LocalDate.now());
+//        Date date = new Date();
+//        String dateFormat = String.format("%s %tB %<te, %<tY", "Due date:", date);
+//        dateToday.setText(dateFormat);
+
         DatabaseReference ref = database.child("Fees");
+        intArrival = 0; intLoading = 0;
+
+        /**
+         * ordered by date (firebase default method)
+         * getting all items starting from the startDate to endDate
+         */
+
+        ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
+                .addListenerForSingleValueEvent(new ValueEventListener() { //functions just the same sa listener above pero lain lang reference (instead of Fees, Buses na na table)
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot snap : dataSnapshot.getChildren()){
+                            Fee fee = snap.getValue(Fee.class);
+                            if(fee.getPaidArrival()) intArrival += 1;
+                            if(fee.getPaidLoading()) intLoading += 1;
+                        }
+                        /**
+                         *
+                         */
+                        int arrive = intArrival * 50;
+                        int load = intLoading * 150;
+                        lblTotalArrival.setText("" + intArrival);
+                        lblArrivalFees.setText("\u20B1" + arrive);
+                        lblTotalLoading.setText("" + intLoading);
+                        lblLoadingFees.setText("\u20B1" + load);
+                        lblTotal.setText("\u20B1" + (arrive + load));
+                        lblLoading.setText("" + load);      //what is loading??
+                        lblDocking.setText("" + arrive);    //what is docking??
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+        //ref = database.child("Fees");
         ref.orderByKey().addChildEventListener(new ChildEventListener(){
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
@@ -168,11 +243,11 @@ public class FXMLCurrentWindowController implements Initializable {
                     public void onDataChange(DataSnapshot bussnapshot) {
                         Bus bus = bussnapshot.getValue(Bus.class);
                         //if(LocalDate.parse(fee.getDatePaid()).equals(LocalDate.now())) {
-                        System.out.println("gap1");
+                        //System.out.println("gap1");
                         fees.add(new FeeTable(fee, bus));
-                        System.out.println("gap2");
-                        System.out.println(fees.get(0).getBusType());
-                        System.out.println("gap!");
+//                        System.out.println("gap2");
+//                        System.out.println(fees.get(0).getBusType());
+//                        System.out.println("gap!");
                         //}
                         tableView.setItems(fees);
                     }
