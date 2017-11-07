@@ -20,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.joda.time.LocalDate;
 
 import java.io.IOException;
@@ -29,6 +30,18 @@ import java.util.ResourceBundle;
 
 public class FXMLCurrentWindowController implements Initializable {
 
+
+    @FXML
+    private JFXButton currentAdminButton;
+
+    @FXML
+    private JFXButton currentLogoutButton;
+
+    @FXML
+    private JFXButton busProfilesCreateProfileButton;
+
+    @FXML
+    private JFXButton currentGoButton;
 
     @FXML
     private ComboBox currentMenu;
@@ -95,7 +108,7 @@ public class FXMLCurrentWindowController implements Initializable {
 
 
 
-
+    private Stage createAccountStage = new Stage();
     private DatabaseReference database;
     private ObservableList<FeeTable> fees;
     private int intArrival, intLoading;
@@ -106,14 +119,42 @@ public class FXMLCurrentWindowController implements Initializable {
     }
 
     @FXML
-    void currentAdminButton(ActionEvent event) {
+    void currentAdminButton(ActionEvent event) throws IOException {
+        //BRANDON!!!!!
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateAccount.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        Scene anotherScene = new Scene(anotherRoot);
+        createAccountStage.setScene(anotherScene);
+        createAccountStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
 
+        /**
+         *  The bus profiles window is "refreshed" every time the create profile
+         *  button is pressed due to an error. The error is caused from removing
+         *  the title bar of the window.
+         */
+
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLCurrentWindow.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+
+        createAccountStage.show();
     }
 
     @FXML
     void currentGoButtonPressed(ActionEvent event) throws IOException {
-
-        if(currentMenu.getValue().equals("RECORDS")) {
+        if(currentMenu.getValue().equals("CURRENT")) {
+            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLCurrentWindow.fxml"));
+            Scene tableViewScene = new Scene(tableViewParent);
+            //This line gets the Stage information
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(tableViewScene);
+            window.show();
+        } else if(currentMenu.getValue().equals("RECORDS")) {
             Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLRecordsWindow.fxml"));
             Scene tableViewScene = new Scene(tableViewParent);
             //This line gets the Stage information
@@ -139,7 +180,7 @@ public class FXMLCurrentWindowController implements Initializable {
 
     @FXML
     void currentLogoutButtonPressed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../../resources/LoginFormLayout.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../loginform/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information

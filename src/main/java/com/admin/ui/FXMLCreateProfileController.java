@@ -9,11 +9,13 @@ import com.database.Bus;
 import com.database.Fee;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -46,20 +48,37 @@ public class FXMLCreateProfileController implements Initializable {
     private TextField createProfileBusNo;
 
     @FXML
-    private TextField createProfileSize;
-
-    @FXML
     private TextField createProfileCapacity;
 
     @FXML
-    private TextField createProfileType;
-
-    @FXML
-    private TextField createProfileRoute;
+    private TextField createProfileRoute1;
 
     @FXML
     private TextField createProfileFare;
 
+    @FXML
+    private JFXRadioButton radioBoxMiniBus;
+
+    @FXML
+    private JFXRadioButton radioBoxBus;
+
+    @FXML
+    private JFXRadioButton radioBoxAircon;
+
+    @FXML
+    private JFXRadioButton radioBoxNonAircon;
+
+    @FXML
+    private TextField createProfileRoute2;
+
+    @FXML
+    private TextField createProfileAlert;
+
+    private final ToggleGroup sizeGroup = new ToggleGroup();
+    private final ToggleGroup typeGroup = new ToggleGroup();
+
+    private static String type = "";
+    private static String size = "";
     private DatabaseReference database;
     private boolean successfulCreate;
 
@@ -72,16 +91,27 @@ public class FXMLCreateProfileController implements Initializable {
     @FXML
     void createProfileCreatePressed(ActionEvent event) {
         //TODO: get inputs
+//        String contactPerson = createProfileCPerson.getText();
+//        String contactNumber = createProfileCNumber.getText();
+//        String franchise = createProfileFranchise.getText();
+//        String plateNumber = createProfilePlateNo.getText();
+//        String busNumber = createProfileBusNo.getText();
+//        String size = createProfileSize.getText();
+//        String capacity = createProfileCapacity.getText();
+//        String type = createProfileType.getText();
+//        String route = createProfileRoute.getText();
+//        String fare = createProfileFare.getText();
+
         String contactPerson = createProfileCPerson.getText();
         String contactNumber = createProfileCNumber.getText();
         String franchise = createProfileFranchise.getText();
         String plateNumber = createProfilePlateNo.getText();
         String busNumber = createProfileBusNo.getText();
-        String size = createProfileSize.getText();
         String capacity = createProfileCapacity.getText();
-        String type = createProfileType.getText();
-        String route = createProfileRoute.getText();
+        String route1 = createProfileRoute1.getText();
+        String route2 = createProfileRoute2.getText();
         String fare = createProfileFare.getText();
+        String route = "" + route1 + " - " + route2;
 
         DatabaseReference ref = database.child("Buses");
 
@@ -94,7 +124,7 @@ public class FXMLCreateProfileController implements Initializable {
                     Bus bus;
                     if(size.equals("bus")){
                         bus = new Bus(plateNumber,franchise,busNumber,contactPerson,contactNumber,type,
-                                route,capacity,fare);
+                                route + route2,capacity,fare);
                     }else {
                         bus = new Bus(plateNumber,franchise,contactPerson,contactNumber,type,
                                 route,capacity,fare);
@@ -151,6 +181,26 @@ public class FXMLCreateProfileController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         int latestNumberOfBusProfiles = 71; //TODO: get the current number of bus profiles in the database
         createProfileAccountNo.setText(String.valueOf(latestNumberOfBusProfiles + 1));
+
+        //BRANDON!!!!!
+        radioBoxMiniBus.setToggleGroup(sizeGroup);
+        radioBoxBus.setToggleGroup(sizeGroup);
+
+        radioBoxAircon.setToggleGroup(typeGroup);
+        radioBoxNonAircon.setToggleGroup(typeGroup);
+
+        typeGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            type = observable.getValue().toString();
+            type = type.substring(type.indexOf("'")+1, type.lastIndexOf("'"));
+            System.out.println(type);
+        });
+
+        sizeGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            size = observable.getValue().toString();
+            size = size.substring(size.indexOf("'")+1, size.lastIndexOf("'"));
+            System.out.println(size);
+        });
+
         database = FirebaseDatabase.getInstance().getReference();
     }    
     

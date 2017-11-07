@@ -16,7 +16,7 @@
    <children>
       <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
          <children>
-            <JFXButton layoutX="698.0" prefHeight="100.0" prefWidth="125.0" text="ADMIN">
+            <JFXButton fx:id="recordsAdminButton" layoutX="698.0" onAction="#recordsAdminButtonPressed" prefHeight="100.0" prefWidth="125.0" text="ADMIN">
                <font>
                   <Font size="14.0" />
                </font>
