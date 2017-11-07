@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" stylesheets="@tableProfile.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
    <children>
       <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
          <children>
@@ -130,17 +130,16 @@
       </AnchorPane>
       <TreeTableView fx:id="treeTableView" layoutX="24.0" layoutY="374.0" prefHeight="230.0" prefWidth="903.0">
          <columns>
-            <TreeTableColumn fx:id="recordsFranchise" prefWidth="89.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="FRANCHISE" />
-            <TreeTableColumn fx:id="recordsBusType" prefWidth="90.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="BUS TYPE" />
-            <TreeTableColumn fx:id="recordsPlateNo" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="PLATE #" />
-            <TreeTableColumn fx:id="recordsRoute" prefWidth="139.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="ROUTE" />
-            <TreeTableColumn fx:id="recordsStatus" minWidth="0.0" prefWidth="130.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="STATUS" />
-            <TreeTableColumn fx:id="recordsArrivalTime" minWidth="0.0" prefWidth="75.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-TIME" />
-            <TreeTableColumn fx:id="recordsDepartureTime" minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="D-TIME" />
-            <TreeTableColumn fx:id="recordsArrivalFee" minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
-            <TreeTableColumn fx:id="recordsLoadingFee" minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="L-FEE" />
-            <TreeTableColumn fx:id="recordsORNum" minWidth="0.0" prefWidth="73.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="OR #" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsFranchise" prefWidth="89.0" resizable="false" text="FRANCHISE" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsBusType" prefWidth="90.0" text="BUS TYPE" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsPlateNo" resizable="false" text="PLATE #" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsRoute" prefWidth="139.0" resizable="false" text="ROUTE" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsStatus" minWidth="0.0" prefWidth="130.0" resizable="false" text="STATUS" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsArrivalTime" minWidth="0.0" prefWidth="75.0" resizable="false" text="A-TIME" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsDepartureTime" minWidth="0.0" prefWidth="75.0" text="D-TIME" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsArrivalFee" minWidth="0.0" prefWidth="75.0" text="A-FEE" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsLoadingFee" minWidth="0.0" prefWidth="75.0" text="L-FEE" />
+            <TreeTableColumn id="tableColumn" fx:id="recordsORNum" minWidth="0.0" prefWidth="73.0" text="OR #" />
          </columns>
       </TreeTableView>
       <ComboBox fx:id="recordsMenu" layoutX="24.0" layoutY="113.0" prefHeight="30.0" prefWidth="300.0" promptText="RECORDS" style="-fx-background-color: #D3E1AC;" />

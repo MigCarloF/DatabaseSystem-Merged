@@ -108,6 +108,15 @@ public class FXMLCurrentWindowController implements Initializable {
     @FXML
     private TextField dateToday;
 
+    @FXML
+    private TextField txtArrivalFee;
+
+    @FXML
+    private TextField txtLoadingFee;
+
+    @FXML
+    private TextField txtTotal;
+
 
     private Stage currentStage = new Stage();
     private Stage createAccountStage = new Stage();
@@ -149,7 +158,7 @@ public class FXMLCurrentWindowController implements Initializable {
 
     @FXML
     void currentLogoutButtonPressed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../loginform/FXMLLoginFormWindow.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../../resources/LoginFormLayout.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
@@ -179,6 +188,8 @@ public class FXMLCurrentWindowController implements Initializable {
         columnRoute.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busRoute"));
         columnPlateNo.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("plateNo"));
 
+        //lblArrivalFees.setEditable(false);
+
         /**
          * Listener for database here
          */
@@ -186,6 +197,15 @@ public class FXMLCurrentWindowController implements Initializable {
         database = FirebaseDatabase.getInstance().getReference();
         fees = FXCollections.observableArrayList();
         startDataListener();
+
+        lblArrivalFees.setEditable(false);
+        lblDocking.setEditable(false);
+        lblLoading.setEditable(false);
+        lblLoadingFees.setEditable(false);
+        lblPassengers.setEditable(false);
+        lblTotal.setEditable(false);
+        lblTotalArrival.setEditable(false);
+        lblTotalLoading.setEditable(false);
 
         /**
          * This part is for the initialization of the Combo Box.
@@ -262,39 +282,56 @@ public class FXMLCurrentWindowController implements Initializable {
          * getting all items starting from the startDate to endDate
          */
 
-        ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot snap : dataSnapshot.getChildren()){
-                            Fee fee = snap.getValue(Fee.class);
-                            if(fee.getPaidArrival()) intArrival += 1;
-                            if(fee.getPaidLoading()) intLoading += 1;
-                        }
-                        /**
-                         *
-                         */
-                        int arrive = intArrival * 50;
-                        int load = intLoading * 150;
-                        lblTotalArrival.setText("" + intArrival);
-                        lblArrivalFees.setText("\u20B1" + arrive);
-                        lblTotalLoading.setText("" + intLoading);
-                        lblLoadingFees.setText("\u20B1" + load);
-                        lblTotal.setText("\u20B1" + (arrive + load));
-                        lblLoading.setText("" + load);      //what is loading??
-                        lblDocking.setText("" + arrive);    //what is docking??
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-
-                    }
-                });
-        //ref = database.child("Fees");
-        ref.orderByKey().addChildEventListener(new ChildEventListener(){
+        ref.orderByChild("datePaid").equalTo(LocalDate.now().toString()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 Fee fee = snapshot.getValue(Fee.class);
+                if(fee.getPaidArrival()) {
+                    intArrival += 1;
+                }
+                if(fee.getPaidLoading()){
+                    intLoading +=1;
+                }
+                int arrive = intArrival * 50;
+                int load = intLoading * 150;
+                lblTotalArrival.setText("" + intArrival);
+                lblArrivalFees.setText("\u20B1" + arrive);
+                lblTotalLoading.setText("" + intLoading);
+                lblLoadingFees.setText("\u20B1" + load);
+                lblTotal.setText("\u20B1" + (arrive + load));
+                lblLoading.setText("" + load);      //what is loading??
+                lblDocking.setText("" + arrive);    //what is docking??
+                txtArrivalFee.setText("" + arrive);
+                txtLoadingFee.setText("" + load);
+                txtTotal.setText("" + (arrive + load));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+        ref.orderByChild("datePaid").equalTo(LocalDate.now().toString()).addChildEventListener(new ChildEventListener(){
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+                Fee fee = snapshot.getValue(Fee.class);
+                System.out.println(fee);
                 DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
                 bref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

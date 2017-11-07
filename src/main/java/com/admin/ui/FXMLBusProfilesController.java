@@ -6,8 +6,6 @@
 package com.admin.ui;
 
 import com.database.Bus;
-import com.database.FeeTable;
-import com.database.FirebaseDB;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.value.ChangeListener;

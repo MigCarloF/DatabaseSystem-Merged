@@ -34,7 +34,9 @@ public class FXMLVoidRequestWindowController {
 
     @FXML
     void voidRequestWindowSendPressed(ActionEvent event) {
-
+        String orNum = voidRequestWindowText1.getText();
+        String requester = voidRequestWindowText2.getText();
+        String reason = voidRequestWindowText3.getText();
     }
 
 }

@@ -78,14 +78,10 @@ public class FXMLCreateAccountController implements Initializable {
             }
         });
 
-//        System.out.println("Username: " + username + "\nPassword: " + password + "\nAccount type: " + accountType
-//        + "\nFirst name: " + firstName + "\nLast name: " + lastName);
-
         // closes the window
         Stage stage = (Stage) createAccountCreateButton.getScene().getWindow();
         stage.close();
     }
-
 
     /**
      * Initializes the controller class.

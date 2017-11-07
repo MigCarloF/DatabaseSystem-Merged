@@ -49,6 +49,22 @@ public class FXMLArrivalWindowController implements Initializable {
     @FXML
     private TextField plateNumber;
 
+    //Items for error checking
+    @FXML
+    private Label lblBusFranchiseErr;
+
+    @FXML
+    private Label lblBusNumberErr;
+
+    @FXML
+    private Label lblBusFeeTypeErr;
+
+    @FXML
+    private Label lblMiniBusFranchiseErr;
+
+    @FXML
+    private Label lblMiniBusPlateNumberErr;
+
     @FXML
     private DatabaseReference database;
 
@@ -72,6 +88,7 @@ public class FXMLArrivalWindowController implements Initializable {
         String dateFormat = sdf.format(date.getTime());
 
         try {
+            lblBusFranchiseErr.setText("");
             String typeOfFee = ""; //idk where ni na use
             boolean paidArrival = false;
             boolean paidLoading = false;
@@ -85,14 +102,16 @@ public class FXMLArrivalWindowController implements Initializable {
             String busNum = busNumber.getText();
 
             if (!loadingFee.isSelected() && !arrivalFee.isSelected()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("No Fee type");
-                alert.setHeaderText("Select Fee to be paid");
-                alert.setContentText("");
-
-                alert.showAndWait();
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("No Fee type");
+//                alert.setHeaderText("Select Fee to be paid");
+//                alert.setContentText("");
+//
+//                alert.showAndWait();
+                lblBusFeeTypeErr.setText("* - Select Fee to be paid");
 
             } else {
+                lblBusFeeTypeErr.setText("");
                 busExists = false;
                 final boolean hasArrival = paidArrival;   //inner class calls needs to be final
                 final boolean hasLoading = paidLoading;    //same reason as to paid arrival
@@ -137,43 +156,52 @@ public class FXMLArrivalWindowController implements Initializable {
                             if(bus.getBusNumber().equals(busNum) && bus.getCompany().equals(franchiseSelected)){
                                 busExists = true;
                                 if(bus.isMiniBus()){ //alerts error since pang bus ni nga transaction, not minibus. musulod siya diri pero na alert will be displayed
-                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                    alert.setTitle("INCORRECT DATA");
-                                    alert.setHeaderText("Please check your data");
-                                    alert.setContentText("");
-                                    alert.showAndWait();
+//                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+//                                    alert.setTitle("INCORRECT DATA");
+//                                    alert.setHeaderText("Please check your data");
+//                                    alert.setContentText("");
+//                                    alert.showAndWait();
+
                                 }
                                 else{
-
                                     Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, "Cashier 01", localDate, bus.getPlateNo());
                                     DatabaseReference aref = database.child("Fees");
                                     aref.child(forDatabase.getOrNum()).setValue(forDatabase);
                                 }
                             }
                         }
-                        if(!busExists){// alert will not pop out :(
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("NO BUS");
-                            alert.setHeaderText("No buses on record");
-                            alert.setContentText("Contact admin");
+                        if(!busExists) {// alert will not pop out :(
 
-                            alert.showAndWait();
+//                            Alert alert = new Alert(Alert.AlertType.ERROR);
+//                            alert.setTitle("NO BUS");
+//                            alert.setHeaderText("No buses on record");
+//                            alert.setContentText("Contact admin");
+//
+//                            alert.showAndWait();
+                            lblBusFranchiseErr.setText("* - No bus on records: Contact Admin");
                         }
+
                     }
                     public void onCancelled(DatabaseError error) {
-
+                        lblBusFranchiseErr.setText("* - No bus on records: Contact Admin");
                     }
                 });
             }
         } catch (NullPointerException e) { //works fine
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("INCOMPLETE DATA");
-            alert.setHeaderText("Please fill in all data.");
-            alert.setContentText("");
-
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("INCOMPLETE DATA");
+//            alert.setHeaderText("Please fill in all data.");
+//            alert.setContentText("");
+//
+//            alert.showAndWait();
+            lblBusFranchiseErr.setText("* - Please Select Franchise");
         }
 
+        if(busNumber.getText().equals("")) {
+            lblBusNumberErr.setText("* - Input bus number");
+        } else {
+            lblBusNumberErr.setText("");
+        }
 
     }
 
@@ -185,6 +213,8 @@ public class FXMLArrivalWindowController implements Initializable {
      * @throws IOException
      */
     public void minibusConfirmButtonPushed(ActionEvent event) throws IOException, InterruptedException {
+        lblMiniBusPlateNumberErr.setText("");
+        lblMiniBusFranchiseErr.setText("");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDate localDate = LocalDate.now();
 
@@ -241,12 +271,13 @@ public class FXMLArrivalWindowController implements Initializable {
                                     aref.child(forDatabase.getOrNum()).setValue(forDatabase);
                                 }
                                 else { //same problem, goes here but no alert will be displayed
-                                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                                    alert.setTitle("INCORRECT DATA");
-                                    alert.setHeaderText("Check input");
-                                    alert.setContentText("");
-
-                                    alert.showAndWait();
+//                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+//                                    alert.setTitle("INCORRECT DATA");
+//                                    alert.setHeaderText("Check input");
+//                                    alert.setContentText("");
+//
+//                                    alert.showAndWait();
+                                    lblMiniBusFranchiseErr.setText("* - Incorrect Data");
                                 }
                             }
 
@@ -258,12 +289,13 @@ public class FXMLArrivalWindowController implements Initializable {
 
                     }
                     else{//alert will not be displayed
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("NO BUS");
-                        alert.setHeaderText("No buses on record");
-                        alert.setContentText("Please contact the admin.");
-
-                        alert.showAndWait();
+//                        Alert alert = new Alert(Alert.AlertType.ERROR);
+//                        alert.setTitle("NO BUS");
+//                        alert.setHeaderText("No buses on record");
+//                        alert.setContentText("Please contact the admin.");
+//
+//                        alert.showAndWait();
+                        lblMiniBusFranchiseErr.setText("* - No bus on record");
                     }
 
                 }
@@ -272,12 +304,14 @@ public class FXMLArrivalWindowController implements Initializable {
                 }
             });
         }catch(NullPointerException e) { //sad. 2nd alert that works
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("INCOMPLETE DATA");
-            alert.setHeaderText("Please fill in all data.");
-            alert.setContentText(" ");
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("INCOMPLETE DATA");
+//            alert.setHeaderText("Please fill in all data.");
+//            alert.setContentText(" ");
+//
+//            alert.showAndWait();
 
-            alert.showAndWait();
+            lblMiniBusFranchiseErr.setText("* - Incomplete Data");
         }
     }
 
@@ -331,6 +365,15 @@ public class FXMLArrivalWindowController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle rb) {
+        /**
+         * Sets the error labels to blank
+         */
+        lblBusFeeTypeErr.setText("");
+        lblBusFranchiseErr.setText("");
+        lblBusNumberErr.setText("");
+        lblMiniBusFranchiseErr.setText("");
+        lblMiniBusPlateNumberErr.setText("");
+
         /**
          * These items are for configuring the Combo Box.
          * BUS Combo Box
