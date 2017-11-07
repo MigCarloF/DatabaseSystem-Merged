@@ -5,6 +5,8 @@
  */
 package com.admin.ui;
 
+import com.database.Employee;
+import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +36,14 @@ public class FXMLCreateAccountController implements Initializable {
     private ComboBox createAccountType;
 
     @FXML
+    private TextField createAccountFirstName;
+
+    @FXML
+    private TextField createAccountLastName;
+
+    DatabaseReference database;
+
+    @FXML
     void createAccountCancelPressed(ActionEvent event) {
         Stage stage = (Stage) createAccountCancelButton.getScene().getWindow();
         stage.close();
@@ -43,9 +53,33 @@ public class FXMLCreateAccountController implements Initializable {
     void createProfileCreatePressed(ActionEvent event) {
         String username = createAccountUsername.getText();
         String password = createAccountPassword.getText();
+        String firstName = createAccountFirstName.getText();
+        String lastName = createAccountLastName.getText();
         String accountType = createAccountType.getValue().toString();
 
-        System.out.println("Username: " + username + "\nPassword: " + password + "\nAccount type: " + accountType);
+        DatabaseReference ref = database.child("Employees");
+        ref.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.getChildrenCount() > 0){
+                    //TODO alert user already exists
+                    //todo i think kuwang nig check if user with first name + last name exists
+                    //todo lets just assume na di bogo ang admin para mag add ug same user hahahahaha
+                }
+                else{
+                    Employee employee = new Employee(username,password,firstName,lastName,accountType);
+                    ref.child(employee.getUsername()).setValue(employee);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+//        System.out.println("Username: " + username + "\nPassword: " + password + "\nAccount type: " + accountType
+//        + "\nFirst name: " + firstName + "\nLast name: " + lastName);
 
         // closes the window
         Stage stage = (Stage) createAccountCreateButton.getScene().getWindow();
@@ -62,6 +96,7 @@ public class FXMLCreateAccountController implements Initializable {
         createAccountType.setVisibleRowCount(3);
         createAccountType.setEditable(false);
         createAccountType.setPromptText("ACCOUNT TYPE");
+        database = FirebaseDatabase.getInstance().getReference();
     }    
     
 }

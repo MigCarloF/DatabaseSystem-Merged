@@ -68,6 +68,9 @@ public class FXMLBusProfilesController implements Initializable {
     @FXML
     private TableColumn<Bus, String> columnFare;
 
+    @FXML
+    private JFXButton busProfilesEditButton;
+
     private Stage createProfileStage = new Stage();
     private Stage createAccountStage = new Stage();
 
@@ -103,8 +106,35 @@ public class FXMLBusProfilesController implements Initializable {
     }
 
     @FXML
+    void busProfilesEditProfileButtonPressed(ActionEvent event) throws IOException {
+        //BRANDON!!!!!
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        Scene anotherScene = new Scene(anotherRoot);
+        createProfileStage.setScene(anotherScene);
+        createProfileStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
+
+        /**
+         *  The bus profiles window is "refreshed" every time the create profile
+         *  button is pressed due to an error. The error is caused from removing
+         *  the title bar of the window. The same as what I did in void request.
+         */
+
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLBusProfiles.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+
+        createProfileStage.show();
+    }
+
+    @FXML
     void busProfilesLogoutButtonPressed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../../resources/LoginFormLayout.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/LoginFormLayout.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information

@@ -90,5 +90,10 @@
             <TableColumn id="tableColumn" fx:id="columnCapacity" prefWidth="75.0" text="CAPACITY" />
             <TableColumn id="tableColumn" fx:id="columnFare" prefWidth="79.0" text="FARE" />
          </columns></TableView>
+      <JFXButton fx:id="busProfilesEditButton" layoutX="476.0" layoutY="628.0" onAction="#busProfilesEditProfileButtonPressed" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #D3E1AC;" text="EDIT">
+         <font>
+            <Font name="Open Sans Semibold" size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
