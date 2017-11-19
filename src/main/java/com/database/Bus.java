@@ -18,9 +18,10 @@ public class Bus {
     private String contactPerson;
     private boolean miniBus = false;
     private String plateNo;
+    private boolean activeBus = true;
 
     public Bus(String busNumber, String busSize, String company, boolean miniBus, String plateNo, String contactPerson,
-               String contactNumber, String busType, String busRoute, String busCapacity, String busFare){ //constructor added for Firebase
+               String contactNumber, String busType, String busRoute, String busCapacity, String busFare, boolean activeBus){ //constructor added for Firebase
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = miniBus;
@@ -32,6 +33,7 @@ public class Bus {
         this.busRoute = busRoute;
         this.busCapacity = busCapacity;
         this.busFare = busFare;
+        this.activeBus = activeBus;
     }
 
     public Bus(String plateNo, String company, String busNumber, String contactPerson,
@@ -47,6 +49,9 @@ public class Bus {
         this.busRoute = busRoute;
         this.busCapacity = busCapacity;
         this.busFare = busFare;
+        activeBus = true; // set default to true because I think you wont add an inactive bus
+                        // and this constructor is only called when you create a new bus
+                        //call setter to set it to inactive
     }
     public Bus(String plateNo, String company, String contactPerson, String contactNumber,
                String busType, String busRoute, String busCapacity, String busFare){
@@ -61,6 +66,9 @@ public class Bus {
         this.busRoute = busRoute;
         this.busCapacity = busCapacity;
         this.busFare = busFare;
+        activeBus = true; // set default to true because I think you wont add an inactive bus
+                        // and this constructor is only called when you create a new bus
+                        //call setter to set it to inactive
     }
 
 
@@ -159,5 +167,13 @@ public class Bus {
 
     public void setBusFare(String busFare) {
         this.busFare = busFare;
+    }
+
+    public boolean isActiveBus() {
+        return activeBus;
+    }
+
+    public void setActiveBus(boolean activeBus) {
+        this.activeBus = activeBus;
     }
 }
