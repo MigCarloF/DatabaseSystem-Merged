@@ -102,12 +102,6 @@ public class FXMLArrivalWindowController implements Initializable {
             String busNum = busNumber.getText();
 
             if (!loadingFee.isSelected() && !arrivalFee.isSelected()) {
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setTitle("No Fee type");
-//                alert.setHeaderText("Select Fee to be paid");
-//                alert.setContentText("");
-//
-//                alert.showAndWait();
                 lblBusFeeTypeErr.setText("* - Select Fee to be paid");
 
             } else {
@@ -330,7 +324,7 @@ public class FXMLArrivalWindowController implements Initializable {
 
     @FXML
     void arrivalWindowLogoutPressed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/LoginFormLayout.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information

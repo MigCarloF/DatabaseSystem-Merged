@@ -65,7 +65,7 @@ public class FXMLAdminVoidRequestsWindowController implements Initializable {
 
     @FXML
     void adminVoidRequestsLogoutButtonPressed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../loginform/FXMLLoginFormWindow.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../../resources/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information

@@ -158,7 +158,7 @@ public class FXMLCurrentWindowController implements Initializable {
 
     @FXML
     void currentLogoutButtonPressed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../../resources/LoginFormLayout.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../../resources/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
@@ -301,9 +301,9 @@ public class FXMLCurrentWindowController implements Initializable {
                 lblTotal.setText("\u20B1" + (arrive + load));
                 lblLoading.setText("" + load);      //what is loading??
                 lblDocking.setText("" + arrive);    //what is docking??
-                txtArrivalFee.setText("" + arrive);
-                txtLoadingFee.setText("" + load);
-                txtTotal.setText("" + (arrive + load));
+                txtArrivalFee.setText("\u20B1" + arrive);
+                txtLoadingFee.setText("\u20B1" + load);
+                txtTotal.setText("\u20B1" + (arrive + load));
             }
 
             @Override

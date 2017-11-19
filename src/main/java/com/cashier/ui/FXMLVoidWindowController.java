@@ -77,7 +77,7 @@ public class FXMLVoidWindowController {
 
     @FXML
     void voidWindowLogoutPressed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../../resources/LoginFormLayout.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../../../resources/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information

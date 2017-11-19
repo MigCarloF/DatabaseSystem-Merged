@@ -52,6 +52,7 @@ public class FXMLAccountantWindowController implements Initializable {
 
     private ObservableList<FeeTable> fees;
     private DatabaseReference database;
+    private int arrival, load;
     //private Database database;
 
     /**
@@ -112,7 +113,7 @@ public class FXMLAccountantWindowController implements Initializable {
     }
 
     public void logoutButtonPushed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/LoginFormLayout.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
@@ -124,6 +125,8 @@ public class FXMLAccountantWindowController implements Initializable {
 
     //accepts local date
     private void updateTable(LocalDate startDate, LocalDate endDate){
+        arrival = 0;
+        load = 0;
         fees.clear();
         DatabaseReference dref = database.child("Fees");
 
@@ -137,10 +140,13 @@ public class FXMLAccountantWindowController implements Initializable {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot snap : dataSnapshot.getChildren()){
                             Fee fee = snap.getValue(Fee.class);
+                            if(fee.getPaidArrival()) arrival+=1;
+                            if(fee.getPaidLoading()) load +=1;
                             DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
                             bref.addListenerForSingleValueEvent(new ValueEventListener() { //functions just the same sa listener above pero lain lang reference (instead of Fees, Buses na na table)
                                 @Override
                                 public void onDataChange(DataSnapshot bussnapshot) {
+
                                     Bus bus = bussnapshot.getValue(Bus.class);
                                     fees.add(new FeeTable(fee,bus));
                                     tableView.setItems(fees);
@@ -151,22 +157,30 @@ public class FXMLAccountantWindowController implements Initializable {
 
                                 }
                             });
+
+                            int productArrival = arrival * 50;
+                            int productLoad = load * 150;
+                            lblTotalEarnings.setText("\u20B1" + (productArrival + productLoad));
+                            txtTotalArrivalFees.setText("\u20B1" + productArrival);
+                            txtTotalLoadingFees.setText("\u20B1" + productLoad);
+                            txtTotalAllFees.setText("\u20B1" + (productArrival + productLoad));
+
+                           // System.out.println("lol: " + productArrival);
                         }
-                        int totalArrival = 0, totalLoading = 0;
-                        int unsortedTotal = 0;
-                        ObservableList<FeeTable> feeList = tableView.getItems();
-                        for (FeeTable f : feeList) {
-                            totalArrival += Integer.parseInt(f.getArrivalFee());
-                            totalLoading += Integer.parseInt(f.getLoadingFee());
-                        }
-                        for (FeeTable f : fees) {
-                            unsortedTotal += Integer.parseInt(f.getArrivalFee());
-                            unsortedTotal += Integer.parseInt(f.getLoadingFee());
-                        }
-                        txtTotalArrivalFees.setText(String.valueOf(totalArrival));
-                        txtTotalLoadingFees.setText(String.valueOf(totalLoading));
-                        txtTotalAllFees.setText(String.valueOf(totalArrival + totalLoading));
-                        lblTotalEarnings.setText(String.valueOf(unsortedTotal));
+
+//                        ObservableList<FeeTable> feeList = tableView.getItems();
+//                        for (FeeTable f : feeList) {
+//                            totalArrival += Integer.parseInt(f.getArrivalFee());
+//                            totalLoading += Integer.parseInt(f.getLoadingFee());
+//                        }
+//                        for (FeeTable f : fees) {
+//                            unsortedTotal += Integer.parseInt(f.getArrivalFee());
+//                            unsortedTotal += Integer.parseInt(f.getLoadingFee());
+//                        }
+
+
+
+                        //lblTotalEarnings.setText(String.valueOf(unsortedTotal));
                     }
 
                     @Override
