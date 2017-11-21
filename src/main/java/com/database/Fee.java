@@ -36,6 +36,7 @@ public class Fee {
         this.datePaid = datePaid.toString();
         this.orNum = orNum;
         this.employeeID = employeeID;
+        this._void = false;
     }
 
     /**
@@ -135,4 +136,6 @@ public class Fee {
     public void setPaidLoading(Boolean paidLoading) {
         this.paidLoading = paidLoading;
     }
+
+
 }

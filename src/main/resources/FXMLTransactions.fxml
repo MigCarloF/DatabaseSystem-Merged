@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLTransactionsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLTransactionsController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="900.0">
          <image>
@@ -93,12 +93,12 @@
             </Text>
             <Line endX="100.0" layoutX="120.0" layoutY="85.0" opacity="0.3" startX="-100.0" />
             <Line endX="100.0" layoutX="321.0" layoutY="85.0" opacity="0.3" startX="-100.0" />
-            <Text layoutX="286.0" layoutY="72.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
+            <Text layoutX="286.0" layoutY="72.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="₱">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
-            <Text layoutX="284.0" layoutY="117.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
+            <Text layoutX="284.0" layoutY="117.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="₱">
                <font>
                   <Font size="30.0" />
                </font>
@@ -116,7 +116,7 @@
                   <Font name="System Bold" size="36.0" />
                </font>
             </TextField>
-            <Text layoutX="110.0" layoutY="70.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
+            <Text layoutX="110.0" layoutY="70.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="₱">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -124,13 +124,13 @@
          </children></AnchorPane>
       <AnchorPane layoutX="30.0" layoutY="170.0" prefHeight="40.0" prefWidth="382.0" style="-fx-background-color: #ffffff;">
          <children>
-            <JFXDatePicker fx:id="transactDateFrom" defaultColor="#14005d" focusTraversable="false" layoutX="22.0" layoutY="8.0" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: #ffffff;" />
+            <JFXDatePicker fx:id="transactDateFrom" defaultColor="#14005d" focusTraversable="false" layoutX="22.0" layoutY="8.0" onAction="#dateStartDateUpdated" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: #ffffff;" />
             <Text layoutX="162.0" layoutY="26.0" opacity="0.74" strokeWidth="2.0" text="to" textAlignment="CENTER" wrappingWidth="57.1953125">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
             </Text>
-            <JFXDatePicker fx:id="transactDateTo" defaultColor="#14005d" focusTraversable="false" layoutX="219.0" layoutY="9.0" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: #ffffff;" />
+            <JFXDatePicker fx:id="transactDateTo" defaultColor="#14005d" focusTraversable="false" layoutX="219.0" layoutY="9.0" onAction="#dateEndDateUpdated" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: #ffffff;" />
          </children>
       </AnchorPane>
       <JFXButton fx:id="transactBackButton" focusTraversable="false" layoutX="768.0" layoutY="129.0" onAction="#transactBackButtonPressed" prefWidth="100.0" style="-fx-background-color: #f2db58;" text="BACK" textFill="#434343" />

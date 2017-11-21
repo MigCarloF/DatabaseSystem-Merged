@@ -1,69 +1,59 @@
 package com.loginform;
 
-import com.database.Bus;
-//import com.database.Database;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ResourceBundle;
 
-public class FXMLLoginFormWindowController implements Initializable {
+public class FXMLLoginFormWindowController {
+    @FXML
+    private TextField usernameTextField;
 
-    public void accountantButtonPushed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLAccountantWindow.fxml"));
+    @FXML
+    private TextField passwordTextField;
+
+    @FXML
+    private JFXButton logIn;
+
+
+    public void initialize(URL url, ResourceBundle rb) {
+
+    }
+
+    @FXML
+    void logInButtonPushed(ActionEvent event) throws IOException {
+        usernameTextField.getText();
+        passwordTextField.getText();
+        //INPUT LOGIC HERE
+
+        /**
+         *  if cashier, kay
+         */
+
+        /*Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         window.setScene(tableViewScene);
-        window.show();
-    }
+        window.show();*/
 
-    public void cashierButtonPushed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLArrivalWindow.fxml"));
+        /**
+         *  if admin, kay
+         */
+
+        /*Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainAdminWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         window.setScene(tableViewScene);
-        window.show();
-    }
-
-    public void adminButtonPushed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLCurrentWindow.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-//        Database database = Database.database;
-//        LocalDate date1 = LocalDate.of(2017, Month.OCTOBER, 12);
-//        LocalDate date2 = LocalDate.of(2017, Month.OCTOBER, 13);
-//        LocalDate date3 = LocalDate.of(2017, Month.OCTOBER, 14);
-//        LocalDate date4 = LocalDate.of(2017, Month.OCTOBER, 15);
-//        database.addBus(new Bus("ABC123", "SUNRAYS", "1"));
-//        database.addBus(new Bus("ACB223", "CERES LINER", "1"));
-//        database.addBus(new Bus("ACC213", "JEGANS"));
-//        database.addBus(new Bus("ACD213", "CALVO"));
-//        database.addBus(new Bus("ACE213", "COROMINAS"));
-//        database.addBus(new Bus("ACF213", "GABE TRANSIT"));
-//        database.addBus(new Bus("ACG213", "CANONEO"));
-
+        window.show();*/
     }
 }

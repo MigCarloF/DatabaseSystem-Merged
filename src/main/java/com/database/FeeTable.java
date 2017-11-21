@@ -8,8 +8,10 @@ public class FeeTable {
 
     private SimpleStringProperty arrivalFee, loadingFee, timePaid,  orNum, employeeID;
     private SimpleStringProperty busCompany, busType, plateNo, busRoute, busSize;
+    private SimpleStringProperty feeType, totalAmount, voidStatus;
     private LocalDate date;
     private Bus bus;
+    private Fee fee;
 
     public FeeTable(Fee fee, Bus bus) { //constructor added. because I cant call Firebase functions here,
                                         //I decided adding bus to the constructor instead
@@ -21,7 +23,10 @@ public class FeeTable {
         this.employeeID = new SimpleStringProperty(fee.getEmployeeID());
         this.plateNo = new SimpleStringProperty(fee.getBus_plate());
         this.bus = bus;
+        this.fee = fee;
         initBus();
+
+        initCombo();
 //        busCompany = new SimpleStringProperty(bus.getCompany());
 //        busType = new SimpleStringProperty(bus.getBusSize());
     }
@@ -63,6 +68,30 @@ public class FeeTable {
         busSize = new SimpleStringProperty(bus.getBusSize());
     }
 
+    private void initCombo(){
+        String type = "", amt = "\u20B10", status = "";
+        if(fee.get_void()){
+            status += "VOID";
+        }
+
+        if(fee.getPaidLoading() && fee.getPaidArrival()){
+            type += "AF, LF";
+            amt = "\u20B1200";
+
+        }
+        if(fee.getPaidLoading() && !fee.getPaidArrival()){
+            type += "LF";
+            amt = "\u20B1150";
+        }
+        if(!fee.getPaidLoading() && fee.getPaidArrival()){
+            type += "AF";
+            amt = "\u20B150";
+        }
+
+        voidStatus = new SimpleStringProperty(status);
+        feeType = new SimpleStringProperty(type);
+        totalAmount = new SimpleStringProperty(amt);
+    }
 
     /**
      * getters and setters
@@ -201,5 +230,45 @@ public class FeeTable {
 
     public void setBusSize(String busSize) {
         this.busSize.set(busSize);
+    }
+
+    public void setEmployeeID(String employeeID) {
+        this.employeeID.set(employeeID);
+    }
+
+    public String getFeeType() {
+        return feeType.get();
+    }
+
+    public SimpleStringProperty feeTypeProperty() {
+        return feeType;
+    }
+
+    public void setFeeType(String feeType) {
+        this.feeType.set(feeType);
+    }
+
+    public String getTotalAmount() {
+        return totalAmount.get();
+    }
+
+    public SimpleStringProperty totalAmountProperty() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(String totalAmount) {
+        this.totalAmount.set(totalAmount);
+    }
+
+    public String getVoidStatus() {
+        return voidStatus.get();
+    }
+
+    public SimpleStringProperty voidStatusProperty() {
+        return voidStatus;
+    }
+
+    public void setVoidStatus(String voidStatus) {
+        this.voidStatus.set(voidStatus);
     }
 }

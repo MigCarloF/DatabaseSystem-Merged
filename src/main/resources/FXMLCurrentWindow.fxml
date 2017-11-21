@@ -1,219 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="busProfilesCss" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" stylesheets="@tableProfile.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLCurrentWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLCurrentWindowController">
    <children>
-      <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
-         <children>
-            <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="21.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Ph_seal_cebucity.png" />
-               </image>
-            </ImageView>
-            <Text layoutX="121.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cebu South Bus Terminal">
-               <font>
-                  <Font name="Open Sans Bold" size="24.0" />
-               </font>
-            </Text>
-            <JFXButton fx:id="currentAdminButton" buttonType="RAISED" layoutX="700.0" onAction="#currentAdminButton" prefHeight="100.0" prefWidth="125.0" style="-fx-text-fill: #000000;" text="ADMIN" textOverrun="CLIP">
-               <effect>
-                  <Lighting>
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-                     <light>
-                     </light>
-                  </Lighting>
-               </effect>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="currentLogoutButton" buttonType="RAISED" layoutX="825.0" onAction="#currentLogoutButtonPressed" prefHeight="100.0" prefWidth="125.0" style="-fx-text-fill: #000000;" text="LOGOUT" textOverrun="CLIP">
-               <effect>
-                  <Lighting>
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-                     <light>
-                     </light>
-                  </Lighting>
-               </effect>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </AnchorPane>
-      <ComboBox fx:id="currentMenu" layoutX="24.0" layoutY="112.0" prefHeight="30.0" prefWidth="300.0" promptText="CURRENT" style="-fx-background-color: #D3E1AC;" />
-      <AnchorPane layoutX="24.0" layoutY="151.0" prefHeight="210.0" prefWidth="900.0" style="-fx-background-color: #ffffff; -fx-border-color: #d3d3d3;">
-         <children>
-            <AnchorPane layoutX="1.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #D3E1AC;">
-               <children>
-                  <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUMMARY">
-                     <font>
-                        <Font name="Open Sans Semibold" size="18.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="dateToday" alignment="TOP_CENTER" layoutX="768.0" layoutY="5.0" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" text="DATE TODAY">
-                     <font>
-                        <Font name="Open Sans Bold" size="12.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="35.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;">
-               <children>
-                  <Text layoutX="206.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Arrival:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="546.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="lblTotalArrival" layoutX="300.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="3">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="lblLoading" layoutX="608.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="70.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <Text layoutX="257.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fees:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="545.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Docking:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="lblArrivalFees" layoutX="300.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P100">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="lblDocking" layoutX="608.0" layoutY="2.0" style="-fx-background-color: #FFFFFF;" text="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="105.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;">
-               <children>
-                  <Text layoutX="196.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Loading:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="524.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passengers:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="lblTotalLoading" layoutX="301.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="3">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="lblPassengers" layoutX="609.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="97">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="140.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <Text layoutX="256.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fees:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="lblLoadingFees" layoutX="301.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P450">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="175.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;">
-               <children>
-                  <Text layoutX="242.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="lblTotal" layoutX="301.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="P550">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <TreeTableView layoutX="24.0" layoutY="374.0" prefHeight="230.0" prefWidth="903.0">
-        <columns>
-          <TreeTableColumn prefWidth="89.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="FRANCHISE" />
-          <TreeTableColumn prefWidth="90.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="BUS TYPE" />
-            <TreeTableColumn resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="PLATE #" />
-            <TreeTableColumn prefWidth="139.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="ROUTE" />
-            <TreeTableColumn minWidth="0.0" prefWidth="130.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="STATUS" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" resizable="false" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-TIME" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="D-TIME" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="L-FEE" />
-            <TreeTableColumn minWidth="0.0" prefWidth="73.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="OR #" />
-            <TreeTableColumn minWidth="0.0" prefWidth="75.0" style="-fx-background-color: #d3e1ac; -fx-border-color: #efefef;" text="A-FEE" />
-        </columns>
-      </TreeTableView>
-      <TableView fx:id="tableView" layoutX="24.0" layoutY="374.0" prefHeight="230.0" prefWidth="903.0" style="-fx-color: #D3E1AC;">
-        <columns>
-          <TableColumn id="tableColumn" fx:id="columnFranchise" prefWidth="89.0" style="-fx-border-color: #efefef;" text="FRANCHISE" />
-          <TableColumn id="tableColumn" fx:id="columnBusType" prefWidth="90.0" style="-fx-border-color: #efefef;" text="BUS TYPE" />
-            <TableColumn id="tableColumn" fx:id="columnPlateNo" text="PLATE #" />
-            <TableColumn id="tableColumn" fx:id="columnRoute" prefWidth="139.0" text="ROUTE" />
-            <TableColumn id="tableColumn" fx:id="columnStatus" prefWidth="130.0" text="STATUS" />
-            <TableColumn id="tableColumn" fx:id="columnArrivalTime" prefWidth="75.0" text="A-TIME" />
-            <TableColumn id="tableColumn" fx:id="columnDepartureTime" prefWidth="75.0" text="D-TIME" />
-            <TableColumn id="tableColumn" fx:id="columnArrivalFee" prefWidth="75.0" text="A-FEE" />
-            <TableColumn id="tableColumn" fx:id="columnLoadingFee" prefWidth="75.0" text="L-FEE" />
-            <TableColumn id="tableColumn" fx:id="columnOrNum" prefWidth="73.0" text="OR #" />
-        </columns>
-      </TableView>
-      <TextField fx:id="txtArrivalFee" layoutX="704.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
-      <TextField fx:id="txtLoadingFee" layoutX="778.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
-      <TextField fx:id="txtTotal" layoutX="704.0" layoutY="632.0" prefHeight="30.0" prefWidth="150.0" />
-      <Text layoutX="652.0" layoutY="651.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL">
+      <ImageView fitHeight="720.0" fitWidth="1280.0">
+         <image>
+            <Image url="@BLUEGREY2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="45.0" fitWidth="200.0" layoutX="51.0" layoutY="33.0">
+         <image>
+            <Image url="@LOGO.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="938.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," wrappingWidth="87.13671875">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Consolas" size="18.0" />
          </font>
       </Text>
+      <Text fx:id="adminUserText" fill="WHITE" layoutX="1019.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sir Joey" wrappingWidth="123.99999503977597">
+         <font>
+            <Font name="Consolas" size="18.0" />
+         </font>
+      </Text>
+      <JFXButton fx:id="logoutButton" blendMode="ADD" focusTraversable="false" layoutX="1133.0" layoutY="27.0" onAction="#logoutButtonPressed" prefHeight="50.0" prefWidth="100.0" ripplerFill="WHITE" text="Logout" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Consolas" size="18.0" />
+         </font>
+      </JFXButton>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#666999" height="584.0" layoutY="136.0" opacity="0.5" stroke="#666999" strokeType="INSIDE" width="300.0" />
+      <AnchorPane layoutX="336.0" layoutY="136.0" prefHeight="270.0" prefWidth="240.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
+         <children>
+            <Text layoutX="11.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transactions per Hour" wrappingWidth="162.9999771118164">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="201.0" fitWidth="212.0" layoutX="14.0" layoutY="66.0" preserveRatio="true">
+               <image>
+                  <Image url="@HAHAHA.PNG" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <AnchorPane layoutX="590.0" layoutY="136.0" prefHeight="130.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
+         <children>
+            <TextField fx:id="vehiclesTerminal" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="44.0" opacity="0.9" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="4">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+            </TextField>
+            <Text layoutX="8.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicles                  in the terminal" wrappingWidth="123.9999771118164">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="590.0" layoutY="276.0" prefHeight="130.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
+         <children>
+            <Text layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buses in the terminal" wrappingWidth="123.9999771118164">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="busesTerminal" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="44.0" opacity="0.9" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="2">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="751.0" layoutY="136.0" prefHeight="130.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
+         <children>
+            <TextField fx:id="minibusesTerminal" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="44.0" opacity="0.9" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="1">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+            </TextField>
+            <Text layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minibuses               in the terminal" wrappingWidth="123.9999771118164">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="751.0" layoutY="276.0" prefHeight="130.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
+         <children>
+            <TextField fx:id="busesLoadingBay" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="44.0" opacity="0.9" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="1">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+            </TextField>
+            <Text layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buses in                  the loading bay" wrappingWidth="123.9999771118164">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="914.0" layoutY="136.0" prefHeight="130.0" prefWidth="330.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
+         <children>
+            <TextField fx:id="dailyRevenue" alignment="TOP_LEFT" editable="false" focusTraversable="false" layoutX="62.0" layoutY="33.0" prefHeight="74.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="1,600">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+            </TextField>
+            <Text layoutX="14.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Daily Revenue" wrappingWidth="123.9999771118164">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="58.0" layoutY="82.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="P" wrappingWidth="26.999977111816406">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
+      <AnchorPane layoutX="916.0" layoutY="276.0" prefHeight="130.0" prefWidth="330.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
+         <children>
+            <TextField fx:id="monthlyRevenue" alignment="TOP_LEFT" editable="false" focusTraversable="false" layoutX="58.0" layoutY="31.0" prefHeight="74.0" prefWidth="240.0" style="-fx-background-color: #ffffff;" text="21,600">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+            </TextField>
+            <Text layoutX="14.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monthly Revenue" wrappingWidth="123.9999771118164">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="54.0" layoutY="80.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="P" wrappingWidth="26.999977111816406">
+               <font>
+                  <Font name="System Bold" size="34.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="transactionsTable" focusTraversable="false" layoutX="336.0" layoutY="435.0" prefHeight="260.0" prefWidth="911.0">
+         <columns>
+            <TableColumn fx:id="company" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="COMPANY" />
+            <TableColumn fx:id="busType" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="BUS TYPE" />
+            <TableColumn fx:id="plateNumber" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="PLATE #" />
+            <TableColumn fx:id="route" editable="false" prefWidth="131.0" style="-fx-background-color: #f2db58;" text="ROUTE" />
+            <TableColumn fx:id="start" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="STATUS" />
+            <TableColumn fx:id="arrivalTime" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="ARRIVAL TIME" />
+            <TableColumn fx:id="departureTime" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="DEPARTURE TIME" />
+         </columns>
+      </TableView>
+      <TextField fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="270.0" promptText="Search...">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Text fill="#f2db58" layoutX="31.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRANSACTIONS">
+         <font>
+            <Font size="22.0" />
+         </font></Text>
+      <Text fill="#f2db58" layoutX="30.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE PROFILES">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fill="#f2db58" layoutX="31.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUS PROFILES">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <JFXButton fx:id="currentButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="51.0" layoutY="245.0" onAction="#currentButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Current" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="recordsButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="51.0" layoutY="286.0" onAction="#recordsButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Records" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="employeeViewButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="51.0" layoutY="382.0" onAction="#employeeViewButtonPressed" prefHeight="39.0" prefWidth="175.0" text="View" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="employeeCreateButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="51.0" layoutY="423.0" onAction="#employeeCreateButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Create" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="employeeEditButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="52.0" layoutY="467.0" onAction="#employeeEditButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Edit" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="busViewButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="53.0" layoutY="563.0" onAction="#busViewButtonPressed" prefHeight="39.0" prefWidth="175.0" text="View" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="busCreateButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="53.0" layoutY="604.0" onAction="#busCreateButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Create" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="busEditButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="54.0" layoutY="648.0" onAction="#busEditButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Edit" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

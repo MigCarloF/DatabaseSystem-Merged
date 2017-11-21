@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -115,6 +116,12 @@ public class FXMLMainCashierWindowController implements Initializable {
     @FXML
     private Text currentORNumber;
 
+    @FXML
+    private Label noPlate;
+
+    @FXML
+    private Label noCheck;
+
     private DatabaseReference database;
     private int currentORnum;
     private static int rangeLow, rangeHigh;
@@ -134,10 +141,15 @@ public class FXMLMainCashierWindowController implements Initializable {
     @FXML
     void busPrintButtonPressed(ActionEvent event) {
 
+        noCheck.setText("");
+        noPlate.setText("");
+
         String plateNo = plateNumber.getText();
         plateNo = plateNo.replaceAll("\\s","");//removes spaces
 
         if(plateNo.equals("")){
+            //todo throw error nga empty
+            noPlate.setText("* - Plate number cannot be empty");
             System.out.println("no input");
         }else{
             plateNo = plateNo.toUpperCase();  //all caps
@@ -159,10 +171,13 @@ public class FXMLMainCashierWindowController implements Initializable {
 
 
             if (!loadingFee.isSelected() && !arrivalFee.isSelected()) {
+                noCheck.setText("* - Select Fee to be paid");
                 //lblBusFeeTypeErr.setText("* - Select Fee to be paid");
                 //todo error select fee to be paid
                 System.out.println("unchecked");
             } else {
+                noCheck.setText("");
+                noPlate.setText("");
                 //lblBusFeeTypeErr.setText("");
                 final boolean hasArrival = arrival;   //inner class calls needs to be final
                 final boolean hasLoading = loading;
@@ -172,6 +187,8 @@ public class FXMLMainCashierWindowController implements Initializable {
                     public void onDataChange(DataSnapshot snapshot) {
                         if(snapshot.getChildrenCount() == 0){
                             //todo error here bus doesnt exist
+                            noPlate.setText("* - bus  does not exist");
+                            //noPlate.setText("* - bus with plate " + plateNum + " does not exist");
                             System.out.println("no bus");
                         }
                         else{
@@ -192,6 +209,7 @@ public class FXMLMainCashierWindowController implements Initializable {
     @FXML
     void transactionsButtonPressed(ActionEvent event) throws IOException {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLTransactions.fxml"));
+        //Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLAccountantWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
@@ -281,6 +299,8 @@ public class FXMLMainCashierWindowController implements Initializable {
         totalCashier.setText("1886");
 
         currentORNumber.setText("000142");
+        noCheck.setText("");
+        noPlate.setText("");
         database = FirebaseDatabase.getInstance().getReference();
 
     }
