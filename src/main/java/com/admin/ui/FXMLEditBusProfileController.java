@@ -102,29 +102,29 @@ public class FXMLEditBusProfileController implements Initializable {
         boolean minibus = true;
         if(size.equals("bus")) minibus = false;
 
-        Bus bus = new Bus(busNo,size,franchise, minibus,plateNo,contactPerson,contactNumber,
-                type,route,capacity,fare);
-        DatabaseReference ref = database.child("Buses");
-        if(!plateNo.equals(busToEdit.getPlateNo())){
-            ref.child(plateNo).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    if(snapshot.getChildrenCount() > 0){
-                        //todo throw error na bus with plate number already exist
-                    }else {
-                        ref.child(busToEdit.getPlateNo()).setValue(null);
-                        ref.child(plateNo).setValue(bus);
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-
-                }
-            });
-        }else {
-            ref.child(busToEdit.getPlateNo()).setValue(bus);
-        }
+//        Bus bus = new Bus(busNo,size,franchise, minibus,plateNo,contactPerson,contactNumber,
+//                type,route,capacity,fare);
+//        DatabaseReference ref = database.child("Buses");
+//        if(!plateNo.equals(busToEdit.getPlateNo())){
+//            ref.child(plateNo).addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot snapshot) {
+//                    if(snapshot.getChildrenCount() > 0){
+//                        //todo throw error na bus with plate number already exist
+//                    }else {
+//                        ref.child(busToEdit.getPlateNo()).setValue(null);
+//                        ref.child(plateNo).setValue(bus);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError error) {
+//
+//                }
+//            });
+//        }else {
+//            ref.child(busToEdit.getPlateNo()).setValue(bus);
+//        }
 
 
         Stage stage = (Stage) editProfilesCancelButton.getScene().getWindow();

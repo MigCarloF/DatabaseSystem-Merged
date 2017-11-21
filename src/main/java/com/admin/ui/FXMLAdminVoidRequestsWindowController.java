@@ -98,7 +98,7 @@ public class FXMLAdminVoidRequestsWindowController implements Initializable {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
                 Stage stage = (Stage) adminVoidRequestsButton.getScene().getWindow();
                 if(adminVoidRequestsMenu.getItems().get((Integer) number2).equals("CURRENT")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCurrentWindow.fxml"));
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/com/loginform/FXMLCurrentWindow.fxml"));
                     Parent anotherRoot = null;
                     try {
                         anotherRoot = anotherLoader.load();
@@ -128,7 +128,7 @@ public class FXMLAdminVoidRequestsWindowController implements Initializable {
                     Scene anotherScene = new Scene(anotherRoot);
                     currentStage.setScene(anotherScene);
                 } else if (adminVoidRequestsMenu.getItems().get((Integer) number2).equals("BUS PROFILES")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLBusProfiles.fxml"));
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/com/loginform/FXMLBusProfiles.fxml"));
                     Parent anotherRoot = null;
                     try {
                         anotherRoot = anotherLoader.load();

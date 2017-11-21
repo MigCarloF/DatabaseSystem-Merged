@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class FXMLCreateAccountController implements Initializable {
-    //BRANDON!!!!! kani tanan haha
     @FXML
     private JFXButton createAccountCancelButton;
 
@@ -41,7 +40,7 @@ public class FXMLCreateAccountController implements Initializable {
     @FXML
     private TextField createAccountLastName;
 
-    DatabaseReference database;
+    private DatabaseReference database;
 
     @FXML
     void createAccountCancelPressed(ActionEvent event) {
@@ -57,18 +56,19 @@ public class FXMLCreateAccountController implements Initializable {
         String lastName = createAccountLastName.getText();
         String accountType = createAccountType.getValue().toString();
 
-        DatabaseReference ref = database.child("Employees");
-        ref.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+        System.out.println("Username: " + username + "\nPassword: " + password + "\nAccount type: " + accountType
+        + "\nFirst name: " + firstName + "\nLast name: " + lastName);
+
+        // closes the window
+        DatabaseReference ref = database.child("Employees").child(username);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.getChildrenCount() > 0){
-                    //TODO alert user already exists
-                    //todo i think kuwang nig check if user with first name + last name exists
-                    //todo lets just assume na di bogo ang admin para mag add ug same user hahahahaha
-                }
-                else{
+                    //todo throw error or what
+                }else{
                     Employee employee = new Employee(username,password,firstName,lastName,accountType);
-                    ref.child(employee.getUsername()).setValue(employee);
+                    ref.setValue(employee);
                 }
             }
 
@@ -77,11 +77,10 @@ public class FXMLCreateAccountController implements Initializable {
 
             }
         });
-
-        // closes the window
         Stage stage = (Stage) createAccountCreateButton.getScene().getWindow();
         stage.close();
     }
+
 
     /**
      * Initializes the controller class.
@@ -92,6 +91,7 @@ public class FXMLCreateAccountController implements Initializable {
         createAccountType.setVisibleRowCount(3);
         createAccountType.setEditable(false);
         createAccountType.setPromptText("ACCOUNT TYPE");
+
         database = FirebaseDatabase.getInstance().getReference();
     }    
     

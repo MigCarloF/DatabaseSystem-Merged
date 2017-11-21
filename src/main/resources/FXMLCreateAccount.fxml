@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -9,54 +10,66 @@
 
 <AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLCreateAccountController">
    <children>
-      <AnchorPane opacity="0.8" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #D3E1AC;">
+      <AnchorPane prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #7C1B2E;">
          <children>
-            <Text layoutX="15.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREATE AN ACCOUNT">
+            <Text fill="WHITE" layoutX="15.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREATE AN ACCOUNT">
                <font>
                   <Font name="Open Sans Bold" size="23.0" />
                </font>
             </Text>
-            <JFXButton fx:id="createAccountCancelButton" buttonType="RAISED" layoutX="700.0" onAction="#createAccountCancelPressed" prefHeight="40.0" prefWidth="100.0" text="Cancel">
+            <JFXButton fx:id="createAccountCancelButton" buttonType="RAISED" focusTraversable="false" layoutX="700.0" onAction="#createAccountCancelPressed" prefHeight="40.0" prefWidth="100.0" text="Cancel" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </JFXButton>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="createAccountCreateButton" layoutY="413.0" onAction="#createProfileCreatePressed" prefHeight="35.0" prefWidth="800.0" style="-fx-background-color: #D3E1AC;" text="CREATE">
+      <JFXButton fx:id="createAccountCreateButton" focusTraversable="false" layoutY="413.0" onAction="#createProfileCreatePressed" prefHeight="35.0" prefWidth="800.0" style="-fx-background-color: #7C1B2E;" text="CREATE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
       <Text layoutX="418.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME:">
          <font>
-            <Font name="Open Sans Light" size="22.0" />
+            <Font size="22.0" />
          </font>
       </Text>
       <Text layoutX="417.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD:">
          <font>
-            <Font name="Open Sans Light" size="22.0" />
+            <Font size="22.0" />
          </font>
       </Text>
       <Text layoutX="320.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ACCOUNT TYPE:">
          <font>
-            <Font name="Open Sans Light" size="22.0" />
+            <Font size="22.0" />
          </font>
       </Text>
-      <TextField fx:id="createAccountUsername" layoutX="549.0" layoutY="119.0" prefHeight="40.0" prefWidth="200.0" />
-      <TextField fx:id="createAccountPassword" layoutX="549.0" layoutY="215.0" prefHeight="40.0" prefWidth="200.0" />
-      <ComboBox fx:id="createAccountType" layoutX="300.0" layoutY="322.0" prefHeight="40.0" prefWidth="200.0" />
+      <TextField fx:id="createAccountUsername" focusTraversable="false" layoutX="549.0" layoutY="119.0" prefHeight="40.0" prefWidth="200.0">
+         <font>
+            <Font name="Consolas" size="15.0" />
+         </font></TextField>
+      <ComboBox fx:id="createAccountType" focusTraversable="false" layoutX="250.0" layoutY="322.0" prefHeight="40.0" prefWidth="300.0" />
       <Text layoutX="49.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FIRST NAME:">
          <font>
-            <Font name="Open Sans Light" size="22.0" />
+            <Font size="22.0" />
          </font>
       </Text>
       <Text layoutX="53.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LAST NAME:">
          <font>
-            <Font name="Open Sans Light" size="22.0" />
+            <Font size="22.0" />
          </font>
       </Text>
-      <TextField fx:id="createAccountFirstName" layoutX="188.0" layoutY="119.0" prefHeight="40.0" prefWidth="200.0" />
-      <TextField fx:id="createAccountLastName" layoutX="188.0" layoutY="215.0" prefHeight="40.0" prefWidth="200.0" />
+      <TextField fx:id="createAccountFirstName" focusTraversable="false" layoutX="188.0" layoutY="119.0" prefHeight="40.0" prefWidth="200.0">
+         <font>
+            <Font name="Consolas" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="createAccountLastName" focusTraversable="false" layoutX="188.0" layoutY="215.0" prefHeight="40.0" prefWidth="200.0">
+         <font>
+            <Font name="Consolas" size="15.0" />
+         </font></TextField>
+      <PasswordField fx:id="createAccountPassword" focusTraversable="false" layoutX="549.0" layoutY="214.0" prefHeight="40.0" prefWidth="200.0">
+         <font>
+            <Font name="Consolas" size="15.0" />
+         </font></PasswordField>
    </children>
 </AnchorPane>

@@ -6,10 +6,9 @@
 package com.admin.ui;
 
 import com.database.Bus;
+import com.database.Fee;
+import com.database.FeeTable;
 import com.google.firebase.database.*;
-import com.jfoenix.controls.JFXButton;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,86 +18,136 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- *
- * @author alboresallyssa
- */
 public class FXMLBusProfilesController implements Initializable {
-
+    Stage anotherStage = new Stage();
+    @FXML
+    private Text adminUserText;
 
     @FXML
-    private TableView<Bus> busProfilesTable;
+    private TextField search;
 
     @FXML
-    private ComboBox busProfilesMenu;
+    private TableView<Bus> transactionsTable;
 
     @FXML
-    private TableColumn<Bus, String> columnFranchise;
+    private TableColumn<Bus, String> franchise;
 
     @FXML
-    private TableColumn<Bus, String> columnContactNumber;
+    private TableColumn<Bus, String> contactPerson;
 
     @FXML
-    private TableColumn<Bus, String> columnContactPerson;
+    private TableColumn<Bus, String> contactNumber;
 
     @FXML
-    private TableColumn<Bus, String> columnSize;
+    private TableColumn<Bus, String> plateNumber;
 
     @FXML
-    private TableColumn<Bus, String> columnRoute;
+    private TableColumn<Bus, String> size;
 
     @FXML
-    private TableColumn<Bus, String> columnBusType;
+    private TableColumn<Bus, String> route;
 
     @FXML
-    private TableColumn<Bus, String> columnCapacity;
-
-    @FXML
-    private TableColumn<Bus, String> columnPlateNo;
-
-    @FXML
-    private TableColumn<Bus, String> columnFare;
-
-    @FXML
-    private JFXButton busProfilesEditButton;
-
-    @FXML
-    private JFXButton busProfilesAdminButton;
-
-    private Stage createProfileStage = new Stage();
-    private Stage createAccountStage = new Stage();
-    private Stage currentStage = new Stage();
+    private TableColumn<Bus, String> type;
 
     private DatabaseReference database;
     private ObservableList<Bus> buses;
-    private ChildEventListener childEventListener;
 
+    void displayAll(){
+        DatabaseReference ref = database.child("Buses");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for(DataSnapshot snap : snapshot.getChildren()){
+                    Bus bus = snap.getValue(Bus.class);
+                    buses.add(bus);
+                    transactionsTable.setItems(buses);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
 
     @FXML
-    void busProfilesAdminButton(ActionEvent event) throws IOException {
-        //BRANDON!!!!!
+    void busCreateButtonPressed(ActionEvent event) throws IOException {
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateProfile.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        //anotherStage.centerOnScreen();  //does not really work idk
+        Scene anotherScene = new Scene(anotherRoot);
+        anotherStage.setScene(anotherScene);
+        anotherStage.initStyle(StageStyle.UNDECORATED);
+
+        busViewButtonPressed(event);
+        anotherStage.show();
+    }
+
+    @FXML
+    void busEditButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void busViewButtonPressed(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLBusProfiles.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    @FXML
+    void currentButtonPressed(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLCurrentWindow.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        //This line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    @FXML
+    void employeeCreateButtonPressed(ActionEvent event) throws IOException {
         FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateAccount.fxml"));
         Parent anotherRoot = anotherLoader.load();
+        //anotherStage.centerOnScreen();  //does not really work idk
         Scene anotherScene = new Scene(anotherRoot);
-        createAccountStage.setScene(anotherScene);
-        createAccountStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
+        anotherStage.setScene(anotherScene);
+        anotherStage.initStyle(StageStyle.UNDECORATED);
 
-        /**
-         *  The bus profiles window is "refreshed" every time the create profile
-         *  button is pressed due to an error. The error is caused from removing
-         *  the title bar of the window. The same as what I did in void request.
-         */
+        busViewButtonPressed(event);
+        anotherStage.show();
+    }
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLBusProfiles.fxml"));
+    @FXML
+    void employeeEditButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void employeeViewButtonPressed(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLViewAccounts.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
@@ -106,41 +155,10 @@ public class FXMLBusProfilesController implements Initializable {
 
         window.setScene(tableViewScene);
         window.show();
-
-        createAccountStage.show();
     }
 
     @FXML
-    void busProfilesEditProfileButtonPressed(ActionEvent event) throws IOException {
-        //BRANDON!!!!!
-        Bus editBus = busProfilesTable.getSelectionModel().getSelectedItem();
-        System.out.println(editBus.getContactPerson());
-        SingletonEditBus.getInstance().setBus(editBus);
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
-        Parent anotherRoot = anotherLoader.load();
-        Scene anotherScene = new Scene(anotherRoot);
-        createProfileStage.setScene(anotherScene);
-        createProfileStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
-        /**
-         *  The bus profiles window is "refreshed" every time the create profile
-         *  button is pressed due to an error. The error is caused from removing
-         *  the title bar of the window. The same as what I did in void request.
-         */
-
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLBusProfiles.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        //This line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-
-        createProfileStage.show();
-    }
-
-    @FXML
-    void busProfilesLogoutButtonPressed(ActionEvent event) throws IOException {
+    void logoutButtonPressed(ActionEvent event) throws IOException {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
@@ -152,23 +170,8 @@ public class FXMLBusProfilesController implements Initializable {
     }
 
     @FXML
-    void busProfilesCreateProfilePressed(ActionEvent event) throws IOException {
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateProfile.fxml"));
-        Parent anotherRoot = anotherLoader.load();
-        Scene anotherScene = new Scene(anotherRoot);
-        createProfileStage.setScene(anotherScene);
-        createProfileStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
-
-        /**
-         *  The bus profiles window is "refreshed" every time the create profile
-         *  button is pressed due to an error. The error is caused from removing
-         *  the title bar of the window. The same as what I did in void request.
-         */
-
-        //database.child("Buses").removeEventListener(childEventListener);
-        //buses.clear();
-        //startDataListener();
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLBusProfiles.fxml"));
+    void recordsButtonPressed(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLRecordsWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
@@ -176,149 +179,26 @@ public class FXMLBusProfilesController implements Initializable {
 
         window.setScene(tableViewScene);
         window.show();
-
-        createProfileStage.show();
-    }
-
-    private void startDataListener() {
-        DatabaseReference ref = database.child("Buses");
-
-        childEventListener = ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-                Bus bus = snapshot.getValue(Bus.class);
-                buses.add(bus);
-                busProfilesTable.setItems(buses);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot snapshot) {
-                Bus bus = snapshot.getValue(Bus.class);
-                buses.remove(bus);
-                busProfilesTable.setItems(buses);
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
-
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL location, ResourceBundle resources) {
+        adminUserText.setText("Sir Joey");
         /**
-         * This is to avoid a null pointer exception thrown by instantly pressing GO again right after changing
+         *  TODO: implement search text field
          */
-        busProfilesMenu.setValue(("BUS PROFILES"));
-
-        /**
-         * This part will be used to initialize the tree table view.
-         * TODO: Create profile window
-         *       Delete and edit a bus profile (with the database)
-         */
+        franchise.setCellValueFactory(new PropertyValueFactory<Bus, String>("company"));
+        contactPerson.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactPerson"));
+        contactNumber.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactNumber"));
+        plateNumber.setCellValueFactory(new PropertyValueFactory<Bus, String>("plateNo"));
+        size.setCellValueFactory(new PropertyValueFactory<Bus, String>("busSize"));
+        route.setCellValueFactory(new PropertyValueFactory<Bus, String>("busRoute"));
+        type.setCellValueFactory(new PropertyValueFactory<Bus, String>("busType"));
+        database = FirebaseDatabase.getInstance().getReference();
         buses = FXCollections.observableArrayList();
 
-        columnPlateNo.setCellValueFactory(new PropertyValueFactory<Bus, String>("plateNo"));
-        columnFranchise.setCellValueFactory(new PropertyValueFactory<Bus, String>("company"));
-        columnBusType.setCellValueFactory(new PropertyValueFactory<Bus, String>("busType"));
-        columnContactNumber.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactNumber"));
-        columnSize.setCellValueFactory(new PropertyValueFactory<Bus, String>("busSize"));
-        columnCapacity.setCellValueFactory(new PropertyValueFactory<Bus, String>("busCapacity"));
-        columnContactPerson.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactPerson"));
-        columnFare.setCellValueFactory(new PropertyValueFactory<Bus, String>("busFare"));
-        columnRoute.setCellValueFactory(new PropertyValueFactory<Bus, String>("busRoute"));
+        displayAll();
 
-        /**
-         *
-         private String plateNo;
-         private String company;
-         private String busType;
-         private boolean miniBus = false;
-         private String busNumber;
-         private String contactPerson;
-         private String contactNumber;
-         private String busSize;
-         private String busRoute;
-         private String busCapacity;
-         private String busFare;
-         */
-
-        database = FirebaseDatabase.getInstance().getReference();
-        //buses.clear();
-        startDataListener();
-        //Initialize columns on table
-
-        /**
-         * This part is for the initialization of the Combo Box.
-         * TODO: Every item in the menu when chosen, another scene will be
-         * opened to the item's corresponding scene (change scene/stage).
-         */
-
-        busProfilesMenu.getItems().addAll("CURRENT", "RECORDS", "VOID REQUESTS", "BUS PROFILES");
-        busProfilesMenu.setVisibleRowCount(4);
-        busProfilesMenu.setEditable(false);
-        busProfilesMenu.setPromptText("BUS PROFILES");
-
-        busProfilesMenu.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-                Stage stage = (Stage) busProfilesAdminButton.getScene().getWindow();
-                if(busProfilesMenu.getItems().get((Integer) number2).equals("CURRENT")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCurrentWindow.fxml"));
-                    Parent anotherRoot = null;
-                    try {
-                        anotherRoot = anotherLoader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Scene anotherScene = new Scene(anotherRoot);
-                    currentStage.setScene(anotherScene);
-                } else if (busProfilesMenu.getItems().get((Integer) number2).equals("RECORDS")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLRecordsWindow.fxml"));
-                    Parent anotherRoot = null;
-                    try {
-                        anotherRoot = anotherLoader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Scene anotherScene = new Scene(anotherRoot);
-                    currentStage.setScene(anotherScene);
-                } else if (busProfilesMenu.getItems().get((Integer) number2).equals("VOID REQUESTS")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLAdminVoidRequestsWindow.fxml"));
-                    Parent anotherRoot = null;
-                    try {
-                        anotherRoot = anotherLoader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Scene anotherScene = new Scene(anotherRoot);
-                    currentStage.setScene(anotherScene);
-                } else if (busProfilesMenu.getItems().get((Integer) number2).equals("BUS PROFILES")) {
-                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLBusProfiles.fxml"));
-                    Parent anotherRoot = null;
-                    try {
-                        anotherRoot = anotherLoader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Scene anotherScene = new Scene(anotherRoot);
-                    currentStage.setScene(anotherScene);
-                }
-                stage.close();
-                currentStage.show();
-            }
-        });
+        search.getText();
     }
 }

@@ -4,9 +4,11 @@ public class Employee{
 	private String username, password;
 	private String firstName, lastName;
 	private String workType;
-	private boolean activeEmployee;
+	private Boolean activeEmployee;
 
-	public Employee(String username, String password, String firstName, String lastName, String workType, boolean activeEmployee) { //for firebase
+	public Employee(){}
+
+	public Employee(Boolean activeEmployee, String firstName, String lastName, String password, String username, String workType) { //for firebase
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
@@ -66,11 +68,15 @@ public class Employee{
 		this.workType = workType;
 	}
 
-	public boolean isActiveEmployee() {
+	public Boolean isActiveEmployee() {
 		return activeEmployee;
 	}
 
 	public void setActiveEmployee(boolean activeEmployee) {
 		this.activeEmployee = activeEmployee;
 	}
+
+
+
+
 }

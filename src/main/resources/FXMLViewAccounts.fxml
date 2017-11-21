@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLBusProfilesController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLViewAccountsController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0">
          <image>
@@ -100,19 +99,16 @@
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <ScrollPane layoutX="326.0" layoutY="137.0" prefHeight="555.0" prefWidth="923.0">
-         <content>
-            <TableView fx:id="transactionsTable" focusTraversable="false" prefHeight="553.0" prefWidth="1071.0">
-               <columns>
-                  <TableColumn fx:id="franchise" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="FRANCHISE" />
-                  <TableColumn fx:id="contactPerson" editable="false" prefWidth="200.0" style="-fx-background-color: #f2db58;" text="CONTACT PERSON" />
-                  <TableColumn fx:id="contactNumber" editable="false" prefWidth="160.0" style="-fx-background-color: #f2db58;" text="CONTACT NUMBER" />
-                  <TableColumn fx:id="plateNumber" editable="false" prefWidth="131.0" style="-fx-background-color: #f2db58;" text="PLATE NUMBER" />
-                  <TableColumn fx:id="size" editable="false" prefWidth="120.0" style="-fx-background-color: #f2db58;" text="SIZE" />
-                  <TableColumn fx:id="route" editable="false" prefWidth="200.0" style="-fx-background-color: #f2db58;" text="ROUTE" />
-                  <TableColumn fx:id="type" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="TYPE" />
-               </columns>
-            </TableView>
-         </content></ScrollPane>
+      <TableView fx:id="transactionsTable" editable="true" focusTraversable="false" layoutX="334.0" layoutY="136.0" prefHeight="553.0" prefWidth="911.0">
+         <columns>
+            <TableColumn fx:id="firstName" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="FIRST NAME" />
+            <TableColumn fx:id="lastName" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="LAST NAME" />
+            <TableColumn fx:id="username" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="USERNAME" />
+            <TableColumn fx:id="password" prefWidth="131.0" style="-fx-background-color: #f2db58;" text="PASSWORD" />
+            <TableColumn fx:id="department" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="DEPARTMENT" />
+            <TableColumn fx:id="shift" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="SHIFT" />
+            <TableColumn fx:id="status" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="STATUS" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

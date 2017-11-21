@@ -1,155 +1,224 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: #F7F5E6;" stylesheets="@tableProfile.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
    <children>
-      <AnchorPane opacity="0.75" prefHeight="100.0" prefWidth="950.0" style="-fx-background-color: #D3E1AC;">
-         <children>
-            <JFXButton fx:id="recordsAdminButton" layoutX="698.0" onAction="#recordsAdminButtonPressed" prefHeight="100.0" prefWidth="125.0" text="ADMIN">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="recordsLogoutButton" layoutX="824.0" onAction="#recordsLogoutButtonPressed" prefHeight="100.0" prefWidth="125.0" text="LOGOUT">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </AnchorPane>
-      <ImageView fitHeight="85.0" fitWidth="85.0" layoutX="21.0" layoutY="7.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-1.0">
          <image>
-            <Image url="@Ph_seal_cebucity.png" />
+            <Image url="@BLUEGREY2.png" />
          </image>
       </ImageView>
-      <Text layoutX="121.0" layoutY="59.0" opacity="0.75" strokeType="OUTSIDE" strokeWidth="0.0" text="Cebu South Bus Terminal">
+      <ImageView fitHeight="45.0" fitWidth="200.0" layoutX="58.0" layoutY="37.0">
+         <image>
+            <Image url="@LOGO.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="948.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," wrappingWidth="87.13671875">
          <font>
-            <Font name="Open Sans Bold" size="24.0" />
+            <Font name="Consolas" size="18.0" />
          </font>
       </Text>
-      <AnchorPane layoutX="24.0" layoutY="152.0" prefHeight="210.0" prefWidth="900.0" style="-fx-background-color: #ffffff; -fx-border-color: #d3d3d3;">
+      <Text fx:id="adminUserText" fill="WHITE" layoutX="1029.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sir Joey" wrappingWidth="123.99999503977597">
+         <font>
+            <Font name="Consolas" size="18.0" />
+         </font>
+      </Text>
+      <JFXButton fx:id="logoutButton" blendMode="ADD" focusTraversable="false" layoutX="1143.0" layoutY="30.0" onAction="#logoutButtonPressed" prefHeight="50.0" prefWidth="100.0" ripplerFill="WHITE" text="Logout" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Consolas" size="18.0" />
+         </font>
+      </JFXButton>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#666999" height="584.0" layoutY="136.0" opacity="0.5" stroke="#666999" strokeType="INSIDE" width="300.0" />
+      <TextField fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="270.0" promptText="Search...">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Text fill="#f2db58" layoutX="31.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRANSACTIONS">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fill="#f2db58" layoutX="30.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPLOYEE PROFILES">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fill="#f2db58" layoutX="31.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUS PROFILES">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <JFXButton fx:id="currentButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="51.0" layoutY="245.0" onAction="#currentButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Current" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="recordsButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="51.0" layoutY="286.0" onAction="#recordsButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Records" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="employeeViewButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="51.0" layoutY="382.0" onAction="#employeeViewButtonPressed" prefHeight="39.0" prefWidth="175.0" text="View" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="employeeCreateButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="51.0" layoutY="423.0" onAction="#employeeCreateButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Create" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="employeeEditButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="52.0" layoutY="467.0" onAction="#employeeEditButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Edit" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="busViewButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="53.0" layoutY="563.0" onAction="#busViewButtonPressed" prefHeight="39.0" prefWidth="175.0" text="View" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="busCreateButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="53.0" layoutY="604.0" onAction="#busCreateButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Create" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="busEditButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="54.0" layoutY="648.0" onAction="#busEditButtonPressed" prefHeight="39.0" prefWidth="175.0" text="Edit" textFill="#f2db58">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane layoutX="328.0" layoutY="136.0" prefHeight="40.0" prefWidth="321.0" style="-fx-background-color: #ffffff;">
          <children>
-            <AnchorPane layoutX="1.0" layoutY="1.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #D3E1AC;">
-               <children>
-                  <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUMMARY">
-                     <font>
-                        <Font name="Open Sans Semibold" size="18.0" />
-                     </font>
-                  </Text>
-                  <DatePicker id="dateStartDate" fx:id="dateStartDate" layoutX="613.0" layoutY="4.0" onAction="#dateStartDateUpdated" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" />
-                  <DatePicker id="dateEndDate" fx:id="dateEndDate" layoutX="772.0" layoutY="4.0" onAction="#dateEndDateUpdated" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #D3E1AC;" />
-                  <Text layoutX="749.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="to">
-                     <font>
-                        <Font name="Open Sans Light" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="35.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;">
-               <children>
-                  <Text layoutX="206.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Arrival:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="totalArrival" layoutX="300.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="3">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="70.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <Text layoutX="257.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fees:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="totalArrivalFees" layoutX="300.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P100">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="105.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;">
-               <children>
-                  <Text layoutX="196.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Loading:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="totalLoading" layoutX="301.0" layoutY="2.0" style="-fx-background-color: #f4F4F4;" text="3">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="140.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <Text layoutX="256.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fees:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="totalLoadingFees" layoutX="301.0" layoutY="3.0" style="-fx-background-color: #FFFFFF;" text="P450">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="1.0" layoutY="175.0" prefHeight="35.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;">
-               <children>
-                  <Text layoutX="242.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL:">
-                     <font>
-                        <Font name="Open Sans Semibold" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="totalFees" layoutX="301.0" layoutY="3.0" style="-fx-background-color: #f4F4F4;" text="P550">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
+            <Text layoutX="132.0" layoutY="26.0" opacity="0.74" stroke="BLACK" strokeWidth="2.0" text="-" textAlignment="CENTER" wrappingWidth="57.1953125">
+               <font>
+                  <Font name="System Italic" size="18.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="dateTo" focusTraversable="false" layoutX="172.0" layoutY="1.0" prefHeight="38.0" prefWidth="148.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
+            <DatePicker fx:id="dateFrom" focusTraversable="false" layoutX="1.0" layoutY="1.0" prefHeight="38.0" prefWidth="148.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
          </children>
       </AnchorPane>
-      <TreeTableView fx:id="treeTableView" layoutX="24.0" layoutY="374.0" prefHeight="230.0" prefWidth="903.0">
-         <columns>
-            <TreeTableColumn id="tableColumn" fx:id="recordsFranchise" prefWidth="89.0" resizable="false" text="FRANCHISE" />
-            <TreeTableColumn id="tableColumn" fx:id="recordsBusType" prefWidth="90.0" text="BUS TYPE" />
-            <TreeTableColumn id="tableColumn" fx:id="recordsPlateNo" resizable="false" text="PLATE #" />
-            <TreeTableColumn id="tableColumn" fx:id="recordsRoute" prefWidth="139.0" resizable="false" text="ROUTE" />
-            <TreeTableColumn id="tableColumn" fx:id="recordsStatus" minWidth="0.0" prefWidth="130.0" resizable="false" text="STATUS" />
-            <TreeTableColumn id="tableColumn" fx:id="recordsArrivalTime" minWidth="0.0" prefWidth="75.0" resizable="false" text="A-TIME" />
-            <TreeTableColumn id="tableColumn" fx:id="recordsDepartureTime" minWidth="0.0" prefWidth="75.0" text="D-TIME" />
-            <TreeTableColumn id="tableColumn" fx:id="recordsArrivalFee" minWidth="0.0" prefWidth="75.0" text="A-FEE" />
-            <TreeTableColumn id="tableColumn" fx:id="recordsLoadingFee" minWidth="0.0" prefWidth="75.0" text="L-FEE" />
-            <TreeTableColumn id="tableColumn" fx:id="recordsORNum" minWidth="0.0" prefWidth="73.0" text="OR #" />
-         </columns>
-      </TreeTableView>
-      <ComboBox fx:id="recordsMenu" layoutX="24.0" layoutY="113.0" prefHeight="30.0" prefWidth="300.0" promptText="RECORDS" style="-fx-background-color: #D3E1AC;" />
-      <TextField fx:id="tableTotalArrival" layoutX="704.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
-      <TextField fx:id="tableTotalLoading" layoutX="778.0" layoutY="603.0" prefHeight="30.0" prefWidth="75.0" />
-      <TextField fx:id="tableTotal" layoutX="704.0" layoutY="632.0" prefHeight="30.0" prefWidth="150.0" />
-      <Text layoutX="652.0" layoutY="651.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Text>
+      <AnchorPane layoutX="661.0" layoutY="136.0" prefHeight="159.0" prefWidth="370.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <TextField fx:id="quantityAF" editable="false" focusTraversable="false" layoutX="128.0" layoutY="28.0" opacity="0.95" prefHeight="65.0" prefWidth="91.0" style="-fx-background-color: #FFFFFF;" text="9">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="quantityLF" alignment="TOP_LEFT" editable="false" focusTraversable="false" layoutX="127.0" layoutY="72.0" opacity="0.95" prefHeight="65.0" prefWidth="87.0" style="-fx-background-color: #FFFFFF;" text="9">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="amountAF" editable="false" focusTraversable="false" layoutX="219.0" layoutY="29.0" opacity="0.95" prefHeight="65.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" text="450">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="amountLF" editable="false" focusTraversable="false" layoutX="219.0" layoutY="75.0" opacity="0.95" prefHeight="65.0" prefWidth="133.0" style="-fx-background-color: #FFFFFF;" text="1050">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <Text layoutX="147.0" layoutY="35.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="217.0" layoutY="34.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="35.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrival Fee">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text layoutX="35.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading Fee">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Line endX="100.0" layoutX="238.0" layoutY="85.0" opacity="0.3" startX="-100.0" />
+            <Text layoutX="216.0" layoutY="72.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+            <Text layoutX="214.0" layoutY="117.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="328.0" layoutY="187.0" prefHeight="108.0" prefWidth="321.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <TextField fx:id="totalRevenue" editable="false" focusTraversable="false" layoutX="75.0" layoutY="19.0" prefHeight="77.0" prefWidth="219.0" style="-fx-background-color: #FFFFFF;" text="1600">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </TextField>
+            <Text layoutX="63.0" layoutY="70.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Text>
+            <Text layoutX="14.0" layoutY="27.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Revenue:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1043.0" layoutY="136.0" prefHeight="159.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Text layoutX="10.0" layoutY="26.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Voided Transactions">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="totalVoid" alignment="CENTER" editable="false" focusTraversable="false" layoutX="29.0" layoutY="38.0" opacity="0.95" prefHeight="86.0" prefWidth="137.0" style="-fx-background-color: #FFFFFF;" text="10">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
+      <ScrollPane focusTraversable="false" layoutX="328.0" layoutY="328.0" prefHeight="366.0" prefWidth="917.0">
+         <content>
+            <TableView prefHeight="363.0" prefWidth="1420.0">
+              <columns>
+                <TableColumn fx:id="date" editable="false" prefWidth="130.0" style="-fx-background-color: #F2DB58;" text="Date" />
+                  <TableColumn fx:id="time" editable="false" prefWidth="130.0" style="-fx-background-color: #F2DB58;" text="Time" />
+                  <TableColumn fx:id="orNo" editable="false" prefWidth="140.0" style="-fx-background-color: #F2DB58;" text="OR no." />
+                  <TableColumn fx:id="company" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Company" />
+                  <TableColumn fx:id="busType" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Bus type" />
+                  <TableColumn fx:id="plateNo" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Plate no." />
+                  <TableColumn fx:id="route" editable="false" prefWidth="200.0" style="-fx-background-color: #F2DB58;" text="Route" />
+                  <TableColumn fx:id="arrival" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Arrival" />
+                  <TableColumn editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Departure" />
+                  <TableColumn fx:id="feeType" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Fee type" />
+                  <TableColumn fx:id="amount" editable="false" prefWidth="120.0" style="-fx-background-color: #F2DB58;" text="Amount" />
+                  <TableColumn fx:id="status" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Status" />
+              </columns>
+            </TableView>
+         </content></ScrollPane>
    </children>
 </AnchorPane>
