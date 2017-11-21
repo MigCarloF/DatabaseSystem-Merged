@@ -14,18 +14,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- *
- * @author alboresallyssa
- */
-
 public class CashierMain extends Application {
     public static boolean cancelPressed = false;
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/FXMLArrivalWindow.fxml"));
-        stage.setTitle("Cashier");
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
+        stage.setTitle("Cebu South Bus Terminal");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -35,7 +30,7 @@ public class CashierMain extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        FirebaseDB.initFirebase(); //ari i-call ang initialize lmao
+        FirebaseDB.initFirebase();
         launch(args);
     }
 

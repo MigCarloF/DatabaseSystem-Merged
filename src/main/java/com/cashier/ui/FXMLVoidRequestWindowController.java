@@ -3,40 +3,62 @@ package com.cashier.ui;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class FXMLVoidRequestWindowController {
+public class FXMLVoidRequestWindowController implements Initializable {
+    //jimro
+    @FXML
+    private JFXButton cancel;
 
     @FXML
-    private JFXButton voidRequestWindowCancel;
+    private TextField busCompTextField1;
 
     @FXML
-    private JFXButton voidRequestWindowSend;
+    private TextField DateTimeTextField1;
 
     @FXML
-    private Text voidRequestWindowText1;    //OR NO
+    private TextField arrivFeeTextField;
 
     @FXML
-    private Text voidRequestWindowText2;    //Requested by
+    private TextField plateTextField;
 
     @FXML
-    private Text voidRequestWindowText3;    //Reason for avoiding
+    private TextField loadFeeTextField;
 
     @FXML
-    void voidRequestWindowCancelPressed(ActionEvent event) throws IOException {
-        Stage stage = (Stage) voidRequestWindowCancel.getScene().getWindow();
+    private TextField orNoTextField;
+
+    @FXML
+    private TextField totalTextField;
+
+    @FXML
+    void cancelPressed(ActionEvent event) {
+        Stage stage = (Stage) cancel.getScene().getWindow();
         CashierMain.cancelPressed = true;
         stage.close();
     }
 
     @FXML
-    void voidRequestWindowSendPressed(ActionEvent event) {
-        String orNum = voidRequestWindowText1.getText();
-        String requester = voidRequestWindowText2.getText();
-        String reason = voidRequestWindowText3.getText();
+    void sendVoidPressed(ActionEvent event) {
+        //INSERT what do
+        Stage stage = (Stage) cancel.getScene().getWindow();
+        CashierMain.cancelPressed = true;
+        stage.close();
     }
 
+    @FXML
+    public void initialize(URL url, ResourceBundle rb) {
+        busCompTextField1.setText("CERES");
+        DateTimeTextField1.setText("07/07/98    2:37 AM");
+        arrivFeeTextField.setText("50");
+        plateTextField.setText("ACS 2047");
+        loadFeeTextField.setText("50");
+        orNoTextField.setText("0000024");
+        totalTextField.setText("100");
+    }
 }

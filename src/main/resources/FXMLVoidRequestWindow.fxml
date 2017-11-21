@@ -1,81 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLVoidRequestWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="429.0" prefWidth="532.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLVoidRequestWindowController">
    <children>
-      <AnchorPane opacity="0.75" prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #DDACB8;">
-         <children>
-            <Text layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEND VOID REQUEST">
-               <font>
-                  <Font name="Open Sans Bold" size="23.0" />
-               </font>
-            </Text>
-            <JFXButton fx:id="voidRequestWindowCancel" buttonType="RAISED" layoutX="500.0" onAction="#voidRequestWindowCancelPressed" prefHeight="40.0" prefWidth="100.0" style="-fx-text-fill: #000000;" text="Cancel" textOverrun="CLIP">
-               <effect>
-                  <Lighting>
-                     <bumpInput>
-                        <Shadow />
-                     </bumpInput>
-                     <light>
-                     </light>
-                  </Lighting>
-               </effect>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </AnchorPane>
-      <JFXButton fx:id="voidRequestWindowSend" buttonType="RAISED" layoutY="313.0" onAction="#voidRequestWindowSendPressed" opacity="0.75" prefHeight="35.0" prefWidth="600.0" style="-fx-background-color: #DDACB8; -fx-text-fill: #000000;" text="SEND">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7c1b2e" height="35.0" stroke="#7c1b2e" strokeType="INSIDE" width="532.0" />
+      <Text fill="WHITE" layoutX="11.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SEND VOID REQUEST">
          <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </JFXButton>
-      <Text layoutX="74.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to send this void request?">
+            <Font size="18.0" />
+         </font></Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="264.0" layoutX="75.0" layoutY="87.0" stroke="#e1e1e1" strokeType="INSIDE" width="399.0" />
+      <JFXButton focusTraversable="false" layoutY="390.0" onAction="#sendVoidPressed" prefHeight="40.0" prefWidth="532.0" style="-fx-background-color: #7C1B2E;" text="SEND VOID REQUEST" textFill="WHITE">
          <font>
-            <Font name="Open Sans" size="20.0" />
+            <Font size="15.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="cancel" focusTraversable="false" layoutX="449.0" layoutY="-1.0" mnemonicParsing="false" onAction="#cancelPressed" text="CANCEL" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font></JFXButton>
+      <Text layoutX="102.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to cancel this transaction?">
+         <font>
+            <Font size="16.0" />
          </font>
       </Text>
-      <VBox alignment="CENTER_LEFT" layoutX="74.0" layoutY="124.0" prefHeight="125.0" prefWidth="211.0" spacing="15.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OR#">
-               <font>
-                  <Font name="Open Sans" size="20.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Requested by:">
-               <font>
-                  <Font name="Open Sans" size="20.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reason for voiding:">
-               <font>
-                  <Font name="Open Sans" size="20.0" />
-               </font>
-            </Text>
-         </children>
-      </VBox>
-      <Text fx:id="voidRequestWindowText1" layoutX="120.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0001 (V0001)" wrappingWidth="335.0">
+      <TextField fx:id="plateTextField" editable="false" focusTraversable="false" layoutX="180.0" layoutY="278.0" style="-fx-background-color: #ffffff;" text="ACS 2047">
          <font>
-            <Font name="Open Sans" size="20.0" />
+            <Font size="16.0" />
+         </font></TextField>
+      <TextField fx:id="orNoTextField" editable="false" focusTraversable="false" layoutX="168.0" layoutY="95.0" style="-fx-background-color: #ffffff;" text="0000024">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <Text layoutX="119.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="O.R. no.">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <TextField fx:id="totalTextField" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="206.0" layoutY="213.0" prefHeight="48.0" prefWidth="236.0" style="-fx-background-color: #ffffff;" text="100">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font></TextField>
+      <TextField fx:id="busCompTextField1" editable="false" focusTraversable="false" layoutX="211.0" layoutY="304.0" style="-fx-background-color: #ffffff;" text="CERES">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <Text layoutX="120.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrival Fee">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text layoutX="120.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Due">
+         <font>
+            <Font name="System Bold" size="22.0" />
          </font>
       </Text>
-      <Text fx:id="voidRequestWindowText2" layoutX="210.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Santos (Cashier 1)" wrappingWidth="335.0">
+      <Text layoutX="119.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading Fee">
          <font>
-            <Font name="Open Sans" size="20.0" />
-         </font>
-      </Text>
-      <Text fx:id="voidRequestWindowText3" layoutX="258.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong amount (P150 + P50)" wrappingWidth="302.0">
+            <Font size="16.0" />
+         </font></Text>
+      <Text layoutX="120.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plate No.">
          <font>
-            <Font name="Open Sans" size="20.0" />
-         </font>
-      </Text>
+            <Font size="16.0" />
+         </font></Text>
+      <Text layoutX="120.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bus Company">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <TextField fx:id="DateTimeTextField1" editable="false" focusTraversable="false" layoutX="108.0" layoutY="126.0" prefHeight="37.0" prefWidth="288.0" style="-fx-background-color: #ffffff;" text="07/07/98       2:37 AM">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <TextField fx:id="loadFeeTextField" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="237.0" layoutY="188.0" style="-fx-background-color: #ffffff;" text="50">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <TextField fx:id="arrivFeeTextField" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="237.0" layoutY="158.0" style="-fx-background-color: #ffffff;" text="50">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
    </children>
 </AnchorPane>
