@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.admin.ui;
 
 import com.database.Bus;
@@ -67,14 +62,19 @@ public class FXMLCreateProfileController implements Initializable {
     @FXML
     private TextField createProfileAlert;
 
-    DatabaseReference database;
+    private DatabaseReference database;
+
+    private ChildEventListener childEventListener;
+    private Alert alert = new Alert(Alert.AlertType.ERROR);
+    private Boolean errorFound = false;
+    private int latestNumberOfBusProfiles;
 
     @FXML
     void createProfileCancelPressed(ActionEvent event) {
         Stage stage = (Stage) createProfileCancelButton.getScene().getWindow();
         stage.close();
     }
-
+    
     @FXML
     void createProfileCreatePressed(ActionEvent event) {
         String contactPerson = createProfileCPerson.getText();
@@ -87,15 +87,55 @@ public class FXMLCreateProfileController implements Initializable {
         System.out.println("Contact person: " + contactPerson + "\nContact Number: " + contactNumber + "\nFranchise: "
         + franchise + "\nPlate number: " + plateNumber + "\nSize: " + size +
         "\nType: " + type + "\nRoute: " + route1 + " - " + route2);
+    
+        plateNumber = plateNumber.replaceAll("\\s","");//removes spaces
+        if(contactPerson.equals("") || contactNumber.equals("") || franchise.equals("") || plateNumber.equals("") 
+                || route1.equals("") || route2.equals("")){
+            alert.setTitle("INCOMPLETE DATA");
+            alert.setHeaderText("");
+            alert.setContentText("Please fill in all the data needed.");
+            alert.showAndWait();
+        }else {
+            final  String plate = plateNumber;
+            DatabaseReference ref = database.child("Buses").child(plateNumber);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if(snapshot.getChildrenCount() > 0){
+                        //todo throw bus w/ plateno already exist
+                        errorFound = true;
+                    }else{
+                        Bus bus = new Bus("",size,franchise,isbus,plate,contactPerson,
+                                contactNumber,type,route1 + " - " + route2,"","",true);
+                        ref.setValue(bus);
+                    }
+                }
 
+                @Override
+                public void onCancelled(DatabaseError error) {
+
+                }
+            });
+        }
+        if(errorFound){
+            System.out.println("Existing plate number found.");
+            alert.setTitle("E R R O R");
+            alert.setHeaderText("A bus with this plate number " + plateNumber + " already exists.");
+            alert.setContentText("Please enter another plate number.");
+            alert.showAndWait();
+        }else{
+            Stage stage = (Stage) createProfileCancelButton.getScene().getWindow();
+            stage.close();
+        }
+        
         /**
          * Add data to database
          * TODO: if not all need inputs are inputted, the alert text will change color
          */
-        plateNumber = plateNumber.replaceAll("\\s","");//removes spaces
+        
 
         //todo checking if such or exists
-
+/*
         if(plateNumber == null || plateNumber.equals("")) {
             System.out.println("invalid");
             //noVoid.setText("* - bus  does not exist");
@@ -129,7 +169,7 @@ public class FXMLCreateProfileController implements Initializable {
 
          // closes the window
         Stage stage = (Stage) createProfileCreateButton.getScene().getWindow();
-        stage.close();
+        stage.close();*/
     }
 
 
