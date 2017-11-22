@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-1.0">
          <image>
@@ -109,8 +109,8 @@
                   <Font name="System Italic" size="18.0" />
                </font>
             </Text>
-            <DatePicker fx:id="dateTo" focusTraversable="false" layoutX="172.0" layoutY="1.0" prefHeight="38.0" prefWidth="148.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
-            <DatePicker fx:id="dateFrom" focusTraversable="false" layoutX="1.0" layoutY="1.0" prefHeight="38.0" prefWidth="148.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
+            <DatePicker fx:id="dateTo" focusTraversable="false" layoutX="172.0" layoutY="1.0" onAction="#dateEndDateUpdated" prefHeight="38.0" prefWidth="148.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
+            <DatePicker fx:id="dateFrom" focusTraversable="false" layoutX="1.0" layoutY="1.0" onAction="#dateStartDateUpdated" prefHeight="38.0" prefWidth="148.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="661.0" layoutY="136.0" prefHeight="159.0" prefWidth="370.0" style="-fx-background-color: #ffffff;">
@@ -156,12 +156,12 @@
                </font>
             </Text>
             <Line endX="100.0" layoutX="238.0" layoutY="85.0" opacity="0.3" startX="-100.0" />
-            <Text layoutX="216.0" layoutY="72.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
+            <Text layoutX="216.0" layoutY="72.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="₱">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
-            <Text layoutX="214.0" layoutY="117.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
+            <Text layoutX="214.0" layoutY="117.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="₱">
                <font>
                   <Font size="30.0" />
                </font>
@@ -175,7 +175,7 @@
                   <Font name="System Bold" size="36.0" />
                </font>
             </TextField>
-            <Text layoutX="63.0" layoutY="70.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
+            <Text layoutX="63.0" layoutY="70.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="₱">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -203,7 +203,7 @@
       </AnchorPane>
       <ScrollPane focusTraversable="false" layoutX="328.0" layoutY="328.0" prefHeight="366.0" prefWidth="917.0">
          <content>
-            <TableView prefHeight="363.0" prefWidth="1420.0">
+            <TableView fx:id="transactionsTable" prefHeight="363.0" prefWidth="1420.0">
               <columns>
                 <TableColumn fx:id="date" editable="false" prefWidth="130.0" style="-fx-background-color: #F2DB58;" text="Date" />
                   <TableColumn fx:id="time" editable="false" prefWidth="130.0" style="-fx-background-color: #F2DB58;" text="Time" />

@@ -1,6 +1,12 @@
 package com.admin.ui;
 
+import com.database.Bus;
+import com.database.Fee;
+import com.database.FeeTable;
+import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,15 +14,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ResourceBundle;
 
 public class FXMLRecordsWindowController implements Initializable {
@@ -79,37 +87,160 @@ public class FXMLRecordsWindowController implements Initializable {
     private TextField totalVoid;
 
     @FXML
-    private TableColumn<?, ?> date;
+    private TableView<FeeTable> transactionsTable;
 
     @FXML
-    private TableColumn<?, ?> time;
+    private TableColumn<FeeTable, String> date;
 
     @FXML
-    private TableColumn<?, ?> orNo;
+    private TableColumn<FeeTable, String> time;
 
     @FXML
-    private TableColumn<?, ?> company;
+    private TableColumn<FeeTable, String> orNo;
 
     @FXML
-    private TableColumn<?, ?> busType;
+    private TableColumn<FeeTable, String> company;
 
     @FXML
-    private TableColumn<?, ?> plateNo;
+    private TableColumn<FeeTable, String> busType;
 
     @FXML
-    private TableColumn<?, ?> route;
+    private TableColumn<FeeTable, String> plateNo;
 
     @FXML
-    private TableColumn<?, ?> arrival;
+    private TableColumn<FeeTable, String> route;
 
     @FXML
-    private TableColumn<?, ?> feeType;
+    private TableColumn<FeeTable, String> arrival;
 
     @FXML
-    private TableColumn<?, ?> amount;
+    private TableColumn<FeeTable, String> feeType;
 
     @FXML
-    private TableColumn<?, ?> status;
+    private TableColumn<FeeTable, String> amount;
+
+    @FXML
+    private TableColumn<FeeTable, String> status;
+
+    private DatabaseReference database;
+    private int tarrival, load, totalvoided;
+    private ObservableList<FeeTable> fees;
+
+    private void updateTable(LocalDate startDate, LocalDate endDate){
+        tarrival = 0;
+        load = 0;
+        totalvoided = 0;
+        fees.clear();
+        DatabaseReference dref = database.child("Fees");
+
+        /**
+         * ordered by date (firebase default method)
+         * getting all items starting from the startDate to endDate
+         */
+        dref.orderByChild("datePaid").startAt(startDate.toString()).endAt(endDate.toString())
+                .addListenerForSingleValueEvent(new ValueEventListener() { //functions just the same sa listener above pero lain lang reference (instead of Fees, Buses na na table)
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot snap : dataSnapshot.getChildren()){
+                            Fee fee = snap.getValue(Fee.class);
+                            if(fee.getPaidArrival()) tarrival+=1;
+                            if(fee.getPaidLoading()) load +=1;
+                            if(fee.get_void()) totalvoided += 1;
+
+                            DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                            bref.addListenerForSingleValueEvent(new ValueEventListener() { //functions just the same sa listener above pero lain lang reference (instead of Fees, Buses na na table)
+                                @Override
+                                public void onDataChange(DataSnapshot bussnapshot) {
+                                    Bus bus = bussnapshot.getValue(Bus.class);
+                                    //System.out.println(fee.getBus_plate());
+                                    fees.add(new FeeTable(fee,bus));
+                                    transactionsTable.setItems(fees);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
+
+                            int productArrival = tarrival * 50;
+                            int productLoad = load * 150;
+                            quantityAF.setText(tarrival + "");
+                            quantityLF.setText(load + "");
+                            amountAF.setText("" + productArrival);
+                            amountLF.setText("" + productLoad);
+                            totalRevenue.setText("" + (productArrival + productLoad));
+                            totalVoid.setText("" + totalvoided);
+                        }
+                        //ObservableList<FeeTable> feeList = transactionsTable.getItems();
+//                        for (FeeTable f : fees) {
+//                            System.out.println(f.getTotalAmount());
+//                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+
+    }
+
+    public void dateEndDateUpdated() {
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        if (item.isAfter(dateTo.getValue())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #b3b5b0;");
+                        }
+                        if (item.isAfter(LocalDate.now())){
+                            setDisable(true);
+                            setStyle("-fx-background-color: #b3b5b0;");
+                        }
+                    }
+                };
+            }
+        };
+        dateFrom.setDayCellFactory(dayCellFactory);
+        try{
+            dateTo.getValue();
+            updateTable(dateFrom.getValue(), dateTo.getValue());
+        }catch(NullPointerException e){
+            updateTable(LocalDate.of(1990, Month.JANUARY, 1), dateTo.getValue());
+        }
+
+    }
+
+    public void dateStartDateUpdated() {
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        if (item.isBefore(dateFrom.getValue())) {
+                            setDisable(true);
+                        }
+                        if (item.isAfter(LocalDate.now())){
+                            setDisable(true);
+                        }
+                    }
+                };
+            }
+        };
+
+        try{
+            dateFrom.getValue();
+            updateTable(dateFrom.getValue(), dateTo.getValue());
+        }catch(NullPointerException e){
+            updateTable(dateFrom.getValue(), LocalDate.now());
+        }
+    }
 
     @FXML
     void busCreateButtonPressed(ActionEvent event) throws IOException {
@@ -185,7 +316,7 @@ public class FXMLRecordsWindowController implements Initializable {
 
     @FXML
     void logoutButtonPressed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../loginform/FXMLLoginFormWindow.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
@@ -219,7 +350,40 @@ public class FXMLRecordsWindowController implements Initializable {
         /**
          *  TODO: implement search text field
          */
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        if (item.isAfter(LocalDate.now())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #b3b5b0;");
+                        }
+                    }
+                };
+            }
+        };
+        dateFrom.setDayCellFactory(dayCellFactory);
+        dateTo.setDayCellFactory(dayCellFactory);
+        dateFrom.setEditable(false);
+        dateTo.setEditable(false);
 
+        date.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("date"));
+        time.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("timePaid"));
+        orNo.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busCompany"));
+        company.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("feeType"));
+        busType.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busType"));
+        plateNo.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("plateNo"));
+        route.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busRoute"));
+        feeType.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("feeType"));
+        amount.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("totalAmount"));
+        status.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("voidStatus"));
+
+
+        database = FirebaseDatabase.getInstance().getReference();
+        fees = FXCollections.observableArrayList();
+        updateTable(LocalDate.of(1990, Month.JANUARY, 1), LocalDate.now());
         search.getText();
     }
 }

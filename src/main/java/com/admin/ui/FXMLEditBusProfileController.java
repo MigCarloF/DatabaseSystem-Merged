@@ -102,8 +102,7 @@ public class FXMLEditBusProfileController implements Initializable {
             alert.showAndWait();
         }else {
             DatabaseReference ref = database.child("Buses");
-            Bus bus = new Bus(busNumber, size, franchise, minibus, plateNumber, contactPerson, contactNumber,
-                    type, route, capacity, fare);
+            Bus bus = new Bus(busNumber, size, franchise, minibus, plateNumber, contactPerson, contactNumber, type, route, capacity, fare, true);
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
