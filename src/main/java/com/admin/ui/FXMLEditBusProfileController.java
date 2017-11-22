@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.admin.ui;
 
 import com.database.Bus;
-import com.google.api.client.util.BackOffUtils;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -64,6 +59,10 @@ public class FXMLEditBusProfileController implements Initializable {
 
     private Bus busToEdit;
     private DatabaseReference database;
+    private ChildEventListener childEventListener;
+    private Boolean errorFound = false;
+    private String errorStatus = "";
+    private Alert alert = new Alert(Alert.AlertType.ERROR);
 
     @FXML
     void editProfilesCancelPressed(ActionEvent event) {
@@ -72,7 +71,7 @@ public class FXMLEditBusProfileController implements Initializable {
     }
 
     @FXML
-    void editProfilesDeletePressed(ActionEvent event) {
+    void editProfilesDeletePressed(ActionEvent event) { //TODO: update this to suit the updated bus class
         //DELETE SA DATABASE
         DatabaseReference ref = database.child("Buses");
         ref.child(busToEdit.getPlateNo()).setValue(null);
@@ -80,57 +79,83 @@ public class FXMLEditBusProfileController implements Initializable {
 
     @FXML
     void editProfilesEditPressed(ActionEvent event) {
-        //EDITABLE TEXTFIELD RIGHT THEN ANG NEW KAY I REPLACE ANG OLD
-        /**
-         *  ahh i check na lang nako tanan if naa bay na change nila
-         */
         String contactPerson = editProfilesCPerson.getText();
         String contactNumber = editProfilesCNumber.getText();
         String franchise = editProfilesFranchise.getText();
-        String plateNo = editProfilesPlateNo.getText();
-        String busNo = editProfilesBusNo.getText();
+        String plateNumber = editProfilesPlateNo.getText();
+        String busNumber = editProfilesBusNo.getText();
         String size = editProfilesSize.getText();
         String capacity = editProfilesCapacity.getText();
         String type = editProfilesType.getText();
         String route = editProfilesRoute.getText();
         String fare = editProfilesFare.getText();
+        Boolean minibus = true;
+        if(size.equals("bus")){
+            minibus = false;
+        }
 
-        // IF ELSE??? TO COMPARE IF NAA BAY NA CHANGE?? THEN IN NAA KAY I REPLACE LIKE IF ANG CONTACT
-        // NUMBER NA CHANGE THEN I REPLACE ANG CONTACT NUMBER SA DATABASE ATO NA BUS PROFILE WAAHHH
+        if(contactPerson.equals("") || contactNumber.equals("") || franchise.equals("") || plateNumber.equals("") || busNumber.equals("")
+                || capacity.equals("") || fare.equals("")){
+            alert.setTitle("INCOMPLETE DATA");
+            alert.setHeaderText("");
+            alert.setContentText("Please fill in all the data needed.");
+            alert.showAndWait();
+        }else {
+            DatabaseReference ref = database.child("Buses");
+            Bus bus = new Bus(busNumber, size, franchise, minibus, plateNumber, contactPerson, contactNumber,
+                    type, route, capacity, fare);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.hasChild(plateNumber)) { // check if plate number already exists
+                        setError(true);
+                        errorStatus = "Plate_number";
+                    }
+                    ref.child(franchise).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) { // check if a bus in the same company has an existing
+                            if(snapshot.hasChild(busNumber)){             // bus number equal to "busNumber"
+                                setError(true);
+                                errorStatus = "Franchise_Bus_number";
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError error2) {}
+                    });
 
-        //closes window
-        boolean minibus = true;
-        if(size.equals("bus")) minibus = false;
+                    if(!errorFound) {
+                        ref.child(busToEdit.getPlateNo()).setValue(null);
+                        ref.child(plateNumber).setValue(bus);
+                    }
+                }
 
-//        Bus bus = new Bus(busNo,size,franchise, minibus,plateNo,contactPerson,contactNumber,
-//                type,route,capacity,fare);
-//        DatabaseReference ref = database.child("Buses");
-//        if(!plateNo.equals(busToEdit.getPlateNo())){
-//            ref.child(plateNo).addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot snapshot) {
-//                    if(snapshot.getChildrenCount() > 0){
-//                        //todo throw error na bus with plate number already exist
-//                    }else {
-//                        ref.child(busToEdit.getPlateNo()).setValue(null);
-//                        ref.child(plateNo).setValue(bus);
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError error) {
-//
-//                }
-//            });
-//        }else {
-//            ref.child(busToEdit.getPlateNo()).setValue(bus);
-//        }
-
-
-        Stage stage = (Stage) editProfilesCancelButton.getScene().getWindow();
-        stage.close();
+                @Override
+                public void onCancelled(DatabaseError error) {}
+            });
+        }
+        if(!errorFound){
+            Stage stage = (Stage) editProfilesCancelButton.getScene().getWindow();
+            stage.close();
+        }else{
+            if(errorStatus.equals("Plate_number")){
+                System.out.println("Plate number already exists.");
+                alert.setTitle("E R R O R");
+                alert.setHeaderText("A bus with the plate number " + plateNumber + " already exists.");
+                alert.setContentText("Please enter another plate number.");
+                alert.showAndWait();
+            }else if(errorStatus.equals("Franchise_Bus_number")){
+                System.out.println("A " + franchise + " Bus with the " + busNumber + " number already exists.");
+                alert.setTitle("E R R O R");
+                alert.setHeaderText("A " + franchise + " Bus with the " + busNumber + " number already exists.");
+                alert.setContentText("Please enter another bus company or number.");
+                alert.showAndWait();
+            }
+        }
     }
 
+    private void setError(Boolean status){
+        errorFound = status;
+    }
 
     /**
      * Initializes the controller class.
@@ -138,10 +163,7 @@ public class FXMLEditBusProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         database = FirebaseDatabase.getInstance().getReference();
-        //TODO:
-        /**
-         * get the selected row sa tableview and then ang data needed duh
-         */
+
         busToEdit = SingletonEditBus.getInstance().getBus();
 
         editProfilesAccountNo.setText("");  //the account number of the bus profile selected
@@ -157,5 +179,4 @@ public class FXMLEditBusProfileController implements Initializable {
         editProfilesRoute.setText(busToEdit.getBusRoute());
         editProfilesFare.setText(busToEdit.getBusFare());
     }
-
 }
