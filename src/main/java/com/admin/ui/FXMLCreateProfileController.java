@@ -5,6 +5,8 @@
  */
 package com.admin.ui;
 
+import com.database.Bus;
+import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
@@ -23,6 +25,8 @@ public class FXMLCreateProfileController implements Initializable {
 
     static String type = "";
     static String size = "";
+    //private boolean ismini = false;
+    private boolean isbus = false;
 
     @FXML
     private JFXButton createProfileCancelButton;
@@ -63,6 +67,8 @@ public class FXMLCreateProfileController implements Initializable {
     @FXML
     private TextField createProfileAlert;
 
+    DatabaseReference database;
+
     @FXML
     void createProfileCancelPressed(ActionEvent event) {
         Stage stage = (Stage) createProfileCancelButton.getScene().getWindow();
@@ -86,11 +92,40 @@ public class FXMLCreateProfileController implements Initializable {
          * Add data to database
          * TODO: if not all need inputs are inputted, the alert text will change color
          */
-        if(plateNumber.equals("")) {
-            // change color of createProfileAlert to red
-        } else {
-            // change back to black
+        plateNumber = plateNumber.replaceAll("\\s","");//removes spaces
+
+        //todo checking if such or exists
+
+        if(plateNumber == null || plateNumber.equals("")) {
+            System.out.println("invalid");
+            //noVoid.setText("* - bus  does not exist");
+        }else{
+            final  String plate = plateNumber;
+            DatabaseReference ref = database.child("Buses").child(plateNumber);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if(snapshot.getChildrenCount() > 0){
+                        //todo throw bus w/ plateno already exist
+                    }else{
+                        Bus bus = new Bus("",size,franchise,isbus,plate,contactPerson,
+                                contactNumber,type,route1 + " - " + route2,"","",true);
+                        ref.setValue(bus);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+
+                }
+            });
         }
+
+//        if(plateNumber.equals("")) {
+//            // change color of createProfileAlert to red
+//        } else {
+//            // change back to black
+//        }
 
          // closes the window
         Stage stage = (Stage) createProfileCreateButton.getScene().getWindow();
@@ -116,8 +151,14 @@ public class FXMLCreateProfileController implements Initializable {
             size = observable.getValue().toString();
             size = size.substring(size.indexOf("'")+1, size.lastIndexOf("'"));
             System.out.println(size);
+            if(size.equals("BUS")){
+                isbus = true;
+            }else{
+                isbus = false;
+            }
         });
 
+        database = FirebaseDatabase.getInstance().getReference();
 
     }
     

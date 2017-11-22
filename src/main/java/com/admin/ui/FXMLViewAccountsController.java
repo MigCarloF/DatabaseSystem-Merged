@@ -69,11 +69,10 @@ public class FXMLViewAccountsController implements Initializable {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                System.out.println(snapshot.getChildrenCount());
+                //System.out.println(snapshot.getChildrenCount());
                 for(DataSnapshot snap : snapshot.getChildren()){
-
                     Employee employee = snap.getValue(Employee.class);
-
+                    //System.out.println(employee.getUsername());
                    // System.out.println(snap.getClass());
                     employees.add(employee);
                     transactionsTable.setItems(employees);

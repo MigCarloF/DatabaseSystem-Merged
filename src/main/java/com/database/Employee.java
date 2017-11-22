@@ -4,11 +4,9 @@ public class Employee{
 	private String username, password;
 	private String firstName, lastName;
 	private String workType;
-	private Boolean activeEmployee;
+	private boolean activeEmployee = false;
 
-	public Employee(){}
-
-	public Employee(Boolean activeEmployee, String firstName, String lastName, String password, String username, String workType) { //for firebase
+	public Employee(String username, String password, String firstName, String lastName, String workType, boolean activeEmployee) {
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
@@ -24,9 +22,15 @@ public class Employee{
 		this.lastName = lastName;
 		this.workType = workType;
 		activeEmployee = true;	// set default to true because I think you wont add an inactive employee
-								// and this constructor is only called when you create a new employee
-								//call setter to set it to inactive
+		// and this constructor is only called when you create a new employee
+		//call setter to set it to inactive
 	}
+
+	public Employee(){
+
+	}
+
+
 
 	public String getUsername() {
 		return username;
@@ -68,7 +72,7 @@ public class Employee{
 		this.workType = workType;
 	}
 
-	public Boolean isActiveEmployee() {
+	public boolean isActiveEmployee() {
 		return activeEmployee;
 	}
 
