@@ -181,23 +181,23 @@ public class FXMLMainCashierWindowController implements Initializable {
                             System.out.println("no bus");
                         }
                         else{
-                            DatabaseReference nref = database.child("Range").child("current");
+                            DatabaseReference nref = database.child("Range");//.child("current");
                             nref.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot snapshot) {
                                     RangeOR range = snapshot.getValue(RangeOR.class);
                                     ORNUM = range.getCurrent();
-
                                     if(ORNUM > range.getEnd()){
                                         //todo throw error nga out of range na
+                                        System.out.println("out of paper");
                                     }else{
-                                        Map<String, Object> newRange = new HashMap<>();
-                                        newRange.put("current", ORNUM += 1);
-                                        nref.updateChildren(newRange);
-
                                         DatabaseReference aref = database.child("Fees");
                                         Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, "Cashier 01", localDate, plateNum);
                                         aref.child(forDatabase.getOrNum()).setValue(forDatabase);
+
+                                        Map<String, Object> newRange = new HashMap<>();
+                                        newRange.put("current", ORNUM += 1);
+                                        nref.updateChildren(newRange);
                                     }
                                 }
 

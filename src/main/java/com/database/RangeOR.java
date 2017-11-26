@@ -4,10 +4,12 @@ public class RangeOR {
     private int start, end;
     private int current;
 
-    public RangeOR(int start, int end, int current){
-        this.start = start;
-        this.end = end;
-        this.current = current;
+    public RangeOR(){}
+
+    public RangeOR(String start, String end, String current){
+        this.start = Integer.parseInt(start);
+        this.end = Integer.parseInt(end);
+        this.current = Integer.parseInt(current);
     }
 
     public RangeOR(int start, int end){
