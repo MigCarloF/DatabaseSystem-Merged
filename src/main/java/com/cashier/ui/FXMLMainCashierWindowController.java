@@ -2,6 +2,7 @@ package com.cashier.ui;
 
 
 import com.database.Fee;
+import com.database.RangeOR;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -24,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class FXMLMainCashierWindowController implements Initializable {
@@ -123,24 +126,10 @@ public class FXMLMainCashierWindowController implements Initializable {
     private Label noCheck;
 
     private DatabaseReference database;
-    private int currentORnum;
-    private static int rangeLow, rangeHigh;
-    private static boolean rangePressed;
-    private int ORNUM = 1000;
-
-    static void setRange(int low, int high, boolean pressed){
-        rangeLow = low;
-        rangeHigh = high;
-        rangePressed = pressed;
-    }
-
-    private void currentORsolver(){
-
-    }
+    private int ORNUM;
 
     @FXML
     void busPrintButtonPressed(ActionEvent event) {
-
         noCheck.setText("");
         noPlate.setText("");
 
@@ -192,9 +181,31 @@ public class FXMLMainCashierWindowController implements Initializable {
                             System.out.println("no bus");
                         }
                         else{
-                            DatabaseReference aref = database.child("Fees");
-                            Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, "Cashier 01", localDate, plateNum);
-                            aref.child(forDatabase.getOrNum()).setValue(forDatabase);
+                            DatabaseReference nref = database.child("Range").child("current");
+                            nref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    RangeOR range = snapshot.getValue(RangeOR.class);
+                                    ORNUM = range.getCurrent();
+
+                                    if(ORNUM > range.getEnd()){
+                                        //todo throw error nga out of range na
+                                    }else{
+                                        Map<String, Object> newRange = new HashMap<>();
+                                        newRange.put("current", ORNUM += 1);
+                                        nref.updateChildren(newRange);
+
+                                        DatabaseReference aref = database.child("Fees");
+                                        Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, "Cashier 01", localDate, plateNum);
+                                        aref.child(forDatabase.getOrNum()).setValue(forDatabase);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
                         }
                     }
                     @Override
@@ -271,6 +282,7 @@ public class FXMLMainCashierWindowController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle rb) {
+        ORNUM = 0;
         cashierUserText.setText("JJuan");
 
         /**

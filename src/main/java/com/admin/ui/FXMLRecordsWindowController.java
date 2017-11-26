@@ -143,7 +143,7 @@ public class FXMLRecordsWindowController implements Initializable {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot snap : dataSnapshot.getChildren()){
                             Fee fee = snap.getValue(Fee.class);
-                            if(fee.getPaidArrival()) tarrival+=1;
+                            if(fee.getPaidArrival()) tarrival += 1;
                             if(fee.getPaidLoading()) load +=1;
                             if(fee.get_void()) totalvoided += 1;
 
