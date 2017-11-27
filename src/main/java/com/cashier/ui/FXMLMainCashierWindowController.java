@@ -1,8 +1,11 @@
 package com.cashier.ui;
 
 
+import com.database.Exit;
 import com.database.Fee;
+import com.database.FirebaseDB;
 import com.database.RangeOR;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -126,7 +129,46 @@ public class FXMLMainCashierWindowController implements Initializable {
     private Label noCheck;
 
     private DatabaseReference database;
+    private DatabaseReference exitDatabase;
+    //private FirebaseApp exitRFID;
     private int ORNUM;
+
+    private void exitListener(){
+//        DatabaseReference ref = exitDatabase.child("Exit");
+//        Exit exit = new Exit("51:5C:AA:89","loaded",LocalDate.now().toString());
+//        ref.push().setValue(exit);
+        DatabaseReference ref = exitDatabase.child("Exit");
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+                Exit exit = snapshot.getValue(Exit.class);
+                //System.out.println(exit.getRfid());
+                //System.out.println("tae");
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+//                Exit exit = snapshot.getValue(Exit.class);
+//                System.out.println(exit.getRfid());
+//                System.out.println("tae");
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
 
     @FXML
     void busPrintButtonPressed(ActionEvent event) {
@@ -314,6 +356,7 @@ public class FXMLMainCashierWindowController implements Initializable {
         noCheck.setText("");
         noPlate.setText("");
         database = FirebaseDatabase.getInstance().getReference();
-
+        exitDatabase = FirebaseDatabase.getInstance(FirebaseDB.getExitRFID()).getReference();
+        exitListener();
     }
 }

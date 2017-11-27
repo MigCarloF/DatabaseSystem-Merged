@@ -21,6 +21,7 @@ public class FirebaseDB {
     private static DatabaseReference database;
     private static Map<String, Fee> feesMap = new HashMap<>();
     private static Map<String, Bus> busMap = new HashMap<>();
+    private static FirebaseApp exitRFID;
     //private final FXMLAccountantWindowController controller;
     //private static ArrayList<Fee> feeslist = new ArrayList<>();
 
@@ -41,7 +42,8 @@ public class FirebaseDB {
                     .setDatabaseUrl(DATABASE_URL2)
                     .build();
 
-            //FirebaseApp exitRFID = FirebaseApp.initializeApp(secondaryAppConfig, "exitRFID"); //needed for 2nd app call
+            //FirebaseApp
+            exitRFID = FirebaseApp.initializeApp(secondaryAppConfig, "exitRFID"); //needed for 2nd app call
             //database = FirebaseDatabase.getInstance(exitRFID).getReference();
 
             // [END initialize]
@@ -62,5 +64,9 @@ public class FirebaseDB {
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         //database = FirebaseDatabase.getInstance().getReference();
         //startDataListener();
+    }
+
+    public static FirebaseApp getExitRFID() {
+        return exitRFID;
     }
 }

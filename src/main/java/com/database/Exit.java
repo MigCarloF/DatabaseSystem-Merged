@@ -11,6 +11,9 @@ public class Exit {
         this.timestamp = timestamp;
     }
 
+    public Exit() {
+    }
+
     public String getRfid() {
         return rfid;
     }
