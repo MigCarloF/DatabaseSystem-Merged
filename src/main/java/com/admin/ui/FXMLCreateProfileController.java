@@ -107,7 +107,7 @@ public class FXMLCreateProfileController implements Initializable {
                         errorFound = true;
                     }else{
                         Bus bus = new Bus("",size,franchise,isbus,plate,contactPerson,
-                                contactNumber,type,route1 + " - " + route2,"","",true);
+                                contactNumber,type,route1 + " - " + route2,"","",true,"");
                         ref.setValue(bus);
                     }
                 }

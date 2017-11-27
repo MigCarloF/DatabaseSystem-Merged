@@ -1,10 +1,7 @@
 package com.cashier.ui;
 
 
-import com.database.Exit;
-import com.database.Fee;
-import com.database.FirebaseDB;
-import com.database.RangeOR;
+import com.database.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
@@ -22,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -130,6 +128,7 @@ public class FXMLMainCashierWindowController implements Initializable {
 
     private DatabaseReference database;
     private DatabaseReference exitDatabase;
+    private boolean loaded;
     //private FirebaseApp exitRFID;
     private int ORNUM;
 
@@ -142,6 +141,35 @@ public class FXMLMainCashierWindowController implements Initializable {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                 Exit exit = snapshot.getValue(Exit.class);
+                String rfid = exit.getRfid();
+                String status = exit.getStatus();
+                System.out.println(rfid);
+                loaded = false;
+                if(status.equals("loaded")){
+                    loaded = true;
+                }
+
+                DatabaseReference bref = database.child("Buses");
+                bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    Bus bus;
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        for(DataSnapshot snap : snapshot.getChildren()){
+                            bus = snap.getValue(Bus.class);
+                            if(bus.getRfid().equals(rfid)){
+                                arrivalFee.setSelected(true);
+                                if(loaded) loadingFee.setSelected(true);
+                                plateNumber.setText(bus.getPlateNo());
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
                 //System.out.println(exit.getRfid());
                 //System.out.println("tae");
             }
@@ -199,7 +227,6 @@ public class FXMLMainCashierWindowController implements Initializable {
             if (loadingFee.isSelected()) {
                 loading = true;
             }
-
 
             if (!loadingFee.isSelected() && !arrivalFee.isSelected()) {
                 noCheck.setText("* - Select Fee to be paid");

@@ -16,12 +16,13 @@ public class Bus {
     private String company;
     private String contactNumber;
     private String contactPerson;
+    private String rfid;
     private boolean miniBus = false;
     private String plateNo;
     private boolean activeBus = true;
 
     public Bus(String busNumber, String busSize, String company, boolean miniBus, String plateNo, String contactPerson,
-               String contactNumber, String busType, String busRoute, String busCapacity, String busFare, boolean activeBus){ //constructor added for Firebase
+               String contactNumber, String busType, String busRoute, String busCapacity, String busFare, boolean activeBus, String rfid){ //constructor added for Firebase
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = miniBus;
@@ -34,10 +35,11 @@ public class Bus {
         this.busCapacity = busCapacity;
         this.busFare = busFare;
         this.activeBus = activeBus;
+        this.rfid = rfid;
     }
 
     public Bus(String plateNo, String company, String busNumber, String contactPerson,
-               String contactNumber, String busType, String busRoute, String busCapacity, String busFare) {
+               String contactNumber, String busType, String busRoute, String busCapacity, String busFare, String rfid) {
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = false;
@@ -49,12 +51,14 @@ public class Bus {
         this.busRoute = busRoute;
         this.busCapacity = busCapacity;
         this.busFare = busFare;
+        this.rfid = rfid;
         activeBus = true; // set default to true because I think you wont add an inactive bus
                         // and this constructor is only called when you create a new bus
                         //call setter to set it to inactive
+
     }
     public Bus(String plateNo, String company, String contactPerson, String contactNumber,
-               String busType, String busRoute, String busCapacity, String busFare){
+               String busType, String busRoute, String busCapacity, String busFare, String rfid){
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = true;
@@ -66,6 +70,7 @@ public class Bus {
         this.busRoute = busRoute;
         this.busCapacity = busCapacity;
         this.busFare = busFare;
+        this.rfid = rfid;
         activeBus = true; // set default to true because I think you wont add an inactive bus
                         // and this constructor is only called when you create a new bus
                         //call setter to set it to inactive
@@ -175,5 +180,13 @@ public class Bus {
 
     public void setActiveBus(boolean activeBus) {
         this.activeBus = activeBus;
+    }
+
+    public String getRfid() {
+        return rfid;
+    }
+
+    public void setRfid(String rfid) {
+        this.rfid = rfid;
     }
 }
