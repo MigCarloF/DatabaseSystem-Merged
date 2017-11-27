@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -35,7 +36,7 @@ public class FXMLViewAccountsController implements Initializable {
     private JFXButton logoutButton;
 
     @FXML
-    private TextField search;
+    private ComboBox search;
 
     @FXML
     private TableView<Employee> transactionsTable;
@@ -88,7 +89,7 @@ public class FXMLViewAccountsController implements Initializable {
 
     @FXML
     void busCreateButtonPressed(ActionEvent event) throws IOException {
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("./FXMLCreateProfile.fxml"));
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateProfile.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
         Scene anotherScene = new Scene(anotherRoot);
@@ -192,12 +193,19 @@ public class FXMLViewAccountsController implements Initializable {
         username.setCellValueFactory(new PropertyValueFactory<Employee, String>("username"));
         password.setCellValueFactory(new PropertyValueFactory<Employee, String>("password"));
         department.setCellValueFactory(new PropertyValueFactory<Employee, String>("workType"));
-        status.setCellValueFactory(new PropertyValueFactory<Employee, String>("activeEmployee"));
+        status.setCellValueFactory(new PropertyValueFactory<Employee, String>("estatus"));
 
         database = FirebaseDatabase.getInstance().getReference();
         employees = FXCollections.observableArrayList();
 
+        search.getItems().addAll(
+                "SEARCH by: ACTIVE",
+                "Search by: INACTIVE",
+                "Search by: CASHIER",
+                "Search by: ADMIN"
+        );
+
         displayAll();
-        search.getText();
+        //search.getText();
     }
 }

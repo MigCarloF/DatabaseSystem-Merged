@@ -36,7 +36,7 @@ public class FXMLRecordsWindowController implements Initializable {
     private JFXButton logoutButton;
 
     @FXML
-    private TextField search;
+    private ComboBox search;
 
     @FXML
     private JFXButton currentButton;
@@ -109,9 +109,6 @@ public class FXMLRecordsWindowController implements Initializable {
 
     @FXML
     private TableColumn<FeeTable, String> route;
-
-    @FXML
-    private TableColumn<FeeTable, String> arrival;
 
     @FXML
     private TableColumn<FeeTable, String> feeType;
@@ -381,9 +378,16 @@ public class FXMLRecordsWindowController implements Initializable {
         status.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("voidStatus"));
 
 
+        search.getItems().addAll(
+                "SEARCH by: ACTIVE",
+                "Search by: INACTIVE",
+                "Search by: MINIBUS",
+                "Search by: BUS"
+        );
+
         database = FirebaseDatabase.getInstance().getReference();
         fees = FXCollections.observableArrayList();
         updateTable(LocalDate.of(1990, Month.JANUARY, 1), LocalDate.now());
-        search.getText();
+        //search.getText();
     }
 }

@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -37,7 +38,7 @@ public class FXMLBusProfilesController implements Initializable {
     private Text adminUserText;
 
     @FXML
-    private TextField search;
+    private ComboBox search;
 
     @FXML
     private TableView<Bus> transactionsTable;
@@ -197,8 +198,14 @@ public class FXMLBusProfilesController implements Initializable {
         database = FirebaseDatabase.getInstance().getReference();
         buses = FXCollections.observableArrayList();
 
-        displayAll();
+        search.getItems().addAll(
+                "SEARCH by: ACTIVE",
+                "Search by: INACTIVE",
+                "Search by: CASHIER",
+                "Search by: ADMIN"
+        );
 
-        search.getText();
+        displayAll();
+//        search.getText();
     }
 }

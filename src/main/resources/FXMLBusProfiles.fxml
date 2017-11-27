@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,11 +40,6 @@
          </font>
       </JFXButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#666999" height="584.0" layoutY="136.0" opacity="0.5" stroke="#666999" strokeType="INSIDE" width="300.0" />
-      <TextField fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="270.0" promptText="Search...">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
       <Text fill="#f2db58" layoutX="31.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRANSACTIONS">
          <font>
             <Font size="22.0" />
@@ -114,5 +109,6 @@
                </columns>
             </TableView>
          </content></ScrollPane>
+      <ComboBox fx:id="search" layoutX="16.0" layoutY="154.0" prefHeight="45.0" prefWidth="270.0" />
    </children>
 </AnchorPane>

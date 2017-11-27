@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,18 +23,6 @@ public class FXMLCurrentWindowController implements Initializable {
     Stage anotherStage = new Stage();
     @FXML
     private Text adminUserText;
-
-    @FXML
-    private TextField vehiclesTerminal;
-
-    @FXML
-    private TextField busesTerminal;
-
-    @FXML
-    private TextField minibusesTerminal;
-
-    @FXML
-    private TextField busesLoadingBay;
 
     @FXML
     private TextField dailyRevenue;
@@ -60,13 +49,7 @@ public class FXMLCurrentWindowController implements Initializable {
     private TableColumn<?, ?> start;
 
     @FXML
-    private TableColumn<?, ?> arrivalTime;
-
-    @FXML
-    private TableColumn<?, ?> departureTime;
-
-    @FXML
-    private TextField search;
+    private ComboBox search;
 
     @FXML
     void currentButtonPressed(ActionEvent event) throws IOException {
@@ -118,8 +101,21 @@ public class FXMLCurrentWindowController implements Initializable {
     }
 
     @FXML
-    void employeeEditButtonPressed(ActionEvent event) {
+    void employeeEditButtonPressed(ActionEvent event) throws IOException {
+        /**
+         *  GET SELECTED ROW THEN SET TEXT ANG SA EDIT BUS PROFILE
+         *  THEN GET TEXT
+         */
 
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        //anotherStage.centerOnScreen();  //does not really work idk
+        Scene anotherScene = new Scene(anotherRoot);
+        anotherStage.setScene(anotherScene);
+        anotherStage.initStyle(StageStyle.UNDECORATED);
+
+        currentButtonPressed(event);
+        anotherStage.show();
     }
 
     @FXML
@@ -148,13 +144,26 @@ public class FXMLCurrentWindowController implements Initializable {
     }
 
     @FXML
-    void busEditButtonPressed(ActionEvent event) {
+    void busEditButtonPressed(ActionEvent event) throws IOException {
+        /**
+         *  GET SELECTED ROW THEN SET TEXT ANG SA EDIT BUS PROFILE
+         *  THEN GET TEXT
+         */
 
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        //anotherStage.centerOnScreen();  //does not really work idk
+        Scene anotherScene = new Scene(anotherRoot);
+        anotherStage.setScene(anotherScene);
+        anotherStage.initStyle(StageStyle.UNDECORATED);
+
+        currentButtonPressed(event);
+        anotherStage.show();
     }
 
     @FXML
     void logoutButtonPressed(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../../loginform/FXMLLoginFormWindow.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         //This line gets the Stage information
@@ -166,17 +175,14 @@ public class FXMLCurrentWindowController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         adminUserText.setText("Sir Joey");
-        vehiclesTerminal.setText("4");
-        busesTerminal.setText("2");
-        minibusesTerminal.setText("1");
-        busesLoadingBay.setText("1");
         dailyRevenue.setText("1,600");
         monthlyRevenue.setText("21,600");
 
-        /**
-         *  TODO: implement search text field
-         */
-
-        search.getText();
+        search.getItems().addAll(
+                "SEARCH by: ACTIVE",
+                "Search by: INACTIVE",
+                "Search by: MINIBUS",
+                "Search by: BUS"
+        );
     }
 }

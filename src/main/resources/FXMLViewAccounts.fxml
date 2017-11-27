@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -39,11 +39,6 @@
          </font>
       </JFXButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#666999" height="584.0" layoutY="136.0" opacity="0.5" stroke="#666999" strokeType="INSIDE" width="300.0" />
-      <TextField fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="270.0" promptText="Search...">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
       <Text fill="#f2db58" layoutX="31.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRANSACTIONS">
          <font>
             <Font size="22.0" />
@@ -101,14 +96,14 @@
       </JFXButton>
       <TableView fx:id="transactionsTable" editable="true" focusTraversable="false" layoutX="334.0" layoutY="136.0" prefHeight="553.0" prefWidth="911.0">
          <columns>
-            <TableColumn fx:id="firstName" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="FIRST NAME" />
-            <TableColumn fx:id="lastName" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="LAST NAME" />
-            <TableColumn fx:id="username" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="USERNAME" />
-            <TableColumn fx:id="password" prefWidth="131.0" style="-fx-background-color: #f2db58;" text="PASSWORD" />
-            <TableColumn fx:id="department" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="DEPARTMENT" />
-            <TableColumn fx:id="shift" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="SHIFT" />
-            <TableColumn fx:id="status" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="STATUS" />
+            <TableColumn fx:id="firstName" prefWidth="155.0" style="-fx-background-color: #f2db58;" text="FIRST NAME" />
+            <TableColumn fx:id="lastName" prefWidth="155.0" style="-fx-background-color: #f2db58;" text="LAST NAME" />
+            <TableColumn fx:id="username" prefWidth="150.0" style="-fx-background-color: #f2db58;" text="USERNAME" />
+            <TableColumn fx:id="password" prefWidth="150.0" style="-fx-background-color: #f2db58;" text="PASSWORD" />
+            <TableColumn fx:id="department" editable="false" prefWidth="150.0" style="-fx-background-color: #f2db58;" text="DEPARTMENT" />
+            <TableColumn fx:id="status" prefWidth="151.0" style="-fx-background-color: #f2db58;" text="STATUS" />
          </columns>
       </TableView>
+      <ComboBox fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="153.0" prefHeight="45.0" prefWidth="270.0" />
    </children>
 </AnchorPane>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -23,7 +24,7 @@
       </ImageView>
       <ImageView fitHeight="45.0" fitWidth="200.0" layoutX="58.0" layoutY="37.0">
          <image>
-            <Image url="@LOGO.png" />
+            <Image url="@../../cashier/ui/LOGO.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="948.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," wrappingWidth="87.13671875">
@@ -42,11 +43,6 @@
          </font>
       </JFXButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#666999" height="584.0" layoutY="136.0" opacity="0.5" stroke="#666999" strokeType="INSIDE" width="300.0" />
-      <TextField fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="270.0" promptText="Search...">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
       <Text fill="#f2db58" layoutX="31.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRANSACTIONS">
          <font>
             <Font size="22.0" />
@@ -156,12 +152,12 @@
                </font>
             </Text>
             <Line endX="100.0" layoutX="238.0" layoutY="85.0" opacity="0.3" startX="-100.0" />
-            <Text layoutX="216.0" layoutY="72.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="₱">
+            <Text layoutX="216.0" layoutY="72.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
-            <Text layoutX="214.0" layoutY="117.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="₱">
+            <Text layoutX="214.0" layoutY="117.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
                <font>
                   <Font size="30.0" />
                </font>
@@ -170,12 +166,12 @@
       </AnchorPane>
       <AnchorPane layoutX="328.0" layoutY="187.0" prefHeight="108.0" prefWidth="321.0" style="-fx-background-color: #ffffff;">
          <children>
-            <TextField fx:id="totalRevenue" editable="false" focusTraversable="false" layoutX="75.0" layoutY="19.0" prefHeight="77.0" prefWidth="219.0" style="-fx-background-color: #FFFFFF;" text="1600">
+            <TextField fx:id="totalRevenue" editable="false" focusTraversable="false" layoutX="89.0" layoutY="19.0" prefHeight="77.0" prefWidth="219.0" style="-fx-background-color: #FFFFFF;" text="1600">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </TextField>
-            <Text layoutX="63.0" layoutY="70.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="₱">
+            <Text layoutX="77.0" layoutY="70.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="P">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -203,7 +199,7 @@
       </AnchorPane>
       <ScrollPane focusTraversable="false" layoutX="328.0" layoutY="328.0" prefHeight="366.0" prefWidth="917.0">
          <content>
-            <TableView fx:id="transactionsTable" prefHeight="363.0" prefWidth="1420.0">
+            <TableView fx:id="transactionsTable" prefHeight="363.0" prefWidth="1220.0">
               <columns>
                 <TableColumn fx:id="date" editable="false" prefWidth="130.0" style="-fx-background-color: #F2DB58;" text="Date" />
                   <TableColumn fx:id="time" editable="false" prefWidth="130.0" style="-fx-background-color: #F2DB58;" text="Time" />
@@ -212,13 +208,12 @@
                   <TableColumn fx:id="busType" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Bus type" />
                   <TableColumn fx:id="plateNo" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Plate no." />
                   <TableColumn fx:id="route" editable="false" prefWidth="200.0" style="-fx-background-color: #F2DB58;" text="Route" />
-                  <TableColumn fx:id="arrival" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Arrival" />
-                  <TableColumn editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Departure" />
                   <TableColumn fx:id="feeType" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Fee type" />
                   <TableColumn fx:id="amount" editable="false" prefWidth="120.0" style="-fx-background-color: #F2DB58;" text="Amount" />
                   <TableColumn fx:id="status" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Status" />
               </columns>
             </TableView>
          </content></ScrollPane>
+      <ComboBox fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="270.0" />
    </children>
 </AnchorPane>

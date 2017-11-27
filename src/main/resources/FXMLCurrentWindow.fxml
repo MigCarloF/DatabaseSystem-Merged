@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -20,7 +21,7 @@
       </ImageView>
       <ImageView fitHeight="45.0" fitWidth="200.0" layoutX="51.0" layoutY="33.0">
          <image>
-            <Image url="@LOGO.png" />
+            <Image url="@../../cashier/ui/LOGO.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="938.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," wrappingWidth="87.13671875">
@@ -39,78 +40,9 @@
          </font>
       </JFXButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#666999" height="584.0" layoutY="136.0" opacity="0.5" stroke="#666999" strokeType="INSIDE" width="300.0" />
-      <AnchorPane layoutX="336.0" layoutY="136.0" prefHeight="270.0" prefWidth="240.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
+      <AnchorPane layoutX="817.0" layoutY="136.0" prefHeight="130.0" prefWidth="400.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
          <children>
-            <Text layoutX="11.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transactions per Hour" wrappingWidth="162.9999771118164">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <ImageView fitHeight="201.0" fitWidth="212.0" layoutX="14.0" layoutY="66.0" preserveRatio="true">
-               <image>
-                  <Image url="@HAHAHA.PNG" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
-      <AnchorPane layoutX="590.0" layoutY="136.0" prefHeight="130.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-         <children>
-            <TextField fx:id="vehiclesTerminal" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="44.0" opacity="0.9" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="4">
-               <font>
-                  <Font name="System Bold" size="34.0" />
-               </font>
-            </TextField>
-            <Text layoutX="8.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicles                  in the terminal" wrappingWidth="123.9999771118164">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="590.0" layoutY="276.0" prefHeight="130.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-         <children>
-            <Text layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buses in the terminal" wrappingWidth="123.9999771118164">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <TextField fx:id="busesTerminal" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="44.0" opacity="0.9" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="2">
-               <font>
-                  <Font name="System Bold" size="34.0" />
-               </font>
-            </TextField>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="751.0" layoutY="136.0" prefHeight="130.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-         <children>
-            <TextField fx:id="minibusesTerminal" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="44.0" opacity="0.9" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="1">
-               <font>
-                  <Font name="System Bold" size="34.0" />
-               </font>
-            </TextField>
-            <Text layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minibuses               in the terminal" wrappingWidth="123.9999771118164">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="751.0" layoutY="276.0" prefHeight="130.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-         <children>
-            <TextField fx:id="busesLoadingBay" alignment="CENTER" editable="false" focusTraversable="false" layoutX="12.0" layoutY="44.0" opacity="0.9" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #ffffff;" text="1">
-               <font>
-                  <Font name="System Bold" size="34.0" />
-               </font>
-            </TextField>
-            <Text layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buses in                  the loading bay" wrappingWidth="123.9999771118164">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="914.0" layoutY="136.0" prefHeight="130.0" prefWidth="330.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-         <children>
-            <TextField fx:id="dailyRevenue" alignment="TOP_LEFT" editable="false" focusTraversable="false" layoutX="62.0" layoutY="33.0" prefHeight="74.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="1,600">
+            <TextField fx:id="dailyRevenue" alignment="TOP_LEFT" editable="false" focusTraversable="false" layoutX="125.0" layoutY="33.0" prefHeight="74.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" text="1,600">
                <font>
                   <Font name="System Bold" size="34.0" />
                </font>
@@ -120,15 +52,15 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text layoutX="58.0" layoutY="82.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="P" wrappingWidth="26.999977111816406">
+            <Text layoutX="121.0" layoutY="82.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="P" wrappingWidth="26.999977111816406">
                <font>
                   <Font name="System Bold" size="34.0" />
                </font>
             </Text>
          </children></AnchorPane>
-      <AnchorPane layoutX="916.0" layoutY="276.0" prefHeight="130.0" prefWidth="330.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
+      <AnchorPane layoutX="366.0" layoutY="136.0" prefHeight="130.0" prefWidth="400.0" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
          <children>
-            <TextField fx:id="monthlyRevenue" alignment="TOP_LEFT" editable="false" focusTraversable="false" layoutX="58.0" layoutY="31.0" prefHeight="74.0" prefWidth="240.0" style="-fx-background-color: #ffffff;" text="21,600">
+            <TextField fx:id="monthlyRevenue" alignment="TOP_LEFT" editable="false" focusTraversable="false" layoutX="110.0" layoutY="31.0" prefHeight="74.0" prefWidth="240.0" style="-fx-background-color: #ffffff;" text="21,600">
                <font>
                   <Font name="System Bold" size="34.0" />
                </font>
@@ -138,14 +70,14 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <Text layoutX="54.0" layoutY="80.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="P" wrappingWidth="26.999977111816406">
+            <Text layoutX="106.0" layoutY="80.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="P" wrappingWidth="26.999977111816406">
                <font>
                   <Font name="System Bold" size="34.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <TableView fx:id="transactionsTable" focusTraversable="false" layoutX="336.0" layoutY="435.0" prefHeight="260.0" prefWidth="911.0">
+      <TableView fx:id="transactionsTable" focusTraversable="false" layoutX="336.0" layoutY="288.0" prefHeight="407.0" prefWidth="911.0">
          <columns>
             <TableColumn fx:id="company" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="COMPANY" />
             <TableColumn fx:id="busType" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="BUS TYPE" />
@@ -156,11 +88,6 @@
             <TableColumn fx:id="departureTime" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="DEPARTURE TIME" />
          </columns>
       </TableView>
-      <TextField fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="270.0" promptText="Search...">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
       <Text fill="#f2db58" layoutX="31.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRANSACTIONS">
          <font>
             <Font size="22.0" />
@@ -214,5 +141,6 @@
             <Font size="18.0" />
          </font>
       </JFXButton>
+      <ComboBox fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="270.0" />
    </children>
 </AnchorPane>

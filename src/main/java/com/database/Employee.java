@@ -5,6 +5,7 @@ public class Employee{
 	private String firstName, lastName;
 	private String workType;
 	private boolean activeEmployee = false;
+	private String estatus = "ACTIVE";
 
 	public Employee(String username, String password, String firstName, String lastName, String workType, boolean activeEmployee) {
 		this.username = username;
@@ -13,6 +14,9 @@ public class Employee{
 		this.lastName = lastName;
 		this.workType = workType;
 		this.activeEmployee = activeEmployee;
+		estatus = "INACTIVE";
+		if(activeEmployee) estatus = "ACTIVE";
+
 	}
 
 	public Employee(String username, String password, String firstName, String lastName, String workType) {
@@ -24,6 +28,7 @@ public class Employee{
 		activeEmployee = true;	// set default to true because I think you wont add an inactive employee
 		// and this constructor is only called when you create a new employee
 		//call setter to set it to inactive
+		estatus = "ACTIVE";
 	}
 
 	public Employee(){
@@ -81,6 +86,11 @@ public class Employee{
 	}
 
 
+	public String getEstatus() {
+		return estatus;
+	}
 
-
+	public void setEstatus(String estatus) {
+		this.estatus = estatus;
+	}
 }
