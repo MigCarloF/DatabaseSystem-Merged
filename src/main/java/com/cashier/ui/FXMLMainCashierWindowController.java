@@ -359,16 +359,32 @@ public class FXMLMainCashierWindowController implements Initializable {
         window.setScene(tableViewScene);
         window.show();
     }
+        private void ORListener() {
+        DatabaseReference ref = database.child("Range");
+        ref.child("current").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                 int curr = snapshot.getValue(Integer.TYPE);
 
+                currentORNumber.setText(String.valueOf(curr));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
     public void initialize(URL url, ResourceBundle rb) {
         ORNUM = 0;
         cashierUserText.setText("JJuan");
 
-        currentORNumber.setText("000142");
+        currentORNumber.setText("");
         noCheck.setText("");
         noPlate.setText("");
         database = FirebaseDatabase.getInstance().getReference();
         exitDatabase = FirebaseDatabase.getInstance(FirebaseDB.getExitRFID()).getReference();
+        ORListener();
         exitListener();
     }
 }
