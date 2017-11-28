@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,26 +10,29 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.loginform.FXMLLoginFormWindowController">
    <children>
-      <ImageView fitHeight="708.0" fitWidth="907.0">
+      <ImageView fitHeight="700.0" fitWidth="900.0">
          <image>
             <Image url="@BLUEGREY.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="123.0" fitWidth="487.0" layoutX="210.0" layoutY="124.0">
+      <ImageView fitHeight="123.0" fitWidth="487.0" layoutX="230.0" layoutY="124.0">
          <image>
             <Image url="@LOGO.png" />
          </image>
       </ImageView>
+      <JFXButton fx:id="logIn" focusTraversable="false" layoutX="295.0" layoutY="500.0" onAction="#logInButtonPushed" prefHeight="30.0" prefWidth="311.0" style="-fx-background-color: #F2DB58;" text="LOG IN">
+         <font>
+            <Font size="14.0" />
+         </font></JFXButton>
+      <PasswordField fx:id="passwordTextField" alignment="CENTER" focusTraversable="false" layoutX="295.0" layoutY="384.0" prefHeight="48.0" prefWidth="311.0" promptText="PASSWORD" style="-fx-background-color: #FFFFFF;">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </PasswordField>
       <TextField fx:id="usernameTextField" alignment="CENTER" focusTraversable="false" layoutX="295.0" layoutY="313.0" prefHeight="48.0" prefWidth="311.0" promptText="USERNAME">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="passwordTextField" alignment="CENTER" focusTraversable="false" layoutX="295.0" layoutY="384.0" prefHeight="48.0" prefWidth="311.0" promptText="PASSWORD">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <JFXButton fx:id="logIn" focusTraversable="false" layoutX="295.0" layoutY="500.0" onAction="#logInButtonPushed" prefHeight="30.0" prefWidth="311.0" style="-fx-background-color: #F2DB58;" text="LOG IN" />
    </children>
 </AnchorPane>
