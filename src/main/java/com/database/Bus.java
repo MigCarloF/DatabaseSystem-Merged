@@ -11,6 +11,8 @@ public class Bus {
     private String busFare;
     private String busNumber;
     private String busRoute;
+    private String route1;
+    private String route2;
     private String busSize;
     private String busType;
     private String company;
@@ -20,6 +22,25 @@ public class Bus {
     private boolean miniBus = false;
     private String plateNo;
     private boolean activeBus = true;
+    
+    public Bus(String busNumber, String busSize, String company, boolean miniBus, String plateNo, String contactPerson,
+               String contactNumber, String busType, String route1, String route2, String busCapacity, String busFare, boolean activeBus, String rfid){ //constructor added for Firebase
+        this.plateNo = plateNo;
+        this.company = company;
+        this.miniBus = miniBus;
+        this.busSize = busSize;
+        this.busNumber = busNumber;
+        this.contactPerson = contactPerson;
+        this.contactNumber = contactNumber;
+        this.busType = busType;
+        this.route1 = route1;
+        this.route2 = route2;
+        busRoute = route1 + " - " + route2;
+        this.busCapacity = busCapacity;
+        this.busFare = busFare;
+        this.activeBus = activeBus;
+        this.rfid = rfid;
+    }
 
     public Bus(String busNumber, String busSize, String company, boolean miniBus, String plateNo, String contactPerson,
                String contactNumber, String busType, String busRoute, String busCapacity, String busFare, boolean activeBus, String rfid){ //constructor added for Firebase
@@ -86,6 +107,14 @@ public class Bus {
 //        busNumber = "0";
 //    }
 
+    public String getRoute1(){
+        return route1;
+    }
+    
+    public String getRoute2(){
+        return route2;
+    }
+    
     public String getBusType() {
         return busType;
     }
