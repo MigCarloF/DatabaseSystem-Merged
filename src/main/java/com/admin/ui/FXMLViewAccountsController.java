@@ -2,6 +2,7 @@ package com.admin.ui;
 
 import com.database.Bus;
 import com.database.Employee;
+import com.database.SingletonLogin;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
@@ -209,6 +210,8 @@ public class FXMLViewAccountsController implements Initializable {
         /**
          *  TODO: implement search text field
          */
+        String currentLogin = SingletonLogin.getInstance().getCurrentLogin();
+        adminUserText.setText(currentLogin);
 
 
         firstName.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));

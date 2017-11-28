@@ -3,6 +3,7 @@ package com.admin.ui;
 import com.database.Bus;
 import com.database.Fee;
 import com.database.FeeTable;
+import com.database.SingletonLogin;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.value.ChangeListener;
@@ -359,7 +360,8 @@ public class FXMLRecordsWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         currentDateTo = LocalDate.now();
         currentDateFrom = LocalDate.now();
-        adminUserText.setText("Sir Joey");
+        String currentLogin = SingletonLogin.getInstance().getCurrentLogin();
+        adminUserText.setText(currentLogin);
         totalRevenue.setText("1600");
         quantityAF.setText("9");
         quantityLF.setText("9");

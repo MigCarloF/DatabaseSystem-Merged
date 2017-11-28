@@ -83,9 +83,9 @@ public class FXMLLoginFormWindowController implements Initializable{
             if(e.getUsername().equals(user)){
                 if(e.getPassword().equals(pass)){
                     flag = true;
+                    SingletonLogin.getInstance().setCurrentLogin(e.getUsername());
                     if(e.getWorkType().equals("CASHIER")){
                         System.out.println("cash");
-                        SingletonLogin.getInstance().setCurrentLogin(e.getUsername());
                         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
                         Scene tableViewScene = new Scene(tableViewParent);
 

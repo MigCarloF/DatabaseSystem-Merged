@@ -5,10 +5,7 @@
  */
 package com.admin.ui;
 
-import com.database.Bus;
-import com.database.Employee;
-import com.database.Fee;
-import com.database.FeeTable;
+import com.database.*;
 import com.google.firebase.database.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -205,7 +202,8 @@ public class FXMLBusProfilesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        adminUserText.setText("Sir Joey");
+        String currentLogin = SingletonLogin.getInstance().getCurrentLogin();
+        adminUserText.setText(currentLogin);
 
         franchise.setCellValueFactory(new PropertyValueFactory<Bus, String>("company"));
         contactPerson.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactPerson"));
