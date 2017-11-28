@@ -62,6 +62,7 @@ public class FXMLViewAccountsController implements Initializable {
     @FXML
     private TableColumn<Employee, String> status;
 
+    private Employee employeeToEdit;
     private DatabaseReference database;
     private ObservableList<Employee> employees;
 
@@ -102,6 +103,7 @@ public class FXMLViewAccountsController implements Initializable {
 
     @FXML
     void busEditButtonPressed(ActionEvent event) throws IOException {
+
         FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
@@ -152,6 +154,10 @@ public class FXMLViewAccountsController implements Initializable {
 
     @FXML
     void employeeEditButtonPressed(ActionEvent event) throws IOException {
+        Employee employee = transactionsTable.getSelectionModel().getSelectedItem();
+//        System.out.println(employee.getUsername());
+        SingletonEditEmployee.getInstance().setEmployee(employee);
+        System.out.println(SingletonEditEmployee.getInstance().getEmployee().getPassword());
         FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
@@ -204,6 +210,8 @@ public class FXMLViewAccountsController implements Initializable {
         /**
          *  TODO: implement search text field
          */
+
+
         firstName.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));
         lastName.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastName"));
         username.setCellValueFactory(new PropertyValueFactory<Employee, String>("username"));

@@ -1,15 +1,20 @@
 package com.admin.ui;
 
+import com.database.Employee;
+import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
-public class FXMLEditEmployeeController {
+public class FXMLEditEmployeeController implements Initializable {
 
     @FXML
     private TextField firstName;
@@ -29,8 +34,25 @@ public class FXMLEditEmployeeController {
     @FXML
     private JFXButton cancel;
 
-    @FXML
+    private Employee employeeToEdit;
+    //private Employee employee;
+    private DatabaseReference database;
+    private String userNameText;
+
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
+        database = FirebaseDatabase.getInstance().getReference();
+        employeeToEdit = SingletonEditEmployee.getInstance().getEmployee();
+//        System.out.println(employeeToEdit.getUsername());
+        firstName.setText(employeeToEdit.getFirstName());
+        lastName.setText(employeeToEdit.getLastName());
+        userName.setText(employeeToEdit.getUsername());
+        password.setText(employeeToEdit.getPassword());
+
+
+
+
     }
 
     @FXML
@@ -43,8 +65,59 @@ public class FXMLEditEmployeeController {
     void enterPressed(ActionEvent event) {
         String firstNameText = firstName.getText();
         String lastNameText = lastName.getText();
-        String userNameText = userName.getText();
+        userNameText = userName.getText();
         String passwordText = password.getText();
+
+        System.out.println(userNameText);
+
+        if(firstNameText.equals("") || lastNameText.equals("") || userNameText.equals("") || passwordText.equals("") ){
+            //todo throw error nga empty
+        }
+
+        DatabaseReference ref = database.child("Employees");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(userNameText.equals(employeeToEdit.getUsername())){
+                    Map<String, Object> newEmployee = new HashMap<>();
+                    newEmployee.put("firstName", firstNameText);
+                    newEmployee.put("lastName", lastNameText);
+                    newEmployee.put("password", passwordText);
+
+                    ref.child(userNameText).updateChildren(newEmployee);
+                }else {
+                    if(snapshot.hasChild(userNameText)){
+                        //todo throw user exist
+                        //System.out.println("geee");
+                    }else {
+                        System.out.println("hello");
+                        Employee e = new Employee(userNameText,passwordText,firstNameText,lastNameText,employeeToEdit.getWorkType(),employeeToEdit.isActiveEmployee());
+                        ref.child(employeeToEdit.getUsername()).setValue(null);
+                        ref.child(userNameText).setValue(e);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+
+
+//        firstNameText = firstNameText.replaceAll("\\s","");//removes spaces
+//        lastNameText = lastNameText.replaceAll("\\s","");//removes spaces
+//        userNameText = userNameText.replaceAll("\\s","");//removes spaces
+//        passwordText = passwordText.replaceAll("\\s","");//removes spaces
+
+
+
+
+
+
+
 
         // closes the window
         Stage stage = (Stage) enter.getScene().getWindow();
