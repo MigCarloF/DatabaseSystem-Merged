@@ -74,6 +74,7 @@ public class FXMLMainCashierWindowController implements Initializable {
     private DatabaseReference exitDatabase;
     private Fee forPrinting;
     private boolean loaded;
+    private String currentLogin;
     //private FirebaseApp exitRFID;
     private int ORNUM;
 
@@ -207,7 +208,7 @@ public class FXMLMainCashierWindowController implements Initializable {
                                         System.out.println("out of paper");
                                     } else {
                                         DatabaseReference aref = database.child("Fees");
-                                        Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, "Cashier 01", localDate, plateNum);
+                                        Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, currentLogin, localDate, plateNum);
                                         aref.child(forDatabase.getOrNum()).setValue(forDatabase);
 
                                         /**
@@ -377,7 +378,8 @@ public class FXMLMainCashierWindowController implements Initializable {
     }
     public void initialize(URL url, ResourceBundle rb) {
         ORNUM = 0;
-        cashierUserText.setText("JJuan");
+        currentLogin = SingletonLogin.getInstance().getCurrentLogin();
+        cashierUserText.setText(currentLogin);
 
         currentORNumber.setText("");
         noCheck.setText("");

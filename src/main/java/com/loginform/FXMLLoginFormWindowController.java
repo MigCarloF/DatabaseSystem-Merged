@@ -1,6 +1,7 @@
 package com.loginform;
 
 import com.database.Employee;
+import com.database.SingletonLogin;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
@@ -46,8 +47,6 @@ public class FXMLLoginFormWindowController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         employees = FXCollections.observableArrayList();
-        String user = usernameTextField.getText();
-        String pass = passwordTextField.getText();
         password = "";
         username = "";
         role = "";
@@ -58,24 +57,6 @@ public class FXMLLoginFormWindowController implements Initializable{
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-//                if(snapshot.hasChild(user)){
-//                    username = user;
-//                    ref.child(user).addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot snapshot) {
-//                            Employee employee = snapshot.getValue(Employee.class);
-//                            password = employee.getPassword();
-//                            role = employee.getWorkType();
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError error) {
-//
-//                        }
-//                    });
-//                }else {
-//                    //todo throw error nga password dont match
-//                }
                 for(DataSnapshot snap : snapshot.getChildren()){
                     Employee employee = snap.getValue(Employee.class);
                     employees.add(employee);
@@ -104,6 +85,7 @@ public class FXMLLoginFormWindowController implements Initializable{
                     flag = true;
                     if(e.getWorkType().equals("CASHIER")){
                         System.out.println("cash");
+                        SingletonLogin.getInstance().setCurrentLogin(e.getUsername());
                         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
                         Scene tableViewScene = new Scene(tableViewParent);
 
