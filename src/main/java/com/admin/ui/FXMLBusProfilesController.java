@@ -65,7 +65,7 @@ public class FXMLBusProfilesController implements Initializable {
     private DatabaseReference database;
     private ObservableList<Bus> buses;
 
-    void displayAll(){
+    private void displayAll(){
         DatabaseReference ref = database.child("Buses");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -99,19 +99,26 @@ public class FXMLBusProfilesController implements Initializable {
 
     @FXML
     void busEditButtonPressed(ActionEvent event) throws IOException {
-        Bus bus = transactionsTable.getSelectionModel().getSelectedItem();
-        SingletonEditBus.getInstance().setBus(bus);
-        System.out.println(SingletonEditBus.getInstance().getBus().getRfid());
+        if(transactionsTable.getSelectionModel().getSelectedCells().isEmpty()){
+            System.out.println("no bus selected!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No bus selected.");
+            alert.setContentText("Please select a bus profile to edit.");
+            alert.showAndWait();
+        }else{
+            Bus editBus = transactionsTable.getSelectionModel().getSelectedItem();
+            SingletonEditBus.getInstance().setBus(editBus);
+            FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
+            Parent anotherRoot = anotherLoader.load();
+            //anotherStage.centerOnScreen();  //does not really work idk
+            Scene anotherScene = new Scene(anotherRoot);
+            anotherStage.setScene(anotherScene);
+            anotherStage.initStyle(StageStyle.UNDECORATED);
 
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
-        Parent anotherRoot = anotherLoader.load();
-        //anotherStage.centerOnScreen();  //does not really work idk
-        Scene anotherScene = new Scene(anotherRoot);
-        anotherStage.setScene(anotherScene);
-        anotherStage.initStyle(StageStyle.UNDECORATED);
-
-        busViewButtonPressed(event);
-        anotherStage.show();
+            busViewButtonPressed(event);
+            anotherStage.show();
+        }
     }
 
     @FXML
