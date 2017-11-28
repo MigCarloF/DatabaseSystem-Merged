@@ -31,25 +31,13 @@ public class FXMLLoginFormWindowController implements Initializable{
     @FXML
     private JFXButton logIn;
 
-    public static String password;
-    public static String username;
-    private static String role;
-
-    // private Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
-    //private Parent tableViewParent2 = FXMLLoader.load(getClass().getResource("/FXMLCurrentWindow.fxml"));
-
     private DatabaseReference database;
-    ObservableList<Employee> employees;
+    private ObservableList<Employee> employees;
 
-    public FXMLLoginFormWindowController() throws IOException {
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         employees = FXCollections.observableArrayList();
-        password = "";
-        username = "";
-        role = "";
         database = FirebaseDatabase.getInstance().getReference();
 
         //todo store password and username
@@ -62,8 +50,6 @@ public class FXMLLoginFormWindowController implements Initializable{
                     employees.add(employee);
                 }
             }
-
-
 
             @Override
             public void onCancelled(DatabaseError error) {
@@ -115,90 +101,7 @@ public class FXMLLoginFormWindowController implements Initializable{
             //todo doesnt match
         }
 
-//        if(user.equals(username) && pass.equals(password)){
-//            //todo switch to main page
-//            if(role.equals("CASHIER")){
-//                System.out.println("cash");
-//                Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
-//                Scene tableViewScene = new Scene(tableViewParent);
-//
-//                //This line gets the Stage information
-//                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//
-//                window.setScene(tableViewScene);
-//                window.show();
-//            }
-//            if(role.equals("ADMIN")){
-//                System.out.println("Admin");
-//                Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainAdminWindow.fxml"));
-//                Scene tableViewScene = new Scene(tableViewParent);
-//
-//                //This line gets the Stage information
-//                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//
-//                window.setScene(tableViewScene);
-//                window.show();
-//            }
-//        }else{
-//            //todo error dont match
-//        }
 
-
-
-        //todo INPUT LOGIC HERE
-
-
-//        DatabaseReference aref = database.child("CurrentLogin");
-
-
-
-
-        /**
-         *  if cashier, kay
-         */
-
-        /*Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        //This line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();*/
-
-        /**
-         *  if admin, kay
-         */
-
-        /*Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainAdminWindow.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        //This line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();*/
     }
 
-    private void openCashier(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        //This line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-    }
-
-    private void openAdmin(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainAdminWindow.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        //This line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-    }
 }
