@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLBusProfilesController implements Initializable {
+public class FXMLBusProfilesControllerVersion2 implements Initializable {
     Stage anotherStage = new Stage();
     @FXML
     private Text adminUserText;

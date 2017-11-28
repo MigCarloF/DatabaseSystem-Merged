@@ -209,7 +209,12 @@ public class FXMLMainCashierWindowController implements Initializable {
                                         DatabaseReference aref = database.child("Fees");
                                         Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, "Cashier 01", localDate, plateNum);
                                         aref.child(forDatabase.getOrNum()).setValue(forDatabase);
+
+                                        /**
+                                         * printing here
+                                         */
                                         printOut(forDatabase);
+
                                         Map<String, Object> newRange = new HashMap<>();
                                         newRange.put("current", ORNUM += 1);
                                         nref.updateChildren(newRange);
@@ -235,6 +240,9 @@ public class FXMLMainCashierWindowController implements Initializable {
 
     private void printOut(Fee f) {
         try {
+            /**
+             * Setting up strings for print arrangement
+             */
             String date = f.getDatePaid();
             String payor = f.getBus_plate();
             String nature1 = "Arrival Fee";
@@ -242,11 +250,17 @@ public class FXMLMainCashierWindowController implements Initializable {
             String arrivalFee = f.getArrivalFee();
             String loadingFee = f.getLoadingFee();
 
+            /**
+             * Initializing file writer to write text file
+             */
             PrintWriter out = new PrintWriter("filename.txt");
             out.println("\n\n\n\n\n\n\n   " + date + "\n\n\n   " + payor + "\n\n\n\n\n\n   " + nature1 + "\t\t\t\t\t" +
                     arrivalFee + "\n\n  " + nature2 + "\t\t\t\t\t" + loadingFee);
             out.close();
 
+            /**
+             * Initializing file reader to read text file
+             */
             InputStream is = new FileInputStream("filename.txt");
             BufferedReader buf = new BufferedReader(new InputStreamReader(is));
             String line = buf.readLine();
@@ -256,12 +270,20 @@ public class FXMLMainCashierWindowController implements Initializable {
                 sb.append(line).append("\n");
                 line = buf.readLine();
             }
+
+            /**
+             * Displays contents on console
+             */
             String fileAsString = sb.toString();
             System.out.println("Contents : " + fileAsString + " -END");
 
+            /**
+             * Transfers txt file to EditorPane and prints out
+             */
             JEditorPane text = new JEditorPane("file:filename.txt");
             PrintService service = PrintServiceLookup.lookupDefaultPrintService();
             text.print(null, null, true, service, null, false);
+
         } catch (FileNotFoundException e) {
             System.out.println("No file");
             e.printStackTrace();

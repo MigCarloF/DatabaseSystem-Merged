@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
-public class FXMLEditBusProfileController implements Initializable {
+public class FXMLEditBusProfileControllerVersion2 implements Initializable {
     final ToggleGroup sizeGroup = new ToggleGroup();
     final ToggleGroup typeGroup = new ToggleGroup();
 

@@ -9,7 +9,6 @@ public class Fee {
     //private LocalDate datePaid;
     private Boolean _void, paidArrival, paidLoading;
 
-
     public Fee(){}
 
 
