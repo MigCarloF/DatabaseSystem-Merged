@@ -4,6 +4,8 @@ import com.database.Bus;
 import com.database.Fee;
 import com.database.FeeTable;
 import com.google.firebase.database.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -193,13 +195,12 @@ public class FXMLCurrentWindowController implements Initializable {
         monthlyRevenue.setText("21,600");
 
         search.getItems().addAll(
-                "SEARCH by: ACTIVE",
-                "Search by: INACTIVE",
-                "Search by: MINIBUS",
-                "Search by: BUS"
+                "SEARCH by: VOID (false)",
+                "SEARCH by: VOID (true)",
+                "SEARCH by: MINIBUS",
+                "SEARCH by: BUS"
         );
 
-//        date.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("date"));
         company.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busCompany"));
         busType.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busType"));
         plateNumber.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("plateNo"));
@@ -211,6 +212,154 @@ public class FXMLCurrentWindowController implements Initializable {
         fees = FXCollections.observableArrayList();
         updateTable();
 
+        search.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                fees.clear();
+
+                DatabaseReference ref = database.child("Fees");
+                Stage stage = (Stage) search.getScene().getWindow();
+                if(search.getItems().get((Integer) number2).equals("SEARCH by: VOID (false)")) {
+                    ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Fee fee = snap.getValue(Fee.class);
+//                                        fees.add();
+//                                        transactionsTable.setItems(fees);
+                                        if(!fee.get_void()){
+                                            DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                                            bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot snapshot) {
+                                                    Bus bus = snapshot.getValue(Bus.class);
+                                                    fees.add(new FeeTable(fee,bus));
+                                                    transactionsTable.setItems(fees);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
+                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: VOID (true)")) {
+                    ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Fee fee = snap.getValue(Fee.class);
+//                                        fees.add();
+//                                        transactionsTable.setItems(fees);
+                                        if(fee.get_void()){
+                                            DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                                            bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot snapshot) {
+                                                    Bus bus = snapshot.getValue(Bus.class);
+                                                    fees.add(new FeeTable(fee,bus));
+                                                    transactionsTable.setItems(fees);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
+                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: MINIBUS")) {
+                    ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Fee fee = snap.getValue(Fee.class);
+//                                        fees.add();
+//                                        transactionsTable.setItems(fees);
+
+                                        DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                                        bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot snapshot) {
+                                                Bus bus = snapshot.getValue(Bus.class);
+                                                if(bus.isMiniBus()){
+                                                    fees.add(new FeeTable(fee,bus));
+                                                    transactionsTable.setItems(fees);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError error) {
+                                            }
+                                        });
+
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
+                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: BUS")) {
+                    ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Fee fee = snap.getValue(Fee.class);
+//                                        fees.add();
+//                                        transactionsTable.setItems(fees);
+
+                                        DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                                        bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot snapshot) {
+                                                Bus bus = snapshot.getValue(Bus.class);
+                                                if(!bus.isMiniBus()){
+                                                    fees.add(new FeeTable(fee,bus));
+                                                    transactionsTable.setItems(fees);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError error) {
+                                            }
+                                        });
+
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
+                }
+            }
+        });
     }
 
     private void updateTable() {
