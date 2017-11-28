@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -15,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLRecordsWindowController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-1.0">
          <image>
@@ -24,7 +23,7 @@
       </ImageView>
       <ImageView fitHeight="45.0" fitWidth="200.0" layoutX="58.0" layoutY="37.0">
          <image>
-            <Image url="@../../cashier/ui/LOGO.png" />
+            <Image url="@LOGO.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="948.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," wrappingWidth="87.13671875">
@@ -197,23 +196,20 @@
             </TextField>
          </children>
       </AnchorPane>
-      <ScrollPane focusTraversable="false" layoutX="328.0" layoutY="328.0" prefHeight="366.0" prefWidth="917.0">
-         <content>
-            <TableView fx:id="transactionsTable" prefHeight="363.0" prefWidth="1220.0">
-              <columns>
-                <TableColumn fx:id="date" editable="false" prefWidth="130.0" style="-fx-background-color: #F2DB58;" text="Date" />
-                  <TableColumn fx:id="time" editable="false" prefWidth="130.0" style="-fx-background-color: #F2DB58;" text="Time" />
-                  <TableColumn fx:id="orNo" editable="false" prefWidth="140.0" style="-fx-background-color: #F2DB58;" text="OR no." />
-                  <TableColumn fx:id="company" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Company" />
-                  <TableColumn fx:id="busType" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Bus type" />
-                  <TableColumn fx:id="plateNo" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Plate no." />
-                  <TableColumn fx:id="route" editable="false" prefWidth="200.0" style="-fx-background-color: #F2DB58;" text="Route" />
-                  <TableColumn fx:id="feeType" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Fee type" />
-                  <TableColumn fx:id="amount" editable="false" prefWidth="120.0" style="-fx-background-color: #F2DB58;" text="Amount" />
-                  <TableColumn fx:id="status" editable="false" prefWidth="100.0" style="-fx-background-color: #F2DB58;" text="Status" />
-              </columns>
-            </TableView>
-         </content></ScrollPane>
+      <TableView fx:id="transactionsTable" focusTraversable="false" layoutX="327.0" layoutY="329.0" prefHeight="363.0" prefWidth="917.0">
+        <columns>
+          <TableColumn fx:id="date" editable="false" prefWidth="130.0" text="Date" />
+            <TableColumn fx:id="time" editable="false" prefWidth="130.0" text="Time" />
+            <TableColumn fx:id="orNo" editable="false" prefWidth="140.0" text="OR no." />
+            <TableColumn fx:id="company" editable="false" prefWidth="100.0" text="Company" />
+            <TableColumn fx:id="busType" editable="false" prefWidth="100.0" text="Bus type" />
+            <TableColumn fx:id="plateNo" editable="false" prefWidth="100.0" text="Plate no." />
+            <TableColumn fx:id="route" editable="false" prefWidth="200.0" text="Route" />
+            <TableColumn fx:id="feeType" editable="false" prefWidth="100.0" text="Fee type" />
+            <TableColumn fx:id="amount" editable="false" prefWidth="120.0" text="Amount" />
+            <TableColumn fx:id="status" editable="false" prefWidth="100.0" text="Status" />
+        </columns>
+      </TableView>
       <ComboBox fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="270.0" />
    </children>
 </AnchorPane>

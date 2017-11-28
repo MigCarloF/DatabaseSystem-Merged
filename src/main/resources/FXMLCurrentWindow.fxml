@@ -21,7 +21,7 @@
       </ImageView>
       <ImageView fitHeight="45.0" fitWidth="200.0" layoutX="51.0" layoutY="33.0">
          <image>
-            <Image url="@../../cashier/ui/LOGO.png" />
+            <Image url="@LOGO.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="938.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," wrappingWidth="87.13671875">
@@ -79,13 +79,13 @@
       </AnchorPane>
       <TableView fx:id="transactionsTable" focusTraversable="false" layoutX="336.0" layoutY="288.0" prefHeight="407.0" prefWidth="911.0">
          <columns>
-            <TableColumn fx:id="company" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="COMPANY" />
-            <TableColumn fx:id="busType" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="BUS TYPE" />
-            <TableColumn fx:id="plateNumber" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="PLATE #" />
-            <TableColumn fx:id="route" editable="false" prefWidth="131.0" style="-fx-background-color: #f2db58;" text="ROUTE" />
-            <TableColumn fx:id="start" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="STATUS" />
-            <TableColumn fx:id="arrivalTime" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="ARRIVAL TIME" />
-            <TableColumn fx:id="departureTime" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="DEPARTURE TIME" />
+            <TableColumn fx:id="company" editable="false" prefWidth="130.0" text="COMPANY" />
+            <TableColumn fx:id="busType" editable="false" prefWidth="130.0" text="BUS TYPE" />
+            <TableColumn fx:id="plateNumber" editable="false" prefWidth="130.0" text="PLATE #" />
+            <TableColumn fx:id="route" editable="false" prefWidth="131.0" text="ROUTE" />
+            <TableColumn fx:id="start" editable="false" prefWidth="130.0" text="STATUS" />
+            <TableColumn fx:id="arrivalTime" editable="false" prefWidth="130.0" text="ARRIVAL TIME" />
+            <TableColumn fx:id="departureTime" editable="false" prefWidth="130.0" text="DEPARTURE TIME" />
          </columns>
       </TableView>
       <Text fill="#f2db58" layoutX="31.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRANSACTIONS">

@@ -253,8 +253,16 @@ public class FXMLRecordsWindowController implements Initializable {
     }
 
     @FXML
-    void busEditButtonPressed(ActionEvent event) {
+    void busEditButtonPressed(ActionEvent event) throws IOException {
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        //anotherStage.centerOnScreen();  //does not really work idk
+        Scene anotherScene = new Scene(anotherRoot);
+        anotherStage.setScene(anotherScene);
+        anotherStage.initStyle(StageStyle.UNDECORATED);
 
+        recordsButtonPressed(event);
+        anotherStage.show();
     }
 
     @FXML
@@ -295,8 +303,16 @@ public class FXMLRecordsWindowController implements Initializable {
     }
 
     @FXML
-    void employeeEditButtonPressed(ActionEvent event) {
+    void employeeEditButtonPressed(ActionEvent event) throws IOException {
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        //anotherStage.centerOnScreen();  //does not really work idk
+        Scene anotherScene = new Scene(anotherRoot);
+        anotherStage.setScene(anotherScene);
+        anotherStage.initStyle(StageStyle.UNDECORATED);
 
+        recordsButtonPressed(event);
+        anotherStage.show();
     }
 
     @FXML
@@ -368,8 +384,8 @@ public class FXMLRecordsWindowController implements Initializable {
 
         date.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("date"));
         time.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("timePaid"));
-        orNo.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busCompany"));
-        company.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("feeType"));
+        orNo.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("orNum"));
+        company.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busCompany"));
         busType.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busType"));
         plateNo.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("plateNo"));
         route.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busRoute"));

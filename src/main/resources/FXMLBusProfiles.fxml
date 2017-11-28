@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -95,20 +94,17 @@
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <ScrollPane layoutX="326.0" layoutY="137.0" prefHeight="555.0" prefWidth="923.0">
-         <content>
-            <TableView fx:id="transactionsTable" focusTraversable="false" prefHeight="553.0" prefWidth="1071.0">
-               <columns>
-                  <TableColumn fx:id="franchise" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="FRANCHISE" />
-                  <TableColumn fx:id="contactPerson" editable="false" prefWidth="200.0" style="-fx-background-color: #f2db58;" text="CONTACT PERSON" />
-                  <TableColumn fx:id="contactNumber" editable="false" prefWidth="160.0" style="-fx-background-color: #f2db58;" text="CONTACT NUMBER" />
-                  <TableColumn fx:id="plateNumber" editable="false" prefWidth="131.0" style="-fx-background-color: #f2db58;" text="PLATE NUMBER" />
-                  <TableColumn fx:id="size" editable="false" prefWidth="120.0" style="-fx-background-color: #f2db58;" text="SIZE" />
-                  <TableColumn fx:id="route" editable="false" prefWidth="200.0" style="-fx-background-color: #f2db58;" text="ROUTE" />
-                  <TableColumn fx:id="type" editable="false" prefWidth="130.0" style="-fx-background-color: #f2db58;" text="TYPE" />
-               </columns>
-            </TableView>
-         </content></ScrollPane>
+      <TableView fx:id="transactionsTable" focusTraversable="false" layoutX="332.0" layoutY="137.0" prefHeight="553.0" prefWidth="912.0">
+         <columns>
+            <TableColumn fx:id="franchise" editable="false" prefWidth="130.0" text="FRANCHISE" />
+            <TableColumn fx:id="contactPerson" editable="false" prefWidth="200.0" text="CONTACT PERSON" />
+            <TableColumn fx:id="contactNumber" editable="false" prefWidth="160.0" text="CONTACT NUMBER" />
+            <TableColumn fx:id="plateNumber" editable="false" prefWidth="131.0" text="PLATE NUMBER" />
+            <TableColumn fx:id="size" editable="false" prefWidth="120.0" text="SIZE" />
+            <TableColumn fx:id="route" editable="false" prefWidth="200.0" text="ROUTE" />
+            <TableColumn fx:id="type" editable="false" prefWidth="130.0" text="TYPE" />
+         </columns>
+      </TableView>
       <ComboBox fx:id="search" layoutX="16.0" layoutY="154.0" prefHeight="45.0" prefWidth="270.0" />
    </children>
 </AnchorPane>

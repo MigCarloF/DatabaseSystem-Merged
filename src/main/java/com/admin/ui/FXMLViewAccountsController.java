@@ -101,8 +101,16 @@ public class FXMLViewAccountsController implements Initializable {
     }
 
     @FXML
-    void busEditButtonPressed(ActionEvent event) {
+    void busEditButtonPressed(ActionEvent event) throws IOException {
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        //anotherStage.centerOnScreen();  //does not really work idk
+        Scene anotherScene = new Scene(anotherRoot);
+        anotherStage.setScene(anotherScene);
+        anotherStage.initStyle(StageStyle.UNDECORATED);
 
+        employeeViewButtonPressed(event);
+        anotherStage.show();
     }
 
     @FXML
@@ -143,8 +151,16 @@ public class FXMLViewAccountsController implements Initializable {
     }
 
     @FXML
-    void employeeEditButtonPressed(ActionEvent event) {
+    void employeeEditButtonPressed(ActionEvent event) throws IOException {
+        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
+        Parent anotherRoot = anotherLoader.load();
+        //anotherStage.centerOnScreen();  //does not really work idk
+        Scene anotherScene = new Scene(anotherRoot);
+        anotherStage.setScene(anotherScene);
+        anotherStage.initStyle(StageStyle.UNDECORATED);
 
+        employeeViewButtonPressed(event);
+        anotherStage.show();
     }
 
     @FXML

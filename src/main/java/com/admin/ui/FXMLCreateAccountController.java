@@ -87,7 +87,7 @@ public class FXMLCreateAccountController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        createAccountType.getItems().addAll("ADMIN", "ACCOUNTANT", "CASHIER");
+        createAccountType.getItems().addAll("ADMIN", "CASHIER");
         createAccountType.setVisibleRowCount(3);
         createAccountType.setEditable(false);
         createAccountType.setPromptText("ACCOUNT TYPE");
