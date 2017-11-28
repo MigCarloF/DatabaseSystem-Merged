@@ -56,8 +56,8 @@ public class FXMLViewAccountsController implements Initializable {
     @FXML
     private TableColumn<Employee, String> department;
 
-    @FXML
-    private TableColumn<Employee, String> shift;
+//    @FXML
+//    private TableColumn<Employee, String> shift;
 
     @FXML
     private TableColumn<Employee, String> status;

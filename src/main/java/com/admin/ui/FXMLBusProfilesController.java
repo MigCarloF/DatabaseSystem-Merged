@@ -219,7 +219,7 @@ public class FXMLBusProfilesController implements Initializable {
 
         search.getItems().addAll(
                 "SEARCH by: ACTIVE",
-                "Search by: INACTIVE",
+                "SEARCH by: INACTIVE",
                 "Search by: CASHIER",
                 "Search by: ADMIN"
         );
@@ -227,11 +227,45 @@ public class FXMLBusProfilesController implements Initializable {
         search.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                buses.clear();
+
+                DatabaseReference ref = database.child("Buses");
                 Stage stage = (Stage) search.getScene().getWindow();
                 if(search.getItems().get((Integer) number2).equals("SEARCH by: ACTIVE")) {
+                    ref.orderByChild("activeBus").equalTo(true)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            for(DataSnapshot snap : snapshot.getChildren()){
+                                Bus bus = snap.getValue(Bus.class);
+                                buses.add(bus);
+                                transactionsTable.setItems(buses);
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+
+                        }
+                    });
                 } else if(search.getItems().get((Integer) number2).equals("SEARCH by: INACTIVE")) {
+                    ref.orderByChild("activeBus").equalTo(false)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Bus bus = snap.getValue(Bus.class);
+                                        buses.add(bus);
+                                        transactionsTable.setItems(buses);
 
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
                 } else if(search.getItems().get((Integer) number2).equals("Search by: CASHIER")) {
 
                 } else if(search.getItems().get((Integer) number2).equals("Search by: ADMIN")) {

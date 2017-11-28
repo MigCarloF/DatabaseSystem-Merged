@@ -1,5 +1,11 @@
 package com.admin.ui;
 
+import com.database.Bus;
+import com.database.Fee;
+import com.database.FeeTable;
+import com.google.firebase.database.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +17,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ResourceBundle;
 
 public class FXMLCurrentWindowController implements Initializable {
@@ -31,25 +40,30 @@ public class FXMLCurrentWindowController implements Initializable {
     private TextField monthlyRevenue;
 
     @FXML
-    private TableView<?> transactionsTable;
+    private TableView<FeeTable> transactionsTable;
 
     @FXML
-    private TableColumn<?, ?> company;
+    private TableColumn<FeeTable, String> company;
 
     @FXML
-    private TableColumn<?, ?> busType;
+    private TableColumn<FeeTable, String> busType;
 
     @FXML
-    private TableColumn<?, ?> plateNumber;
+    private TableColumn<FeeTable, String> plateNumber;
 
     @FXML
-    private TableColumn<?, ?> route;
+    private TableColumn<FeeTable, String> route;
 
     @FXML
-    private TableColumn<?, ?> start;
+    private TableColumn<FeeTable, String> status;
 
     @FXML
     private ComboBox search;
+
+    private DatabaseReference database;
+    private int tarrival, load, totalvoided;
+    private int totalRevenue;
+    private ObservableList<FeeTable> fees;
 
     @FXML
     void currentButtonPressed(ActionEvent event) throws IOException {
@@ -184,5 +198,90 @@ public class FXMLCurrentWindowController implements Initializable {
                 "Search by: MINIBUS",
                 "Search by: BUS"
         );
+
+//        date.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("date"));
+        company.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busCompany"));
+        busType.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busType"));
+        plateNumber.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("plateNo"));
+        route.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busRoute"));
+        status.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("voidStatus"));
+
+
+        database = FirebaseDatabase.getInstance().getReference();
+        fees = FXCollections.observableArrayList();
+        updateTable();
+
+    }
+
+    private void updateTable() {
+        fees.clear();
+        String dateToday = LocalDate.now().toString();
+        LocalDate monthBegin = LocalDate.now().withDayOfMonth(1);
+        LocalDate monthEnd = LocalDate.now().plusMonths(1).withDayOfMonth(1).minusDays(1);
+        DatabaseReference ref = database.child("Fees");
+
+        ref.orderByChild("datePaid").startAt(monthBegin.toString()).endAt(monthEnd.toString())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        tarrival = 0;
+                        load = 0;
+                        for(DataSnapshot snap : snapshot.getChildren()){
+                            Fee fee = snap.getValue(Fee.class);
+                            if(fee.getPaidArrival()) tarrival += 1;
+                            if(fee.getPaidLoading()) load +=1;
+                        }
+                        int productArrival = tarrival * 50;
+                        int productLoad = load * 150;
+                        totalRevenue = productArrival + productLoad;
+                        monthlyRevenue.setText("" + totalRevenue);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+        /**
+         * ordered by date (firebase default method)
+         * getting all items starting from the startDate to endDate
+         */
+        ref.orderByChild("datePaid").equalTo(dateToday)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                tarrival = 0;
+                load = 0;
+                for(DataSnapshot snap : snapshot.getChildren()){
+                    Fee fee = snap.getValue(Fee.class);
+                    if(fee.getPaidArrival()) tarrival += 1;
+                    if(fee.getPaidLoading()) load +=1;
+                    DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                    bref.addListenerForSingleValueEvent(new ValueEventListener() { //functions just the same sa listener above pero lain lang reference (instead of Fees, Buses na na table)
+                        @Override
+                        public void onDataChange(DataSnapshot bussnapshot) {
+                            Bus bus = bussnapshot.getValue(Bus.class);
+                            //System.out.println(fee.getBus_plate());
+                            fees.add(new FeeTable(fee,bus));
+                            transactionsTable.setItems(fees);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+
+                        }
+                    });
+                }
+                int productArrival = tarrival * 50;
+                int productLoad = load * 150;
+                totalRevenue = productArrival + productLoad;
+                dailyRevenue.setText("" + totalRevenue);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 }
