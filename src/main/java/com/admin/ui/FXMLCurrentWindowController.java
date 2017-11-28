@@ -379,8 +379,10 @@ public class FXMLCurrentWindowController implements Initializable {
                         load = 0;
                         for(DataSnapshot snap : snapshot.getChildren()){
                             Fee fee = snap.getValue(Fee.class);
-                            if(fee.getPaidArrival()) tarrival += 1;
-                            if(fee.getPaidLoading()) load +=1;
+                            if(!fee.get_void()){
+                                if(fee.getPaidArrival()) tarrival += 1;
+                                if(fee.getPaidLoading()) load +=1;
+                            }
                         }
                         int productArrival = tarrival * 50;
                         int productLoad = load * 150;

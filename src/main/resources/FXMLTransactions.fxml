@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLTransactionsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLTransactionsController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="900.0">
          <image>
@@ -129,8 +129,8 @@
                   <Font name="System Italic" size="18.0" />
                </font>
             </Text>
-            <DatePicker fx:id="transactDateTo" focusTraversable="false" layoutX="211.0" layoutY="1.0" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
-            <DatePicker fx:id="transactDateFrom" focusTraversable="false" layoutX="1.0" layoutY="1.0" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
+            <DatePicker fx:id="transactDateTo" focusTraversable="false" layoutX="211.0" layoutY="1.0" onAction="#dateEndDateUpdated" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
+            <DatePicker fx:id="transactDateFrom" focusTraversable="false" layoutX="1.0" layoutY="1.0" onAction="#dateStartDateUpdated" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
          </children>
       </AnchorPane>
       <JFXButton fx:id="transactBackButton" focusTraversable="false" layoutX="768.0" layoutY="129.0" onAction="#transactBackButtonPressed" prefWidth="100.0" style="-fx-background-color: #f2db58;" text="BACK" textFill="#434343" />

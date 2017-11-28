@@ -106,9 +106,13 @@ public class FXMLTransactionsController implements Initializable {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot snap : dataSnapshot.getChildren()){
                             Fee fee = snap.getValue(Fee.class);
-                            if(fee.getPaidArrival()) arrival+=1;
-                            if(fee.getPaidLoading()) load +=1;
-
+                            if(!fee.get_void()){
+                                if(fee.getPaidArrival()) arrival+=1;
+                                if(fee.getPaidLoading()) {
+                                    System.out.println(fee.getOrNum());
+                                    load +=1;
+                                }
+                            }
                             DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
                             bref.addListenerForSingleValueEvent(new ValueEventListener() { //functions just the same sa listener above pero lain lang reference (instead of Fees, Buses na na table)
                                 @Override
@@ -133,11 +137,6 @@ public class FXMLTransactionsController implements Initializable {
                             transactAmountLF.setText("" + productLoad);
                             transactTotalRevenue.setText("" + (productArrival + productLoad));
                         }
-                         //ObservableList<FeeTable> feeList = transactionsTable.getItems();
-//                        for (FeeTable f : fees) {
-//                            System.out.println(f.getTotalAmount());
-//                        }
-
                     }
 
                     @Override
