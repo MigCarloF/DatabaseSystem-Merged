@@ -7,6 +7,7 @@ public class Bus {
      * capacity = no. of passengers
      * type = ac/ noac
      */
+
     private String busCapacity;
     private String busFare;
     private String busNumber;
@@ -79,7 +80,7 @@ public class Bus {
 
     }
     public Bus(String plateNo, String company, String contactPerson, String contactNumber,
-               String busType, String busRoute, String busCapacity, String busFare, String rfid){
+               String busType, String busRoute, String rfid){
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = true;
@@ -89,8 +90,6 @@ public class Bus {
         this.contactNumber = contactNumber;
         this.busType = busType;
         this.busRoute = busRoute;
-        this.busCapacity = busCapacity;
-        this.busFare = busFare;
         this.rfid = rfid;
         activeBus = true; // set default to true because I think you wont add an inactive bus
                         // and this constructor is only called when you create a new bus
@@ -101,11 +100,6 @@ public class Bus {
     public Bus(){
 
     }
-//    public Bus(){
-//        plateNo = null;
-//        company = null;
-//        busNumber = "0";
-//    }
 
     public String getRoute1(){
         return route1;

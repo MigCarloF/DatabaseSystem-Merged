@@ -6,11 +6,13 @@
 package com.admin.ui;
 
 import com.database.Bus;
+import com.database.Employee;
 import com.database.Fee;
 import com.database.FeeTable;
 import com.google.firebase.database.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,10 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -31,6 +30,8 @@ import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class FXMLBusProfilesController implements Initializable {
     Stage anotherStage = new Stage();
@@ -101,6 +102,10 @@ public class FXMLBusProfilesController implements Initializable {
 
     @FXML
     void busEditButtonPressed(ActionEvent event) throws IOException {
+        Bus bus = transactionsTable.getSelectionModel().getSelectedItem();
+        SingletonEditBus.getInstance().setBus(bus);
+        System.out.println(SingletonEditBus.getInstance().getBus().getRfid());
+
         FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
@@ -201,9 +206,7 @@ public class FXMLBusProfilesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         adminUserText.setText("Sir Joey");
-        /**
-         *  TODO: implement search text field
-         */
+
         franchise.setCellValueFactory(new PropertyValueFactory<Bus, String>("company"));
         contactPerson.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactPerson"));
         contactNumber.setCellValueFactory(new PropertyValueFactory<Bus, String>("contactNumber"));
@@ -220,6 +223,23 @@ public class FXMLBusProfilesController implements Initializable {
                 "Search by: CASHIER",
                 "Search by: ADMIN"
         );
+
+        search.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                Stage stage = (Stage) search.getScene().getWindow();
+                if(search.getItems().get((Integer) number2).equals("SEARCH by: ACTIVE")) {
+
+                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: INACTIVE")) {
+
+                } else if(search.getItems().get((Integer) number2).equals("Search by: CASHIER")) {
+
+                } else if(search.getItems().get((Integer) number2).equals("Search by: ADMIN")) {
+
+                }
+            }
+        });
+
 
         displayAll();
 //        search.getText();

@@ -72,10 +72,10 @@ public class FXMLTransactionsController implements Initializable {
     private TextField transactTotalRevenue;
 
     @FXML
-    private JFXDatePicker transactDateFrom;
+    private DatePicker transactDateFrom;
 
     @FXML
-    private JFXDatePicker transactDateTo;
+    private DatePicker transactDateTo;
 
     @FXML
     private JFXButton transactBackButton;

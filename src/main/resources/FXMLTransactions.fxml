@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLTransactionsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLTransactionsController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="900.0">
          <image>
@@ -41,12 +41,12 @@
       </JFXButton>
       <TableView fx:id="transactionsTable" focusTraversable="false" layoutX="30.0" layoutY="341.0" prefHeight="331.0" prefWidth="840.0">
         <columns>
-          <TableColumn fx:id="transactDate" editable="false" prefWidth="140.0" style="-fx-background-color: #f2db58;" text="Date" />
-          <TableColumn fx:id="transactTime" editable="false" prefWidth="140.0" style="-fx-background-color: #f2db58;" text="Time" />
-            <TableColumn fx:id="transactOR" editable="false" prefWidth="140.0" style="-fx-background-color: #f2db58;" text="OR No." />
-            <TableColumn fx:id="transactFee" editable="false" prefWidth="140.0" style="-fx-background-color: #f2db58;" text="Fee type" />
-            <TableColumn fx:id="transactAmount" editable="false" prefWidth="140.0" style="-fx-background-color: #f2db58;" text="Amount" />
-            <TableColumn fx:id="transactStatus" editable="false" prefWidth="140.0" style="-fx-background-color: #f2db58;" text="Status" />
+          <TableColumn fx:id="transactDate" editable="false" prefWidth="140.0" text="Date" />
+          <TableColumn fx:id="transactTime" editable="false" prefWidth="140.0" text="Time" />
+            <TableColumn fx:id="transactOR" editable="false" prefWidth="140.0" text="OR No." />
+            <TableColumn fx:id="transactFee" editable="false" prefWidth="140.0" text="Fee type" />
+            <TableColumn fx:id="transactAmount" editable="false" prefWidth="140.0" text="Amount" />
+            <TableColumn fx:id="transactStatus" editable="false" prefWidth="140.0" text="Status" />
         </columns>
       </TableView>
       <AnchorPane layoutX="426.0" layoutY="170.0" prefHeight="159.0" prefWidth="444.0" style="-fx-background-color: #ffffff;">
@@ -124,13 +124,13 @@
          </children></AnchorPane>
       <AnchorPane layoutX="30.0" layoutY="170.0" prefHeight="40.0" prefWidth="382.0" style="-fx-background-color: #ffffff;">
          <children>
-            <JFXDatePicker fx:id="transactDateFrom" defaultColor="#14005d" focusTraversable="false" layoutX="22.0" layoutY="8.0" onAction="#dateStartDateUpdated" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: #ffffff;" />
             <Text layoutX="162.0" layoutY="26.0" opacity="0.74" strokeWidth="2.0" text="to" textAlignment="CENTER" wrappingWidth="57.1953125">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
             </Text>
-            <JFXDatePicker fx:id="transactDateTo" defaultColor="#14005d" focusTraversable="false" layoutX="219.0" layoutY="9.0" onAction="#dateEndDateUpdated" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: #ffffff;" />
+            <DatePicker fx:id="transactDateTo" focusTraversable="false" layoutX="211.0" layoutY="1.0" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
+            <DatePicker fx:id="transactDateFrom" focusTraversable="false" layoutX="1.0" layoutY="1.0" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff;" />
          </children>
       </AnchorPane>
       <JFXButton fx:id="transactBackButton" focusTraversable="false" layoutX="768.0" layoutY="129.0" onAction="#transactBackButtonPressed" prefWidth="100.0" style="-fx-background-color: #f2db58;" text="BACK" textFill="#434343" />

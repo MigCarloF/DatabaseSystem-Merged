@@ -52,66 +52,6 @@ public class FXMLMainCashierWindowController implements Initializable {
     private JFXCheckBox loadingFee;
 
     @FXML
-    private TextField totalCashier;
-
-    @FXML
-    private TextField quantity1;
-
-    @FXML
-    private TextField quantity2;
-
-    @FXML
-    private TextField quantity3;
-
-    @FXML
-    private TextField quantity4;
-
-    @FXML
-    private TextField quantity5;
-
-    @FXML
-    private TextField quantity6;
-
-    @FXML
-    private TextField quantity7;
-
-    @FXML
-    private TextField quantity8;
-
-    @FXML
-    private TextField quantity9;
-
-    @FXML
-    private TextField amount1;
-
-    @FXML
-    private TextField amount2;
-
-    @FXML
-    private TextField amount3;
-
-    @FXML
-    private TextField amount4;
-
-    @FXML
-    private TextField amount5;
-
-    @FXML
-    private TextField amount6;
-
-    @FXML
-    private TextField amount7;
-
-    @FXML
-    private TextField amount8;
-
-    @FXML
-    private TextField amount9;
-
-    @FXML
-    private JFXButton voidButton;
-
-    @FXML
     private JFXButton transactionsButton;
 
     @FXML
@@ -353,31 +293,6 @@ public class FXMLMainCashierWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ORNUM = 0;
         cashierUserText.setText("JJuan");
-
-        /**
-         *   CASH COUNT VARIABLES
-         */
-        String one = quantity1.getText();
-        String two = quantity2.getText();
-        String three = quantity3.getText();
-        String four = quantity4.getText();
-        String five = quantity5.getText();
-        String six = quantity6.getText();
-        String seven = quantity7.getText();
-        String eight = quantity8.getText();
-        String nine = quantity9.getText();
-
-        amount1.setText("3000");
-        amount2.setText("500");
-        amount3.setText("200");
-        amount4.setText("100");
-        amount5.setText("50");
-        amount6.setText("20");
-        amount7.setText("10");
-        amount8.setText("5");
-        amount9.setText("1");
-
-        totalCashier.setText("1886");
 
         currentORNumber.setText("000142");
         noCheck.setText("");

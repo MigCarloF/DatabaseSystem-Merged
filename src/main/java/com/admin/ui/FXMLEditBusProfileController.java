@@ -1,6 +1,7 @@
 package com.admin.ui;
 
 import com.database.Bus;
+import com.database.Employee;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
@@ -11,171 +12,124 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class FXMLEditBusProfileController implements Initializable {
 
     @FXML
-    private JFXButton editProfilesCancelButton;
+    private JFXButton cancelButton;
 
     @FXML
-    private JFXButton editProfilesEditButton;
+    private JFXButton editButton;
 
     @FXML
-    private JFXButton editProfilesDeleteButton;
+    private TextField contactPerson;
 
     @FXML
-    private TextField editProfilesAccountNo;
+    private TextField contactNumber;
 
     @FXML
-    private TextField editProfilesCPerson;
+    private TextField franchise;
 
     @FXML
-    private TextField editProfilesCNumber;
+    private TextField plateNo;
 
     @FXML
-    private TextField editProfilesFranchise;
+    private TextField route;
 
     @FXML
-    private TextField editProfilesPlateNo;
+    private TextField type;
 
     @FXML
-    private TextField editProfilesBusNo;
+    private TextField size;
 
     @FXML
-    private TextField editProfilesSize;
+    private TextField rfid;
 
-    @FXML
-    private TextField editProfilesCapacity;
-
-    @FXML
-    private TextField editProfilesType;
-
-    @FXML
-    private TextField editProfilesRoute;
-
-    @FXML
-    private TextField editProfilesFare;
 
     private Bus busToEdit;
     private DatabaseReference database;
-    private ChildEventListener childEventListener;
+
     private Boolean errorFound = false;
     private String errorStatus = "";
     private Alert alert = new Alert(Alert.AlertType.ERROR);
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        database = FirebaseDatabase.getInstance().getReference();
+        busToEdit = SingletonEditBus.getInstance().getBus();
+
+        contactPerson.setText(busToEdit.getContactPerson());
+        contactNumber.setText(busToEdit.getContactNumber());
+        franchise.setText(busToEdit.getCompany());
+        plateNo.setText(busToEdit.getPlateNo());
+        route.setText(busToEdit.getBusRoute());
+        type.setText(busToEdit.getBusType());
+        size.setText(busToEdit.getBusSize());
+        rfid.setText(busToEdit.getRfid());
+    }
+
     @FXML
-    void editProfilesCancelPressed(ActionEvent event) {
-        Stage stage = (Stage) editProfilesCancelButton.getScene().getWindow();
+    void cancelButtonPressed(ActionEvent event) {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void editProfilesDeletePressed(ActionEvent event) { //TODO: update this to suit the updated bus class
-        //DELETE SA DATABASE
-        DatabaseReference ref = database.child("Buses");
-        ref.child(busToEdit.getPlateNo()).setValue(null);
-    }
+    void editButtonPressed(ActionEvent event) {
+        String contactPersonText = contactPerson.getText();
+        String contactNumberText = contactNumber.getText();
+        String franchiseText = franchise.getText();
+        String plateNoText = plateNo.getText();
+        String routeText = route.getText();
+        String typeText = type.getText();
+        String sizeText = size.getText();
+        String RFIDText = rfid.getText();
 
-    @FXML
-    void editProfilesEditPressed(ActionEvent event) {
-        String contactPerson = editProfilesCPerson.getText();
-        String contactNumber = editProfilesCNumber.getText();
-        String franchise = editProfilesFranchise.getText();
-        String plateNumber = editProfilesPlateNo.getText();
-        String busNumber = editProfilesBusNo.getText();
-        String size = editProfilesSize.getText();
-        String capacity = editProfilesCapacity.getText();
-        String type = editProfilesType.getText();
-        String route = editProfilesRoute.getText();
-        String fare = editProfilesFare.getText();
-        Boolean minibus = true;
-        if(size.equals("bus")){
-            minibus = false;
+        if(contactNumberText.equals("") || contactPersonText.equals("") || franchiseText.equals("") ||
+                plateNoText.equals("") || routeText.equals("") || typeText.equals("") || sizeText.equals("") ||
+                RFIDText.equals("")) {
+            //todo throw error nga empty
         }
 
-        if(contactPerson.equals("") || contactNumber.equals("") || franchise.equals("") || plateNumber.equals("") || busNumber.equals("")
-                || capacity.equals("") || fare.equals("")){
-            alert.setTitle("INCOMPLETE DATA");
-            alert.setHeaderText("");
-            alert.setContentText("Please fill in all the data needed.");
-            alert.showAndWait();
-        }else {
-            DatabaseReference ref = database.child("Buses");
-            Bus bus = new Bus(busNumber, size, franchise, minibus, plateNumber, contactPerson, contactNumber, type, route, capacity, fare, true,"");
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    if (snapshot.hasChild(plateNumber)) { // check if plate number already exists
-                        setError(true);
-                        errorStatus = "Plate_number";
-                    }
-                    ref.child(franchise).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot snapshot) { // check if a bus in the same company has an existing
-                            if(snapshot.hasChild(busNumber)){             // bus number equal to "busNumber"
-                                setError(true);
-                                errorStatus = "Franchise_Bus_number";
-                            }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError error2) {}
-                    });
+        DatabaseReference ref = database.child("Buses");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(plateNoText.equals(busToEdit.getPlateNo())){
+                    Map<String, Object> newBus = new HashMap<>();
+                    newBus.put("plateNo", plateNoText);
+                    newBus.put("franchise", franchiseText);
+                    newBus.put("contactPerson", contactPersonText);
+                    newBus.put("contactNumber", contactNumberText);
+                    newBus.put("type", typeText);
+                    newBus.put("route", routeText);
 
-                    if(!errorFound) {
+                    ref.child(plateNoText).updateChildren(newBus);
+                }else {
+                    if(snapshot.hasChild(plateNoText)){
+                        //todo throw user exist
+                        //System.out.println("geee");
+                    }else {
+                        System.out.println("hello");
+                        Bus e = new Bus(plateNoText, franchiseText, contactPersonText, contactNumberText, typeText, routeText, busToEdit.getRfid());
                         ref.child(busToEdit.getPlateNo()).setValue(null);
-                        ref.child(plateNumber).setValue(bus);
+                        ref.child(plateNoText).setValue(e);
                     }
                 }
 
-                @Override
-                public void onCancelled(DatabaseError error) {}
-            });
-        }
-        if(!errorFound){
-            Stage stage = (Stage) editProfilesCancelButton.getScene().getWindow();
-            stage.close();
-        }else{
-            if(errorStatus.equals("Plate_number")){
-                System.out.println("Plate number already exists.");
-                alert.setTitle("E R R O R");
-                alert.setHeaderText("A bus with the plate number " + plateNumber + " already exists.");
-                alert.setContentText("Please enter another plate number.");
-                alert.showAndWait();
-            }else if(errorStatus.equals("Franchise_Bus_number")){
-                System.out.println("A " + franchise + " Bus with the " + busNumber + " number already exists.");
-                alert.setTitle("E R R O R");
-                alert.setHeaderText("A " + franchise + " Bus with the " + busNumber + " number already exists.");
-                alert.setContentText("Please enter another bus company or number.");
-                alert.showAndWait();
             }
-        }
-    }
 
-    private void setError(Boolean status){
-        errorFound = status;
-    }
+            @Override
+            public void onCancelled(DatabaseError error) {
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        database = FirebaseDatabase.getInstance().getReference();
+            }
+        });
 
-        busToEdit = SingletonEditBus.getInstance().getBus();
-
-        editProfilesAccountNo.setText("");  //the account number of the bus profile selected
-
-        editProfilesCPerson.setText(busToEdit.getContactPerson());
-        editProfilesCNumber.setText(busToEdit.getContactNumber());
-        editProfilesFranchise.setText(busToEdit.getCompany());
-        editProfilesPlateNo.setText(busToEdit.getPlateNo());
-        editProfilesBusNo.setText(busToEdit.getBusNumber());
-        editProfilesSize.setText(busToEdit.getBusSize());
-        editProfilesCapacity.setText(busToEdit.getBusCapacity());
-        editProfilesType.setText(busToEdit.getBusType());
-        editProfilesRoute.setText(busToEdit.getBusRoute());
-        editProfilesFare.setText(busToEdit.getBusFare());
+        // closes the window
+        Stage stage = (Stage) editButton.getScene().getWindow();
+        stage.close();
     }
 }

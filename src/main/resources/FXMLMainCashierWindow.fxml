@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLMainCashierWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cashier.ui.FXMLMainCashierWindowController">
    <children>
       <ImageView fitHeight="700.0" fitWidth="900.0">
          <image>
@@ -39,7 +39,7 @@
             <Font name="Consolas" size="18.0" />
          </font>
       </JFXButton>
-      <AnchorPane layoutX="24.0" layoutY="166.0" prefHeight="200.0" prefWidth="460.0" style="-fx-background-color: #ffffff;">
+      <AnchorPane layoutX="223.0" layoutY="179.0" prefHeight="200.0" prefWidth="460.0" style="-fx-background-color: #ffffff;">
          <children>
             <AnchorPane prefHeight="30.0" prefWidth="460.0" style="-fx-background-color: #f2db58;">
                <children>
@@ -76,230 +76,7 @@
             <Label fx:id="noPlate" layoutX="37.0" layoutY="142.0" text="Label" textFill="RED" />
             <Label fx:id="noCheck" layoutX="299.0" layoutY="142.0" text="Label" textFill="RED" />
          </children></AnchorPane>
-      <AnchorPane layoutX="527.0" layoutY="166.0" prefHeight="440.0" prefWidth="350.0" style="-fx-background-color: #ffffff; -fx-border-radius: 20;">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <children>
-            <AnchorPane prefHeight="35.0" prefWidth="350.0" style="-fx-background-color: #f2db58;">
-               <children>
-                  <Text layoutX="120.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CASH COUNT">
-                     <font>
-                        <Font name="Consolas" size="20.0" />
-                     </font>
-                  </Text>
-               </children></AnchorPane>
-            <AnchorPane layoutX="13.0" layoutY="372.0" prefHeight="55.0" prefWidth="325.0" style="-fx-background-color: #f2db58;">
-               <children>
-                  <Text layoutX="17.0" layoutY="36.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Text>
-                  <TextField layoutX="176.0" layoutY="8.0" prefHeight="40.0" prefWidth="149.0" style="-fx-background-color: #f2db58;">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="totalCashier" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="153.0" layoutY="5.0" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #f2db58;" text="P 1, 886">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <Text layoutX="87.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Text layoutX="265.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-            <Text layoutX="34.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1, 000">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="49.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="500">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="49.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="200">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="49.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="55.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="55.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="55.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="62.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <TextField fx:id="quantity1" alignment="BOTTOM_RIGHT" focusTraversable="false" layoutX="87.0" layoutY="71.0" prefHeight="25.0" prefWidth="94.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="quantity2" alignment="BOTTOM_RIGHT" focusTraversable="false" layoutX="87.0" layoutY="102.0" prefHeight="25.0" prefWidth="94.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="quantity3" alignment="BOTTOM_RIGHT" focusTraversable="false" layoutX="87.0" layoutY="135.0" prefHeight="25.0" prefWidth="94.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="quantity4" alignment="BOTTOM_RIGHT" focusTraversable="false" layoutX="87.0" layoutY="168.0" prefHeight="25.0" prefWidth="94.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="quantity5" alignment="BOTTOM_RIGHT" focusTraversable="false" layoutX="87.0" layoutY="201.0" prefHeight="25.0" prefWidth="94.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="quantity6" alignment="BOTTOM_RIGHT" focusTraversable="false" layoutX="87.0" layoutY="234.0" prefHeight="25.0" prefWidth="94.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="quantity7" alignment="BOTTOM_RIGHT" focusTraversable="false" layoutX="87.0" layoutY="266.0" prefHeight="25.0" prefWidth="94.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="quantity8" alignment="BOTTOM_RIGHT" focusTraversable="false" layoutX="87.0" layoutY="298.0" prefHeight="25.0" prefWidth="94.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="quantity9" alignment="BOTTOM_RIGHT" focusTraversable="false" layoutX="87.0" layoutY="330.0" prefHeight="25.0" prefWidth="94.0" promptText="1" style="-fx-background-color: #ffffff; -fx-border-color: #a3a3a3;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <Text layoutX="62.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="189.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="189.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="189.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="189.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="189.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="189.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="189.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="189.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="189.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <TextField fx:id="amount1" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="221.0" layoutY="70.0" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffffff;" text="1000">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="amount3" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="221.0" layoutY="135.0" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffffff;" text="200">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="amount4" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="221.0" layoutY="168.0" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffffff;" text="100">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="amount5" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="221.0" layoutY="201.0" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffffff;" text="50">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="amount6" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="221.0" layoutY="233.0" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffffff;" text="20">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="amount7" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="220.0" layoutY="266.0" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffffff;" text="10">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="amount8" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="220.0" layoutY="298.0" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffffff;" text="5">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="amount9" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="221.0" layoutY="329.0" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffffff;" text="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="amount2" alignment="BOTTOM_RIGHT" editable="false" focusTraversable="false" layoutX="221.0" layoutY="102.0" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffffff;" text="500">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-         </children></AnchorPane>
-      <JFXButton fx:id="voidButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="24.0" layoutY="394.0" onAction="#arrivalWindowVoidPressed" prefHeight="38.0" prefWidth="460.0" style="-fx-background-color: #f2db58;" text="SUBMIT VOID REQUEST">
+      <JFXButton fx:id="voidButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="223.0" layoutY="398.0" onAction="#arrivalWindowVoidPressed" prefHeight="38.0" prefWidth="460.0" style="-fx-background-color: #f2db58;" text="SUBMIT VOID REQUEST">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
@@ -307,7 +84,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </opaqueInsets>
       </JFXButton>
-      <JFXButton fx:id="transactionsButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="24.0" layoutY="456.0" onAction="#transactionsButtonPressed" prefHeight="38.0" prefWidth="460.0" style="-fx-background-color: #f2db58;" text="VIEW PREVIOUS TRANSACTIONS">
+      <JFXButton fx:id="transactionsButton" alignment="TOP_LEFT" focusTraversable="false" layoutX="220.0" layoutY="458.0" onAction="#transactionsButtonPressed" prefHeight="38.0" prefWidth="460.0" style="-fx-background-color: #f2db58;" text="VIEW PREVIOUS TRANSACTIONS">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
@@ -318,9 +95,9 @@
             <DropShadow />
          </effect>
       </JFXButton>
-      <JFXButton fx:id="rangeButton" alignment="TOP_LEFT" layoutX="24.0" layoutY="519.0" onAction="#rangeButtonPressed" prefHeight="42.0" prefWidth="283.0" style="-fx-background-color: #f2db58;" text="INPUT O.R. NUMBER RANGE">
+      <JFXButton fx:id="rangeButton" layoutX="661.0" layoutY="644.0" onAction="#rangeButtonPressed" prefHeight="42.0" prefWidth="214.0" style="-fx-background-color: #f2db58;" text="INPUT O.R. NUMBER RANGE" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="19.0" />
+            <Font size="15.0" />
          </font>
       </JFXButton>
       <Text fill="WHITE" layoutX="24.0" layoutY="678.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CURRENT:" wrappingWidth="87.13672310113907">

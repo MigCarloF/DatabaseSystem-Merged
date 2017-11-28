@@ -29,6 +29,9 @@ public class FXMLEditEmployeeController implements Initializable {
     private TextField password;
 
     @FXML
+    private TextField status;
+
+    @FXML
     private JFXButton enter;
 
     @FXML
@@ -44,15 +47,12 @@ public class FXMLEditEmployeeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         database = FirebaseDatabase.getInstance().getReference();
         employeeToEdit = SingletonEditEmployee.getInstance().getEmployee();
-//        System.out.println(employeeToEdit.getUsername());
+
         firstName.setText(employeeToEdit.getFirstName());
         lastName.setText(employeeToEdit.getLastName());
         userName.setText(employeeToEdit.getUsername());
         password.setText(employeeToEdit.getPassword());
-
-
-
-
+        status.setText(employeeToEdit.getEstatus());
     }
 
     @FXML
@@ -70,7 +70,7 @@ public class FXMLEditEmployeeController implements Initializable {
 
         System.out.println(userNameText);
 
-        if(firstNameText.equals("") || lastNameText.equals("") || userNameText.equals("") || passwordText.equals("") ){
+        if(firstNameText.equals("") || lastNameText.equals("") || userNameText.equals("") || passwordText.equals("")){
             //todo throw error nga empty
         }
 
@@ -91,7 +91,7 @@ public class FXMLEditEmployeeController implements Initializable {
                         //System.out.println("geee");
                     }else {
                         System.out.println("hello");
-                        Employee e = new Employee(userNameText,passwordText,firstNameText,lastNameText,employeeToEdit.getWorkType(),employeeToEdit.isActiveEmployee());
+                        Employee e = new Employee(userNameText,passwordText,firstNameText,lastNameText, employeeToEdit.getWorkType(),employeeToEdit.isActiveEmployee());
                         ref.child(employeeToEdit.getUsername()).setValue(null);
                         ref.child(userNameText).setValue(e);
                     }
@@ -104,20 +104,6 @@ public class FXMLEditEmployeeController implements Initializable {
 
             }
         });
-
-
-
-//        firstNameText = firstNameText.replaceAll("\\s","");//removes spaces
-//        lastNameText = lastNameText.replaceAll("\\s","");//removes spaces
-//        userNameText = userNameText.replaceAll("\\s","");//removes spaces
-//        passwordText = passwordText.replaceAll("\\s","");//removes spaces
-
-
-
-
-
-
-
 
         // closes the window
         Stage stage = (Stage) enter.getScene().getWindow();

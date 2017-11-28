@@ -155,7 +155,6 @@ public class FXMLViewAccountsController implements Initializable {
     @FXML
     void employeeEditButtonPressed(ActionEvent event) throws IOException {
         Employee employee = transactionsTable.getSelectionModel().getSelectedItem();
-//        System.out.println(employee.getUsername());
         SingletonEditEmployee.getInstance().setEmployee(employee);
         System.out.println(SingletonEditEmployee.getInstance().getEmployee().getPassword());
         FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
