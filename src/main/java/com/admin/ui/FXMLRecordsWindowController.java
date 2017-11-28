@@ -5,6 +5,8 @@ import com.database.Fee;
 import com.database.FeeTable;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -122,8 +124,11 @@ public class FXMLRecordsWindowController implements Initializable {
     private DatabaseReference database;
     private int tarrival, load, totalvoided;
     private ObservableList<FeeTable> fees;
+    private LocalDate currentDateFrom, currentDateTo;
 
     private void updateTable(LocalDate startDate, LocalDate endDate){
+        currentDateFrom = startDate;
+        currentDateTo = endDate;
         tarrival = 0;
         load = 0;
         totalvoided = 0;
@@ -352,6 +357,8 @@ public class FXMLRecordsWindowController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle rb) {
+        currentDateTo = LocalDate.now();
+        currentDateFrom = LocalDate.now();
         adminUserText.setText("Sir Joey");
         totalRevenue.setText("1600");
         quantityAF.setText("9");
@@ -395,15 +402,168 @@ public class FXMLRecordsWindowController implements Initializable {
 
 
         search.getItems().addAll(
-                "SEARCH by: ACTIVE",
-                "Search by: INACTIVE",
-                "Search by: MINIBUS",
-                "Search by: BUS"
+                "SEARCH by: VOID (true)",
+                "SEARCH by: VOID (false)",
+                "SEARCH by: MINIBUS",
+                "SEARCH by: BUS"
         );
 
         database = FirebaseDatabase.getInstance().getReference();
         fees = FXCollections.observableArrayList();
+
+        search.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                fees.clear();
+
+                DatabaseReference ref = database.child("Fees");
+                Stage stage = (Stage) search.getScene().getWindow();
+                if(search.getItems().get((Integer) number2).equals("SEARCH by: VOID (false)")) {
+                    ref.orderByChild("datePaid").startAt(currentDateFrom.toString()).endAt(currentDateTo.toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Fee fee = snap.getValue(Fee.class);
+//                                        fees.add();
+//                                        transactionsTable.setItems(fees);
+                                        if(!fee.get_void()){
+                                            DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                                            bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot snapshot) {
+                                                    Bus bus = snapshot.getValue(Bus.class);
+                                                    fees.add(new FeeTable(fee,bus));
+                                                    transactionsTable.setItems(fees);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
+                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: VOID (true)")) {
+                    ref.orderByChild("datePaid").startAt(currentDateFrom.toString()).endAt(currentDateTo.toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Fee fee = snap.getValue(Fee.class);
+//                                        fees.add();
+//                                        transactionsTable.setItems(fees);
+                                        if(fee.get_void()){
+                                            DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                                            bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot snapshot) {
+                                                    Bus bus = snapshot.getValue(Bus.class);
+                                                    fees.add(new FeeTable(fee,bus));
+                                                    transactionsTable.setItems(fees);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
+                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: MINIBUS")) {
+                    ref.orderByChild("datePaid").startAt(currentDateFrom.toString()).endAt(currentDateTo.toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Fee fee = snap.getValue(Fee.class);
+//                                        fees.add();
+//                                        transactionsTable.setItems(fees);
+
+                                        DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                                        bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot snapshot) {
+                                                Bus bus = snapshot.getValue(Bus.class);
+                                                if(bus.isMiniBus()){
+                                                    fees.add(new FeeTable(fee,bus));
+                                                    transactionsTable.setItems(fees);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError error) {
+                                            }
+                                        });
+
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
+                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: BUS")) {
+                    ref.orderByChild("datePaid").startAt(currentDateFrom.toString()).endAt(currentDateTo.toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Fee fee = snap.getValue(Fee.class);
+//                                        fees.add();
+//                                        transactionsTable.setItems(fees);
+
+                                        DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                                        bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot snapshot) {
+                                                Bus bus = snapshot.getValue(Bus.class);
+                                                if(!bus.isMiniBus()){
+                                                    fees.add(new FeeTable(fee,bus));
+                                                    transactionsTable.setItems(fees);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError error) {
+                                            }
+                                        });
+
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+
+                                }
+                            });
+                }
+            }
+        });
+
         updateTable(LocalDate.of(1990, Month.JANUARY, 1), LocalDate.now());
-        //search.getText();
     }
+
+
+
+        //search.getText();
 }
