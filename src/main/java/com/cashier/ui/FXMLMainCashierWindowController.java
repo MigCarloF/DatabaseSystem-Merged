@@ -19,8 +19,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.swing.*;
 import javax.xml.crypto.Data;
-import java.io.IOException;
+import java.awt.print.PrinterException;
+import java.io.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -68,11 +72,12 @@ public class FXMLMainCashierWindowController implements Initializable {
 
     private DatabaseReference database;
     private DatabaseReference exitDatabase;
+    private Fee forPrinting;
     private boolean loaded;
     //private FirebaseApp exitRFID;
     private int ORNUM;
 
-    private void exitListener(){
+    private void exitListener() {
 //        DatabaseReference ref = exitDatabase.child("Exit");
 //        Exit exit = new Exit("51:5C:AA:89","loaded",LocalDate.now().toString());
 //        ref.push().setValue(exit);
@@ -85,20 +90,21 @@ public class FXMLMainCashierWindowController implements Initializable {
                 String status = exit.getStatus();
                 System.out.println(rfid);
                 loaded = false;
-                if(status.equals("loaded")){
+                if (status.equals("loaded")) {
                     loaded = true;
                 }
 
                 DatabaseReference bref = database.child("Buses");
                 bref.addListenerForSingleValueEvent(new ValueEventListener() {
                     Bus bus;
+
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
-                        for(DataSnapshot snap : snapshot.getChildren()){
+                        for (DataSnapshot snap : snapshot.getChildren()) {
                             bus = snap.getValue(Bus.class);
-                            if(bus.getRfid().equals(rfid)){
+                            if (bus.getRfid().equals(rfid)) {
                                 arrivalFee.setSelected(true);
-                                if(loaded) loadingFee.setSelected(true);
+                                if (loaded) loadingFee.setSelected(true);
                                 plateNumber.setText(bus.getPlateNo());
                                 break;
                             }
@@ -142,15 +148,16 @@ public class FXMLMainCashierWindowController implements Initializable {
     void busPrintButtonPressed(ActionEvent event) {
         noCheck.setText("");
         noPlate.setText("");
+        forPrinting = null;
 
         String plateNo = plateNumber.getText();
-        plateNo = plateNo.replaceAll("\\s","");//removes spaces
+        plateNo = plateNo.replaceAll("\\s", "");//removes spaces
 
-        if(plateNo.equals("")){
+        if (plateNo.equals("")) {
             //todo throw error nga empty
             noPlate.setText("* - Plate number cannot be empty");
             System.out.println("no input");
-        }else{
+        } else {
             plateNo = plateNo.toUpperCase();  //all caps
             final String plateNum = plateNo;
             //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -183,27 +190,26 @@ public class FXMLMainCashierWindowController implements Initializable {
                 ref.child(plateNum).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
-                        if(snapshot.getChildrenCount() == 0){
+                        if (snapshot.getChildrenCount() == 0) {
                             //todo error here bus doesnt exist
                             noPlate.setText("* - bus  does not exist");
                             //noPlate.setText("* - bus with plate " + plateNum + " does not exist");
                             System.out.println("no bus");
-                        }
-                        else{
+                        } else {
                             DatabaseReference nref = database.child("Range");//.child("current");
                             nref.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot snapshot) {
                                     RangeOR range = snapshot.getValue(RangeOR.class);
                                     ORNUM = range.getCurrent();
-                                    if(ORNUM > range.getEnd()){
+                                    if (ORNUM > range.getEnd()) {
                                         //todo throw error nga out of range na
                                         System.out.println("out of paper");
-                                    }else{
+                                    } else {
                                         DatabaseReference aref = database.child("Fees");
                                         Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, "Cashier 01", localDate, plateNum);
                                         aref.child(forDatabase.getOrNum()).setValue(forDatabase);
-
+                                        printOut(forDatabase);
                                         Map<String, Object> newRange = new HashMap<>();
                                         newRange.put("current", ORNUM += 1);
                                         nref.updateChildren(newRange);
@@ -217,12 +223,54 @@ public class FXMLMainCashierWindowController implements Initializable {
                             });
                         }
                     }
+
                     @Override
                     public void onCancelled(DatabaseError error) {
 
                     }
                 });
             }
+        }
+    }
+
+    private void printOut(Fee f) {
+        try {
+            String date = f.getDatePaid();
+            String payor = f.getBus_plate();
+            String nature1 = "Arrival Fee";
+            String nature2 = "Loading Fee";
+            String arrivalFee = f.getArrivalFee();
+            String loadingFee = f.getLoadingFee();
+
+            PrintWriter out = new PrintWriter("filename.txt");
+            out.println("\n\n\n\n\n\n\n   " + date + "\n\n\n   " + payor + "\n\n\n\n\n\n   " + nature1 + "\t\t\t\t\t" +
+                    arrivalFee + "\n\n  " + nature2 + "\t\t\t\t\t" + loadingFee);
+            out.close();
+
+            InputStream is = new FileInputStream("filename.txt");
+            BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+            String line = buf.readLine();
+            StringBuilder sb = new StringBuilder();
+
+            while (line != null) {
+                sb.append(line).append("\n");
+                line = buf.readLine();
+            }
+            String fileAsString = sb.toString();
+            System.out.println("Contents : " + fileAsString + " -END");
+
+            JEditorPane text = new JEditorPane("file:filename.txt");
+            PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+            text.print(null, null, true, service, null, false);
+        } catch (FileNotFoundException e) {
+            System.out.println("No file");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.printf("IOException");
+            e.printStackTrace();
+        } catch (PrinterException e) {
+            System.out.println("PrinterException");
+            e.printStackTrace();
         }
     }
 
