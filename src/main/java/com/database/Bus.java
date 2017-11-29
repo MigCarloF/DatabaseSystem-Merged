@@ -7,13 +7,10 @@ public class Bus {
      * capacity = no. of passengers
      * type = ac/ noac
      */
-
     private String busCapacity;
     private String busFare;
     private String busNumber;
     private String busRoute;
-    private String route1;
-    private String route2;
     private String busSize;
     private String busType;
     private String company;
@@ -23,25 +20,6 @@ public class Bus {
     private boolean miniBus = false;
     private String plateNo;
     private boolean activeBus = true;
-    
-    public Bus(String busNumber, String busSize, String company, boolean miniBus, String plateNo, String contactPerson,
-               String contactNumber, String busType, String route1, String route2, String busCapacity, String busFare, boolean activeBus, String rfid){ //constructor added for Firebase
-        this.plateNo = plateNo;
-        this.company = company;
-        this.miniBus = miniBus;
-        this.busSize = busSize;
-        this.busNumber = busNumber;
-        this.contactPerson = contactPerson;
-        this.contactNumber = contactNumber;
-        this.busType = busType;
-        this.route1 = route1;
-        this.route2 = route2;
-        busRoute = route1 + " - " + route2;
-        this.busCapacity = busCapacity;
-        this.busFare = busFare;
-        this.activeBus = activeBus;
-        this.rfid = rfid;
-    }
 
     public Bus(String busNumber, String busSize, String company, boolean miniBus, String plateNo, String contactPerson,
                String contactNumber, String busType, String busRoute, String busCapacity, String busFare, boolean activeBus, String rfid){ //constructor added for Firebase
@@ -75,12 +53,12 @@ public class Bus {
         this.busFare = busFare;
         this.rfid = rfid;
         activeBus = true; // set default to true because I think you wont add an inactive bus
-                        // and this constructor is only called when you create a new bus
-                        //call setter to set it to inactive
+        // and this constructor is only called when you create a new bus
+        //call setter to set it to inactive
 
     }
     public Bus(String plateNo, String company, String contactPerson, String contactNumber,
-               String busType, String busRoute, String rfid){
+               String busType, String busRoute, String busCapacity, String busFare, String rfid){
         this.plateNo = plateNo;
         this.company = company;
         this.miniBus = true;
@@ -90,25 +68,24 @@ public class Bus {
         this.contactNumber = contactNumber;
         this.busType = busType;
         this.busRoute = busRoute;
+        this.busCapacity = busCapacity;
+        this.busFare = busFare;
         this.rfid = rfid;
         activeBus = true; // set default to true because I think you wont add an inactive bus
-                        // and this constructor is only called when you create a new bus
-                        //call setter to set it to inactive
+        // and this constructor is only called when you create a new bus
+        //call setter to set it to inactive
     }
 
 
     public Bus(){
 
     }
+//    public Bus(){
+//        plateNo = null;
+//        company = null;
+//        busNumber = "0";
+//    }
 
-    public String getRoute1(){
-        return route1;
-    }
-    
-    public String getRoute2(){
-        return route2;
-    }
-    
     public String getBusType() {
         return busType;
     }
@@ -120,31 +97,31 @@ public class Bus {
     public String getPlateNo(){
         return plateNo;
     }
-    
+
     public void setPlateNo(String plateNo){
         this.plateNo = plateNo;
     }
-    
+
     public String getCompany(){
         return company;
     }
-    
+
     public void setCompany(String company){
         this.company = company;
     }
-    
+
     public boolean isMiniBus(){
         return miniBus;
     }
-    
+
     public void setMiniBus(boolean flag){
         miniBus = flag;
     }
-    
+
     public String getBusNumber(){
         return busNumber;
     }
-    
+
     public void setBusNumber(String busNumber){
         this.busNumber = busNumber;
     }

@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -47,6 +48,30 @@ public class FXMLEditBusProfileController implements Initializable {
 
     @FXML
     private TextField rfid;
+
+    @FXML
+    private Label contactPersonErr;
+
+    @FXML
+    private Label contactNumberErr;
+
+    @FXML
+    private Label franchiseErr;
+
+    @FXML
+    private Label plateNoErr;
+
+    @FXML
+    private Label routeErr;
+
+    @FXML
+    private Label typeErr;
+
+    @FXML
+    private Label sizeErr;
+
+    @FXML
+    private Label rfidErr;
 
 
     private Bus busToEdit;
@@ -105,7 +130,9 @@ public class FXMLEditBusProfileController implements Initializable {
                     newBus.put("contactPerson", contactPersonText);
                     newBus.put("contactNumber", contactNumberText);
                     newBus.put("type", typeText);
-                    newBus.put("route", routeText);
+                    newBus.put("busSize", sizeText);
+                    newBus.put("busRoute", routeText);
+                    newBus.put("rfid",RFIDText);
 
                     ref.child(plateNoText).updateChildren(newBus);
                 }else {
@@ -114,7 +141,12 @@ public class FXMLEditBusProfileController implements Initializable {
                         //System.out.println("geee");
                     }else {
                         System.out.println("hello");
-                        Bus e = new Bus(plateNoText, franchiseText, contactPersonText, contactNumberText, typeText, routeText, busToEdit.getRfid());
+                        boolean isbus = true;
+                        if(sizeText.equals("MINIBUS")){
+                            isbus = false;
+                        }
+                        Bus e = new Bus("",sizeText, franchiseText, isbus, plateNoText,contactPersonText,
+                                contactNumberText, typeText, routeText, "","",true, RFIDText);
                         ref.child(busToEdit.getPlateNo()).setValue(null);
                         ref.child(plateNoText).setValue(e);
                     }

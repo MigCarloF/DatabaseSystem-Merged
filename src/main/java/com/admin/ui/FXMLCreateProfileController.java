@@ -7,13 +7,12 @@ import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class FXMLCreateProfileController implements Initializable {
@@ -22,7 +21,8 @@ public class FXMLCreateProfileController implements Initializable {
 
     static String type = "";
     static String size = "";
-    private boolean isMinibus = false;
+    //private boolean ismini = false;
+    private boolean isbus = false;
 
     @FXML
     private JFXButton createProfileCancelButton;
@@ -32,9 +32,6 @@ public class FXMLCreateProfileController implements Initializable {
 
     @FXML
     private TextField createProfileCPerson;
-
-    @FXML
-    private TextField createProfileRfid;
 
     @FXML
     private TextField createProfileCNumber;
@@ -67,42 +64,21 @@ public class FXMLCreateProfileController implements Initializable {
     private TextField createProfileAlert;
 
     @FXML
-    private Label contactPersonErr;
-
-    @FXML
-    private Label contactNumberErr;
-
-    @FXML
-    private Label franchiseErr;
-
-    @FXML
-    private Label plateNoErr;
-
-    @FXML
-    private Label routeErr;
-
-    @FXML
-    private Label typeErr;
-
-    @FXML
-    private Label sizeErr;
-
-    @FXML
-    private Label rfidErr;
+    private  TextField createProfileRfid;
 
     private DatabaseReference database;
 
     private ChildEventListener childEventListener;
+    private Alert alert = new Alert(Alert.AlertType.ERROR);
     private Boolean errorFound = false;
-    private ArrayList<Bus> buses = new ArrayList<>();
-
+    private int latestNumberOfBusProfiles;
 
     @FXML
     void createProfileCancelPressed(ActionEvent event) {
         Stage stage = (Stage) createProfileCancelButton.getScene().getWindow();
         stage.close();
     }
-    
+
     @FXML
     void createProfileCreatePressed(ActionEvent event) {
         String contactPerson = createProfileCPerson.getText();
@@ -113,145 +89,98 @@ public class FXMLCreateProfileController implements Initializable {
         String route2 = createProfileRoute2.getText();
         String rfid = createProfileRfid.getText();
 
-        System.out.println("Contact person: " + contactPerson + "\nContact Number: " + contactNumber + "\nFranchise: "
-        + franchise + "\nPlate number: " + plateNumber + "\nSize: " + size +
-        "\nType: " + type + "\nRoute: " + route1 + " - " + route2 + "\nRFID: " + rfid);
+//        System.out.println("Contact person: " + contactPerson + "\nContact Number: " + contactNumber + "\nFranchise: "
+//                + franchise + "\nPlate number: " + plateNumber + "\nSize: " + size +
+//                "\nType: " + type + "\nRoute: " + route1 + " - " + route2);
 
         plateNumber = plateNumber.replaceAll("\\s","");//removes spaces
-        Boolean error = false;
-
-        if(contactPerson.equals("")){
-            contactPersonErr.setVisible(true);
-            error = true;
-        }else{
-            contactPersonErr.setVisible(false);
-        }
-
-        if(contactNumber.equals("")){
-            contactNumberErr.setVisible(true);
-            error = true;
-        }else{
-            contactNumberErr.setVisible(false);
-        }
-
-        if(franchise.equals("")){
-            franchiseErr.setVisible(true);
-            error = true;
-        }else{
-            franchiseErr.setVisible(false);
-        }
-
-        if(route2.equals("")){ //TODO: if naa pay time, get list of all possible destinations para macheck if valid ba
-            routeErr.setVisible(true); // TODO: (cont.) ang destination nga gibutang
-            error = true;
-        }else{
-            routeErr.setVisible(false);
-        }
-
-        if(!radioBoxAircon.isSelected() && !radioBoxNonAircon.isSelected()){
-            typeErr.setVisible(true);
-            error = true;
-        }else{
-            typeErr.setVisible(false);
-        }
-
-        if(!radioBoxBus.isSelected() && !radioBoxMiniBus.isSelected()){
-            sizeErr.setVisible(true);
-            error = true;
-        }else{
-            sizeErr.setVisible(false);
-        }
-
-
-        if(plateNumber.equals("")){
-            plateNoErr.setText("! Error: Please enter a plate number.");
-            plateNoErr.setVisible(true);
-            error = true;
-        }else if(plateNumber != null && !plateNumber.equals("")){
-            System.out.println("------------------B U S E S --------------------");
-            System.out.println("size: " + buses.size());
-            if(buses.size() != 0) {
-                for(Bus b : buses) {
-                    System.out.println("Franchise: " + b.getCompany() + " | Plate Number: " + b.getPlateNo());
-                    if (plateNumber.equals(b.getPlateNo())) {
-                        System.out.println("Plate no already exists.");
-                        plateNoErr.setText("! Error: Plate number already exists.");
-                        plateNoErr.setVisible(true);
-                        error = true;
-                        break;
-                    }else{
-                        plateNoErr.setVisible(false);
-                    }
-                }
-            }
-        }else{
-            plateNoErr.setVisible(false);
-        }
-
-        if(rfid.equals("")){
-            rfidErr.setText("! Error: Please enter a value.");
-            rfidErr.setVisible(true);
-            error = true;
-        }else if(rfid != null && !rfid.equals("")){
-            if(buses.size() != 0){
-                for(Bus b : buses){
-                    if(rfid.equals(b.getRfid())){
-                        rfidErr.setText("RFID value already exists.");
-                        rfidErr.setVisible(true);
-                        error = true;
-                        break;
-                    }else{
-                        rfidErr.setVisible(false);
-                    }
-                }
-            }
-        }else{
-            rfidErr.setVisible(false);
-        }
-        
-        if(!error){
-            final String plate = plateNumber;
+        plateNumber = plateNumber.toUpperCase();
+        if(contactPerson.equals("") || contactNumber.equals("") || franchise.equals("") || plateNumber.equals("")
+                || route1.equals("") || route2.equals("")){
+            alert.setTitle("INCOMPLETE DATA");
+            alert.setHeaderText("");
+            alert.setContentText("Please fill in all the data needed.");
+            alert.showAndWait();
+        }else {
+            final  String plate = plateNumber;
             DatabaseReference ref = database.child("Buses").child(plateNumber);
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     if(snapshot.getChildrenCount() > 0){
-                        System.out.println("Error, plate number already exists"); //just in case the above conditions fail
+                        //todo throw bus w/ plateno already exist
+                        errorFound = true;
                     }else{
-                        Bus bus = new Bus("", size, franchise, isMinibus, plate, contactPerson,
-                                contactNumber, type, route1, route2, "", "",true, rfid);
+                        Bus bus = new Bus("",size,franchise,isbus,plate,contactPerson,
+                                contactNumber,type,route1 + " - " + route2,"","",true,rfid);
                         ref.setValue(bus);
                     }
                 }
+
                 @Override
-                public void onCancelled(DatabaseError error) {}
+                public void onCancelled(DatabaseError error) {
+
+                }
             });
+        }
+        if(errorFound){
+            System.out.println("Existing plate number found.");
+            alert.setTitle("E R R O R");
+            alert.setHeaderText("A bus with this plate number " + plateNumber + " already exists.");
+            alert.setContentText("Please enter another plate number.");
+            alert.showAndWait();
+        }else{
             Stage stage = (Stage) createProfileCancelButton.getScene().getWindow();
             stage.close();
         }
-    }
 
-    private void getBuses(){
-        buses.clear();
-        DatabaseReference ref = database.child("Buses");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for(DataSnapshot snap : snapshot.getChildren()){
-                    buses.add(snap.getValue(Bus.class));
+        /**
+         * Add data to database
+         * TODO: if not all need inputs are inputted, the alert text will change color
+         */
+
+
+        //todo checking if such or exists
+/*
+        if(plateNumber == null || plateNumber.equals("")) {
+            System.out.println("invalid");
+            //noVoid.setText("* - bus  does not exist");
+        }else{
+            final  String plate = plateNumber;
+            DatabaseReference ref = database.child("Buses").child(plateNumber);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if(snapshot.getChildrenCount() > 0){
+                        //todo throw bus w/ plateno already exist
+                    }else{
+                        Bus bus = new Bus("",size,franchise,isbus,plate,contactPerson,
+                                contactNumber,type,route1 + " - " + route2,"","",true);
+                        ref.setValue(bus);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {}
-        });
+                @Override
+                public void onCancelled(DatabaseError error) {
+
+                }
+            });
+        }
+
+//        if(plateNumber.equals("")) {
+//            // change color of createProfileAlert to red
+//        } else {
+//            // change back to black
+//        }
+
+         // closes the window
+        Stage stage = (Stage) createProfileCreateButton.getScene().getWindow();
+        stage.close();*/
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        database = FirebaseDatabase.getInstance().getReference();
-        getBuses();
-
         radioBoxMiniBus.setToggleGroup(sizeGroup);
         radioBoxBus.setToggleGroup(sizeGroup);
 
@@ -269,10 +198,14 @@ public class FXMLCreateProfileController implements Initializable {
             size = size.substring(size.indexOf("'")+1, size.lastIndexOf("'"));
             System.out.println(size);
             if(size.equals("BUS")){
-                isMinibus = false;
+                isbus = true;
             }else{
-                isMinibus = true;
+                isbus = false;
             }
         });
+
+        database = FirebaseDatabase.getInstance().getReference();
+
     }
+
 }
