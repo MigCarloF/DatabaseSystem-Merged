@@ -119,13 +119,13 @@
          </children></AnchorPane>
       <AnchorPane layoutX="30.0" layoutY="169.0" prefHeight="40.0" prefWidth="382.0" style="-fx-background-color: #ffffff;">
          <children>
-            <Text layoutX="162.0" layoutY="26.0" opacity="0.74" strokeWidth="2.0" text="--" textAlignment="CENTER" wrappingWidth="57.1953125">
+            <DatePicker fx:id="transactDateTo" focusTraversable="false" layoutX="211.0" layoutY="1.0" onAction="#dateEndDateUpdated" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff; -fx-border-radius: 4px;" />
+            <DatePicker fx:id="transactDateFrom" focusTraversable="false" layoutX="1.0" layoutY="1.0" onAction="#dateStartDateUpdated" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff; -fx-border-radius: 4px;" />
+            <Text layoutX="163.0" layoutY="26.0" opacity="0.74" stroke="BLACK" text="--" textAlignment="CENTER" wrappingWidth="57.1953125">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
             </Text>
-            <DatePicker fx:id="transactDateTo" focusTraversable="false" layoutX="211.0" layoutY="1.0" onAction="#dateEndDateUpdated" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff; -fx-border-radius: 4px;" />
-            <DatePicker fx:id="transactDateFrom" focusTraversable="false" layoutX="1.0" layoutY="1.0" onAction="#dateStartDateUpdated" prefHeight="38.0" prefWidth="170.0" style="-fx-border-color: #a3a3a3; -fx-background-color: #ffffff; -fx-border-radius: 4px;" />
          </children>
       </AnchorPane>
       <JFXButton fx:id="transactBackButton" focusTraversable="false" layoutX="768.0" layoutY="129.0" onAction="#transactBackButtonPressed" prefWidth="100.0" style="-fx-background-color: #273A84;" text="BACK" textFill="WHITE" />

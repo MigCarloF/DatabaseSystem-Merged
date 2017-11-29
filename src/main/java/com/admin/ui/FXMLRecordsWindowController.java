@@ -78,6 +78,9 @@ public class FXMLRecordsWindowController implements Initializable {
     private TextField quantityLF;
 
     @FXML
+    private TextField textFieldSearch;
+
+    @FXML
     private TextField amountAF;
 
     @FXML
@@ -249,7 +252,7 @@ public class FXMLRecordsWindowController implements Initializable {
 
     @FXML
     void busCreateButtonPressed(ActionEvent event) throws IOException {
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateProfile.fxml"));
+        /*FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateProfile.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
         Scene anotherScene = new Scene(anotherRoot);
@@ -257,12 +260,12 @@ public class FXMLRecordsWindowController implements Initializable {
         anotherStage.initStyle(StageStyle.UNDECORATED);
 
         recordsButtonPressed(event);
-        anotherStage.show();
+        anotherStage.show();*/
     }
 
     @FXML
     void busEditButtonPressed(ActionEvent event) throws IOException {
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
+        /*FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditBusProfile.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
         Scene anotherScene = new Scene(anotherRoot);
@@ -270,7 +273,7 @@ public class FXMLRecordsWindowController implements Initializable {
         anotherStage.initStyle(StageStyle.UNDECORATED);
 
         recordsButtonPressed(event);
-        anotherStage.show();
+        anotherStage.show();*/
     }
 
     @FXML
@@ -299,7 +302,7 @@ public class FXMLRecordsWindowController implements Initializable {
 
     @FXML
     void employeeCreateButtonPressed(ActionEvent event) throws IOException {
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateAccount.fxml"));
+        /*FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateAccount.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
         Scene anotherScene = new Scene(anotherRoot);
@@ -307,12 +310,12 @@ public class FXMLRecordsWindowController implements Initializable {
         anotherStage.initStyle(StageStyle.UNDECORATED);
 
         recordsButtonPressed(event);
-        anotherStage.show();
+        anotherStage.show();*/
     }
 
     @FXML
     void employeeEditButtonPressed(ActionEvent event) throws IOException {
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
+        /*FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
         Scene anotherScene = new Scene(anotherRoot);
@@ -320,7 +323,7 @@ public class FXMLRecordsWindowController implements Initializable {
         anotherStage.initStyle(StageStyle.UNDECORATED);
 
         recordsButtonPressed(event);
-        anotherStage.show();
+        anotherStage.show();*/
     }
 
     @FXML
