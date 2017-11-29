@@ -157,7 +157,7 @@ public class FXMLViewAccountsController implements Initializable {
     void employeeEditButtonPressed(ActionEvent event) throws IOException {
         Employee employee = transactionsTable.getSelectionModel().getSelectedItem();
         SingletonEditEmployee.getInstance().setEmployee(employee);
-        System.out.println(SingletonEditEmployee.getInstance().getEmployee().getPassword());
+        System.out.println(SingletonEditEmployee.getInstance().getEmployee().getEstatus());
         FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
