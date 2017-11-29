@@ -6,6 +6,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.swing.*;
 import javax.xml.crypto.Data;
+import java.awt.print.PrinterAbortException;
 import java.awt.print.PrinterException;
 import java.io.*;
 import java.net.URL;
@@ -41,12 +43,6 @@ public class FXMLMainCashierWindowController implements Initializable {
     private Text cashierUserText;
 
     @FXML
-    private JFXButton logoutButton;
-
-    @FXML
-    private JFXButton busPrintButton;
-
-    @FXML
     private TextField plateNumber;
 
     @FXML
@@ -54,12 +50,6 @@ public class FXMLMainCashierWindowController implements Initializable {
 
     @FXML
     private JFXCheckBox loadingFee;
-
-    @FXML
-    private JFXButton transactionsButton;
-
-    @FXML
-    private JFXButton rangeButton;
 
     @FXML
     private Text currentORNumber;
@@ -75,7 +65,6 @@ public class FXMLMainCashierWindowController implements Initializable {
     private Fee forPrinting;
     private boolean loaded;
     private String currentLogin;
-    //private FirebaseApp exitRFID;
     private int ORNUM;
 
     private void exitListener() {
@@ -183,7 +172,6 @@ public class FXMLMainCashierWindowController implements Initializable {
                 System.out.println("unchecked");
             } else {
                 noCheck.setText("");
-                noPlate.setText("");
                 //lblBusFeeTypeErr.setText("");
                 final boolean hasArrival = arrival;   //inner class calls needs to be final
                 final boolean hasLoading = loading;
@@ -209,16 +197,18 @@ public class FXMLMainCashierWindowController implements Initializable {
                                     } else {
                                         DatabaseReference aref = database.child("Fees");
                                         Fee forDatabase = new Fee(hasArrival, hasLoading, dateFormat, "" + ORNUM, currentLogin, localDate, plateNum);
-                                        aref.child(forDatabase.getOrNum()).setValue(forDatabase);
 
                                         /**
                                          * printing here
                                          */
-                                        printOut(forDatabase);
+                                        if(printOutSuccessful(forDatabase)) {
+                                            //only sets new vale and changes or number if printing is successful
+                                            aref.child(forDatabase.getOrNum()).setValue(forDatabase);
 
-                                        Map<String, Object> newRange = new HashMap<>();
-                                        newRange.put("current", ORNUM += 1);
-                                        nref.updateChildren(newRange);
+                                            Map<String, Object> newRange = new HashMap<>();
+                                            newRange.put("current", ORNUM += 1);
+                                            nref.updateChildren(newRange);
+                                        }
                                     }
                                 }
 
@@ -239,7 +229,7 @@ public class FXMLMainCashierWindowController implements Initializable {
         }
     }
 
-    private void printOut(Fee f) {
+    private boolean printOutSuccessful(Fee f) {
         try {
             /**
              * Setting up strings for print arrangement
@@ -283,17 +273,28 @@ public class FXMLMainCashierWindowController implements Initializable {
              */
             JEditorPane text = new JEditorPane("file:filename.txt");
             PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-            text.print(null, null, true, service, null, false);
+            text.print(null, null, false, service, null, false);
+            noPlate.setText("");
+            return true;
 
         } catch (FileNotFoundException e) {
             System.out.println("No file");
             e.printStackTrace();
+            return false;
         } catch (IOException e) {
             System.out.printf("IOException");
             e.printStackTrace();
+            return false;
+        } catch (PrinterAbortException e) {
+            System.out.println("Printer Aborted");
+            noPlate.setText("* - Printing Aborted!");
+            System.out.println("Printer Aborted");
+            e.printStackTrace();
+            return false;
         } catch (PrinterException e) {
             System.out.println("PrinterException");
             e.printStackTrace();
+            return false;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.cashier.ui;
 
+import com.database.Fee;
 import com.database.FirebaseDB;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
@@ -15,14 +16,21 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 public class FXMLVoidWindowController implements Initializable {
     Stage anotherStage = new Stage();
     String orNo = "";
+    ArrayList<Fee> fees;
 
     @FXML
     private JFXButton voidWindowCancel;
@@ -36,6 +44,10 @@ public class FXMLVoidWindowController implements Initializable {
     @FXML
     private Label noVoid;
 
+    private Lock lock = new ReentrantLock();
+    private Condition cond = lock.newCondition();
+
+
     DatabaseReference database;
 
     @FXML
@@ -48,61 +60,80 @@ public class FXMLVoidWindowController implements Initializable {
     @FXML
     void voidWindowSendRequestPressed(ActionEvent event) throws IOException {
         orNo = voidWindowOrNo.getText();
-        orNo = orNo.replaceAll("\\s","");//removes spaces
-        System.out.println(orNo);
+        orNo = orNo.replaceAll("\\s", "");//removes spaces
         //todo checking if such or exists
 
-        if(orNo == null || orNo.equals("")) {
+        if (orNo == null || orNo.equals("")) {
             System.out.println("invalid");
-            noVoid.setText("* - bus  does not exist");
-        } else{
-            noVoid.setText("");
-//            DatabaseReference ref = database.child("Fees").child(orNo);
-//            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot snapshot) {
-//                    if(snapshot.getChildrenCount() == 0){
-//                        noVoid.setText("* - or  does not exist");
-//                    }else{
-//                        SingletonVoid.getInstance().setOrNo(orNo);
-//                        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLVoidRequestWindow.fxml"));
-//                        Parent anotherRoot = anotherLoader.load();
-//                        Scene anotherScene = new Scene(anotherRoot);
-//                        anotherStage.setScene(anotherScene);
-//                        anotherStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
-//
-//
-//                        //close void window then open void request window
-//                        Stage stage = (Stage) voidWindowCancel.getScene().getWindow();
-//                        CashierMain.cancelPressed = true;
-//                        stage.close();
-//
-//                        voidWindowVoidPressed(event);
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError error) {
-//
-//                }
-//            });
-            SingletonVoid.getInstance().setOrNo(orNo);
-            FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLVoidRequestWindow.fxml"));
-            Parent anotherRoot = anotherLoader.load();
-            Scene anotherScene = new Scene(anotherRoot);
-            anotherStage.setScene(anotherScene);
-            anotherStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
+            noVoid.setText("* - invalid input");
+        } else {
+            DatabaseReference ref = database.child("Fees");
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    lock.lock();
+                    try {
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            Fee f = snap.getValue(Fee.class);
+                            fees.add(f);
+                        }
+                        System.out.println("Loop done");
+                        cond.signal();
+                    }
+                    finally {
+                        lock.unlock();
+                    }
+                    System.out.println("LOL");
 
+                }
 
-            //close void window then open void request window
-            Stage stage = (Stage) voidWindowCancel.getScene().getWindow();
-            CashierMain.cancelPressed = true;
-            stage.close();
+                @Override
+                public void onCancelled(DatabaseError error) {
 
-            voidWindowVoidPressed(event);
+                }
+            });
+
+            lock.lock();
+            try {
+                System.out.println("locked");
+                cond.await();
+                System.out.println("Resumed");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
+            System.out.println("Done");
+            if(hasOr()) {
+                noVoid.setText("");
+                SingletonVoid.getInstance().setOrNo(orNo);
+                FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLVoidRequestWindow.fxml"));
+                Parent anotherRoot = anotherLoader.load();
+                Scene anotherScene = new Scene(anotherRoot);
+                anotherStage.setScene(anotherScene);
+                anotherStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
+
+                //close void window then open void request window
+                Stage stage = (Stage) voidWindowCancel.getScene().getWindow();
+                CashierMain.cancelPressed = true;
+                stage.close();
+
+                voidWindowVoidPressed(event);
+            } else {
+                noVoid.setText("* - No such OR number");
+            }
         }
     }
 
+    private boolean hasOr() {
+        for (Fee f : fees) {
+            System.out.println(orNo + " VS " + f.getOrNum());
+            System.out.println("LOLITA");
+            if(orNo.equals(f.getOrNum()))
+                return true;
+        }
+        return false;
+    }
     @FXML
     void voidWindowVoidPressed(ActionEvent event) throws IOException {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLVoidRequestWindow.fxml"));
@@ -116,7 +147,12 @@ public class FXMLVoidWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        fees = new ArrayList<Fee>();
         noVoid.setText("");
         database = FirebaseDatabase.getInstance().getReference();
+        initializeFees();
+    }
+
+    private void initializeFees() {
     }
 }

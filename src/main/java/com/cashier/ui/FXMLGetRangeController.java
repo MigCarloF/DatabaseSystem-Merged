@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -24,7 +25,7 @@ public class FXMLGetRangeController implements Initializable {
     private TextField highRange;
 
     @FXML
-    private JFXButton enter;
+    private Label lblError;
 
     @FXML
     private JFXButton cancel;
@@ -46,14 +47,14 @@ public class FXMLGetRangeController implements Initializable {
         low = low.replaceAll("\\s","");//removes spaces
         high = high.replaceAll("\\s","");
         if(low.equals("") || high.equals("")) {
-            //todo error checking here
+            lblError.setText("* - Fill in both blanks");
         }
         else{
             //String original = "050";
             int valueLow  = Integer.parseInt( low, 10);
             int valueHigh = Integer.parseInt(high, 10);
             if(valueLow >= valueHigh){
-                //todo throw error nga equal ra ang low ug high or mas dako ang low sa high
+                lblError.setText("* - Invalid Range");
             }else {
                 DatabaseReference ref = database.child("Range");
                 RangeOR range = new RangeOR(valueLow,valueHigh);
@@ -71,6 +72,7 @@ public class FXMLGetRangeController implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         database = FirebaseDatabase.getInstance().getReference();
+        lblError.setText("");
     }
 
 }
