@@ -58,12 +58,12 @@
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <Text layoutX="280.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:">
+      <Text layoutX="86.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="status" focusTraversable="false" layoutX="280.0" layoutY="302.0" prefHeight="33.0" prefWidth="249.0">
+      <TextField fx:id="status" focusTraversable="false" layoutX="86.0" layoutY="302.0" prefHeight="33.0" prefWidth="249.0">
          <font>
             <Font size="18.0" />
          </font>
