@@ -26,6 +26,9 @@ public class FXMLEditBusProfileController implements Initializable {
     private JFXButton editButton;
 
     @FXML
+    private JFXButton delete;
+
+    @FXML
     private TextField contactPerson;
 
     @FXML

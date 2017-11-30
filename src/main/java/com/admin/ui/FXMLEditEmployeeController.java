@@ -35,6 +35,9 @@ public class FXMLEditEmployeeController implements Initializable {
     private JFXButton enter;
 
     @FXML
+    private JFXButton delete;
+
+    @FXML
     private JFXButton cancel;
 
     private Employee employeeToEdit;

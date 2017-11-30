@@ -90,7 +90,7 @@ public class FXMLCreateAccountController implements Initializable {
         createAccountType.getItems().addAll("ADMIN", "CASHIER");
         createAccountType.setVisibleRowCount(3);
         createAccountType.setEditable(false);
-        createAccountType.setPromptText("ACCOUNT TYPE");
+        createAccountType.setPromptText("");
 
         database = FirebaseDatabase.getInstance().getReference();
     }    

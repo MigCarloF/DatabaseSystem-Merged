@@ -2,29 +2,30 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLCreateProfileController">
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #ffffff; -fx-border-color: #7C1B2E; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.ui.FXMLCreateProfileController">
    <children>
-      <AnchorPane prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #7C1B2E;">
+      <AnchorPane layoutX="2.0" layoutY="2.0" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #7C1B2E;">
          <children>
-            <JFXButton fx:id="createProfileCancelButton" buttonType="RAISED" focusTraversable="false" layoutX="700.0" layoutY="1.0" onAction="#createProfileCancelPressed" prefHeight="40.0" prefWidth="100.0" text="Cancel" textFill="WHITE">
+            <JFXButton fx:id="createProfileCancelButton" buttonType="RAISED" focusTraversable="false" layoutX="692.0" onAction="#createProfileCancelPressed" prefHeight="40.0" prefWidth="100.0" text="Cancel" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </JFXButton>
-            <Text fill="WHITE" layoutX="15.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREATE A PROFILE">
+            <Text fill="WHITE" layoutX="15.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CREATE A BUS PROFILE">
                <font>
                   <Font name="Open Sans Bold" size="23.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="createProfileCreateButton" focusTraversable="false" layoutY="413.0" onAction="#createProfileCreatePressed" prefHeight="35.0" prefWidth="800.0" style="-fx-background-color: #7C1B2E;" text="CREATE" textFill="WHITE">
+      <JFXButton fx:id="createProfileCreateButton" focusTraversable="false" layoutX="575.0" layoutY="378.0" onAction="#createProfileCreatePressed" prefHeight="42.0" prefWidth="172.0" style="-fx-background-color: #7C1B2E;" text="CREATE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -64,7 +65,7 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Text layoutX="432.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size:">
+      <Text layoutX="451.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Size:">
          <font>
             <Font size="16.0" />
          </font>
@@ -84,15 +85,15 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <JFXRadioButton fx:id="radioBoxMiniBus" focusTraversable="false" layoutX="506.0" layoutY="247.0" text="MINI BUS" />
-      <JFXRadioButton fx:id="radioBoxBus" focusTraversable="false" layoutX="628.0" layoutY="247.0" text="BUS" />
-      <Text layoutX="432.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type:">
+      <JFXRadioButton fx:id="radioBoxMiniBus" focusTraversable="false" layoutX="525.0" layoutY="247.0" text="MINI BUS" />
+      <JFXRadioButton fx:id="radioBoxBus" focusTraversable="false" layoutX="647.0" layoutY="247.0" text="BUS" />
+      <Text layoutX="451.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type:">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <JFXRadioButton fx:id="radioBoxAircon" focusTraversable="false" layoutX="506.0" layoutY="186.0" text="AIRCON" />
-      <JFXRadioButton fx:id="radioBoxNonAircon" focusTraversable="false" layoutX="627.0" layoutY="186.0" text="NON - AIRCON" />
+      <JFXRadioButton fx:id="radioBoxAircon" focusTraversable="false" layoutX="525.0" layoutY="186.0" text="AIRCON" />
+      <JFXRadioButton fx:id="radioBoxNonAircon" focusTraversable="false" layoutX="646.0" layoutY="186.0" text="NON - AIRCON" />
       <Text layoutX="211.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="to">
          <font>
             <Font name="System Italic" size="16.0" />
@@ -108,12 +109,12 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </TextField>
-      <Text layoutX="432.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RFID:">
+      <Text layoutX="451.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RFID:">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="createProfileRfid" focusTraversable="false" layoutX="432.0" layoutY="110.0" prefHeight="33.0" prefWidth="250.0" style="-fx-border-color: #A9A9A9;">
+      <TextField fx:id="createProfileRfid" focusTraversable="false" layoutX="451.0" layoutY="110.0" prefHeight="33.0" prefWidth="250.0" style="-fx-border-color: #A9A9A9;">
          <font>
             <Font size="14.0" />
          </font>
@@ -127,4 +128,7 @@
       <Label fx:id="typeErr" layoutX="540.0" layoutY="204.0" text="! Error: Please choose one." textFill="RED" visible="false" />
       <Label fx:id="sizeErr" layoutX="543.0" layoutY="264.0" prefHeight="17.0" prefWidth="139.0" text="! Error: Please choose one." textFill="RED" visible="false" />
    </children>
+   <padding>
+      <Insets right="-2.0" />
+   </padding>
 </AnchorPane>

@@ -39,6 +39,9 @@ public class FXMLBusProfilesController implements Initializable {
     private ComboBox search;
 
     @FXML
+    private TextField textFieldSearch;
+
+    @FXML
     private TableView<Bus> transactionsTable;
 
     @FXML
@@ -147,7 +150,7 @@ public class FXMLBusProfilesController implements Initializable {
 
     @FXML
     void employeeCreateButtonPressed(ActionEvent event) throws IOException {
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateAccount.fxml"));
+        /*FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateAccount.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
         Scene anotherScene = new Scene(anotherRoot);
@@ -155,12 +158,12 @@ public class FXMLBusProfilesController implements Initializable {
         anotherStage.initStyle(StageStyle.UNDECORATED);
 
         busViewButtonPressed(event);
-        anotherStage.show();
+        anotherStage.show();*/
     }
 
     @FXML
     void employeeEditButtonPressed(ActionEvent event) throws IOException {
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
+        /*FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
         Parent anotherRoot = anotherLoader.load();
         //anotherStage.centerOnScreen();  //does not really work idk
         Scene anotherScene = new Scene(anotherRoot);
@@ -168,7 +171,7 @@ public class FXMLBusProfilesController implements Initializable {
         anotherStage.initStyle(StageStyle.UNDECORATED);
 
         busViewButtonPressed(event);
-        anotherStage.show();
+        anotherStage.show();*/
     }
 
     @FXML
