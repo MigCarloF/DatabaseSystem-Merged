@@ -5,6 +5,7 @@ import com.database.Fee;
 import com.database.FeeTable;
 import com.database.SingletonLogin;
 import com.google.firebase.database.*;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -66,6 +67,7 @@ public class FXMLCurrentWindowController implements Initializable {
     @FXML
     private ComboBox search;
 
+    private String column;
     private DatabaseReference database;
     private int tarrival, load, totalvoided;
     private int totalRevenue;
@@ -200,10 +202,12 @@ public class FXMLCurrentWindowController implements Initializable {
         monthlyRevenue.setText("21,600");
 
         search.getItems().addAll(
-                "SEARCH by: VOID (false)",
-                "SEARCH by: VOID (true)",
-                "SEARCH by: MINIBUS",
-                "SEARCH by: BUS"
+                "CLEAR FILTER",
+                "COMPANY",
+                "BUS TYPE",
+                "PLATE #",
+                "ROUTE",
+                "STATUS"
         );
 
         company.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("busCompany"));
@@ -224,144 +228,24 @@ public class FXMLCurrentWindowController implements Initializable {
 
                 DatabaseReference ref = database.child("Fees");
                 Stage stage = (Stage) search.getScene().getWindow();
-                if(search.getItems().get((Integer) number2).equals("SEARCH by: VOID (false)")) {
-                    ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot snapshot) {
-                                    for(DataSnapshot snap : snapshot.getChildren()){
-                                        Fee fee = snap.getValue(Fee.class);
-//                                        fees.add();
-//                                        transactionsTable.setItems(fees);
-                                        if(!fee.get_void()){
-                                            DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
-                                            bref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot snapshot) {
-                                                    Bus bus = snapshot.getValue(Bus.class);
-                                                    fees.add(new FeeTable(fee,bus));
-                                                    transactionsTable.setItems(fees);
-                                                }
-
-                                                @Override
-                                                public void onCancelled(DatabaseError error) {
-
-                                                }
-                                            });
-                                        }
-
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError error) {
-
-                                }
-                            });
-                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: VOID (true)")) {
-                    ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot snapshot) {
-                                    for(DataSnapshot snap : snapshot.getChildren()){
-                                        Fee fee = snap.getValue(Fee.class);
-//                                        fees.add();
-//                                        transactionsTable.setItems(fees);
-                                        if(fee.get_void()){
-                                            DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
-                                            bref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot snapshot) {
-                                                    Bus bus = snapshot.getValue(Bus.class);
-                                                    fees.add(new FeeTable(fee,bus));
-                                                    transactionsTable.setItems(fees);
-                                                }
-
-                                                @Override
-                                                public void onCancelled(DatabaseError error) {
-
-                                                }
-                                            });
-                                        }
-
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError error) {
-
-                                }
-                            });
-                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: MINIBUS")) {
-                    ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot snapshot) {
-                                    for(DataSnapshot snap : snapshot.getChildren()){
-                                        Fee fee = snap.getValue(Fee.class);
-//                                        fees.add();
-//                                        transactionsTable.setItems(fees);
-
-                                        DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
-                                        bref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot snapshot) {
-                                                Bus bus = snapshot.getValue(Bus.class);
-                                                if(bus.isMiniBus()){
-                                                    fees.add(new FeeTable(fee,bus));
-                                                    transactionsTable.setItems(fees);
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError error) {
-                                            }
-                                        });
-
-
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError error) {
-
-                                }
-                            });
-                } else if(search.getItems().get((Integer) number2).equals("SEARCH by: BUS")) {
-                    ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot snapshot) {
-                                    for(DataSnapshot snap : snapshot.getChildren()){
-                                        Fee fee = snap.getValue(Fee.class);
-//                                        fees.add();
-//                                        transactionsTable.setItems(fees);
-
-                                        DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
-                                        bref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot snapshot) {
-                                                Bus bus = snapshot.getValue(Bus.class);
-                                                if(!bus.isMiniBus()){
-                                                    fees.add(new FeeTable(fee,bus));
-                                                    transactionsTable.setItems(fees);
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError error) {
-                                            }
-                                        });
-
-
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError error) {
-
-                                }
-                            });
+                if(search.getItems().get((Integer) number2).equals("COMPANY")) {
+                    column = "company";
+                    sort();
+                } else if(search.getItems().get((Integer) number2).equals("BUS TYPE")) {
+                    column = "busType";
+                    sort();
+                } else if(search.getItems().get((Integer) number2).equals("PLATE #")) {
+                    column = "plateNo";
+                    sort();
+                } else if(search.getItems().get((Integer) number2).equals("ROUTE")) {
+                    column = "busRoute";
+                    sort();
+                } else if(search.getItems().get((Integer) number2).equals("STATUS")) {
+                    column = "true";
+                    sort();
+                }else if(search.getItems().get((Integer) number2).equals("CLEAR FILTER")) {
+                    textFieldSearch.setText("");
+                    updateTable();
                 }
             }
         });
@@ -439,5 +323,72 @@ public class FXMLCurrentWindowController implements Initializable {
 
             }
         });
+    }
+
+    private void sort(){
+        fees.clear();
+        String input = textFieldSearch.getText();
+        DatabaseReference ref = database.child("Fees");
+        ref.orderByChild("datePaid").equalTo(LocalDate.now().toString())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        for(DataSnapshot snap : snapshot.getChildren()){
+                            Fee fee = snap.getValue(Fee.class);
+                            DatabaseReference bref = database.child("Buses").child(fee.getBus_plate());
+                            bref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    boolean flag = false;
+                                    Bus bus = snapshot.getValue(Bus.class);
+                                    switch (column){
+                                        case "company":
+                                            if(bus.getCompany().equals(input)){
+                                                flag = true;
+                                            }
+                                            break;
+                                        case "busType":
+                                            if(bus.getBusSize().equals(input)){
+                                                flag = true;
+                                            }
+                                            break;
+                                        case "plateNo":
+                                            if(bus.getPlateNo().equals(input)){
+                                                flag = true;
+                                            }
+                                            break;
+                                        case "busRoute":
+                                            if(bus.getBusRoute().equals(input)){
+                                                flag = true;
+                                            }
+                                            break;
+                                        case "_void":
+                                            if(fee.get_void()){
+                                                flag = true;
+                                            }
+                                            break;
+                                        default: column = "";
+                                            break;
+                                    }
+                                    if(flag){
+                                        fees.add(new FeeTable(fee,bus));
+                                        transactionsTable.setItems(fees);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError error) {
+                                }
+                            });
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
     }
 }
