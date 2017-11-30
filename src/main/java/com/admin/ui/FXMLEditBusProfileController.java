@@ -106,6 +106,42 @@ public class FXMLEditBusProfileController implements Initializable {
     }
 
     @FXML
+    void deleteButtonPressed(ActionEvent event) {
+        String contactPersonText = contactPerson.getText();
+        String contactNumberText = contactNumber.getText();
+        String franchiseText = franchise.getText();
+        String plateNoText = plateNo.getText();
+        String routeText = route.getText();
+        String typeText = type.getText();
+        String sizeText = size.getText();
+        String RFIDText = rfid.getText();
+
+        if(contactNumberText.equals("") || contactPersonText.equals("") || franchiseText.equals("") ||
+                plateNoText.equals("") || routeText.equals("") || typeText.equals("") || sizeText.equals("") ||
+                RFIDText.equals("")) {
+            //todo throw error nga empty
+        }
+
+        DatabaseReference ref = database.child("Buses");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Map<String, Object> newEmployee = new HashMap<>();
+                newEmployee.put("activeBus", true);
+                ref.child(plateNoText).updateChildren(newEmployee);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+        Stage stage = (Stage) delete.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
     void editButtonPressed(ActionEvent event) {
         String contactPersonText = contactPerson.getText();
         String contactNumberText = contactNumber.getText();
@@ -132,7 +168,7 @@ public class FXMLEditBusProfileController implements Initializable {
                     newBus.put("franchise", franchiseText);
                     newBus.put("contactPerson", contactPersonText);
                     newBus.put("contactNumber", contactNumberText);
-                    newBus.put("type", typeText);
+                    newBus.put("busType", typeText);
                     newBus.put("busSize", sizeText);
                     newBus.put("busRoute", routeText);
                     newBus.put("rfid",RFIDText);
