@@ -70,6 +70,7 @@ public class FXMLGetRangeController implements Initializable {
     void enterPressed(ActionEvent event) throws IOException {
         String low = lowRange.getText();
         String high = highRange.getText();
+        lblError.setText("Processing");
         low = low.replaceAll("\\s","");//removes spaces
         high = high.replaceAll("\\s","");
         if(low.equals("") || high.equals("")) {
@@ -123,6 +124,7 @@ public class FXMLGetRangeController implements Initializable {
                     } else if(highFeeExists()) {
                         lblError.setText("* - High Range OR already exists");
                     } else {
+                        lblError.setText("");
                         DatabaseReference ref = database.child("Range");
                         RangeOR range = new RangeOR(valueLow, valueHigh);
                         ref.setValue(range);
