@@ -409,6 +409,7 @@ public class FXMLRecordsWindowController implements Initializable {
         feeType.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("feeType"));
         amount.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("totalAmount"));
         status.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("voidStatus"));
+        cashier.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("employeeID"));
 
 
         search.getItems().addAll(

@@ -251,6 +251,7 @@ public class FXMLTransactionsController implements Initializable {
         transactFee.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("feeType"));
         transactAmount.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("totalAmount"));
         transactStatus.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("voidStatus"));
+        transactPlateNum.setCellValueFactory(new PropertyValueFactory<FeeTable, String>("plateNo"));
 
         database = FirebaseDatabase.getInstance().getReference();
         fees = FXCollections.observableArrayList();
