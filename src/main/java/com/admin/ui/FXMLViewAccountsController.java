@@ -5,6 +5,8 @@ import com.database.Employee;
 import com.database.SingletonLogin;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,6 +68,7 @@ public class FXMLViewAccountsController implements Initializable {
     @FXML
     private TableColumn<Employee, String> status;
 
+    private String column;
     private Employee employeeToEdit;
     private DatabaseReference database;
     private ObservableList<Employee> employees;
@@ -227,13 +230,100 @@ public class FXMLViewAccountsController implements Initializable {
         employees = FXCollections.observableArrayList();
 
         search.getItems().addAll(
-                "SEARCH by: ACTIVE",
-                "Search by: INACTIVE",
-                "Search by: CASHIER",
-                "Search by: ADMIN"
+                "CLEAR FILTER",
+                "FIRST NAME",
+                "LAST NAME",
+                "USERNAME",
+                "PASSWORD",
+                "DEPARTMENT",
+                "STATUS"
         );
 
+        search.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                employees.clear();
+
+                if(search.getItems().get((Integer) number2).equals("FIRST NAME")) {
+                    column = "firstName";
+                    sort();
+                }else if(search.getItems().get((Integer) number2).equals("LAST NAME")) {
+                    column = "lastName";
+                    sort();
+                }else if(search.getItems().get((Integer) number2).equals("USERNAME")) {
+                    column = "username";
+                    sort();
+                }else if(search.getItems().get((Integer) number2).equals("PASSWORD")) {
+                    column = "password";
+                    sort();
+                }else if(search.getItems().get((Integer) number2).equals("DEPARTMENT")) {
+                    column = "workType";
+                    sort();
+                }else if(search.getItems().get((Integer) number2).equals("STATUS")) {
+                    column = "estatus";
+                    sort();
+                }else if(search.getItems().get((Integer) number2).equals("CLEAR FILTER")) {
+                    textFieldSearch.setText("");
+                    displayAll();
+                }
+            }
+        });
+
         displayAll();
+        dataListener();
         //search.getText();
+    }
+
+    private void sort(){
+        String item = textFieldSearch.getText();
+        DatabaseReference ref = database.child("Employees");
+        ref.orderByChild(column).equalTo(item)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            Employee employee = snap.getValue(Employee.class);
+                            employees.add(employee);
+                            transactionsTable.setItems(employees);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+    }
+
+    private void dataListener(){
+        DatabaseReference ref = database.child("Employees");
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+//                buses.clear();
+//                displayAll();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+                employees.clear();
+                displayAll();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot snapshot) {
+//                buses.clear();
+//                displayAll();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 }
