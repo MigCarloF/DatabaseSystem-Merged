@@ -102,6 +102,9 @@ public class FXMLRecordsWindowController implements Initializable {
     private TableColumn<FeeTable, String> time;
 
     @FXML
+    private TableColumn<FeeTable, String> cashier;
+
+    @FXML
     private TableColumn<FeeTable, String> orNo;
 
     @FXML

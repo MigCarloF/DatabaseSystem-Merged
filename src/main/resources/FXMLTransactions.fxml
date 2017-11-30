@@ -36,10 +36,11 @@
       </JFXButton>
       <TableView fx:id="transactionsTable" focusTraversable="false" layoutX="32.0" layoutY="341.0" prefHeight="331.0" prefWidth="836.0" style="-fx-border-color: #273A84; -fx-border-radius: 4px; -fx-border-width: 1.5px;">
         <columns>
-          <TableColumn fx:id="transactDate" editable="false" prefWidth="140.0" text="Date" />
-          <TableColumn fx:id="transactTime" editable="false" prefWidth="140.0" text="Time" />
+          <TableColumn fx:id="transactDate" editable="false" prefWidth="100.0" text="Date" />
+          <TableColumn fx:id="transactTime" editable="false" prefWidth="100.0" text="Time" />
             <TableColumn fx:id="transactOR" editable="false" prefWidth="140.0" text="OR No." />
-            <TableColumn fx:id="transactFee" editable="false" prefWidth="140.0" text="Fee type" />
+            <TableColumn fx:id="transactPlateNum" editable="false" prefWidth="140.0" text="Plate No." />
+            <TableColumn fx:id="transactFee" editable="false" text="Fee type" />
             <TableColumn fx:id="transactAmount" editable="false" prefWidth="140.0" text="Amount" />
             <TableColumn fx:id="transactStatus" editable="false" prefWidth="115.0" text="Status" />
         </columns>

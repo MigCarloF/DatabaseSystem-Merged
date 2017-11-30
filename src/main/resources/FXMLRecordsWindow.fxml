@@ -187,14 +187,15 @@
       <TableView fx:id="transactionsTable" focusTraversable="false" layoutX="327.0" layoutY="338.0" prefHeight="354.0" prefWidth="917.0" style="-fx-border-color: #273a84; -fx-border-width: 1.3px; -fx-border-radius: 4px;">
         <columns>
           <TableColumn fx:id="date" editable="false" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="time" editable="false" prefWidth="75.0" text="Time" />
-            <TableColumn fx:id="orNo" editable="false" prefWidth="100.0" text="OR no." />
-            <TableColumn fx:id="company" editable="false" prefWidth="114.0" text="Company" />
-            <TableColumn fx:id="busType" editable="false" prefWidth="100.0" text="Bus type" />
-            <TableColumn fx:id="plateNo" editable="false" prefWidth="100.0" text="Plate no." />
+            <TableColumn fx:id="time" editable="false" prefWidth="65.0" text="Time" />
+            <TableColumn fx:id="orNo" editable="false" prefWidth="75.0" text="OR no." />
+            <TableColumn fx:id="company" editable="false" prefWidth="100.0" text="Company" />
+            <TableColumn fx:id="busType" editable="false" prefWidth="75.0" text="Bus type" />
+            <TableColumn fx:id="plateNo" editable="false" prefWidth="85.0" text="Plate no." />
             <TableColumn fx:id="route" editable="false" prefWidth="130.0" text="Route" />
             <TableColumn fx:id="feeType" editable="false" prefWidth="60.0" text="Fee type" />
             <TableColumn fx:id="amount" editable="false" text="Amount" />
+            <TableColumn fx:id="cashier" editable="false" prefWidth="90.0" text="Cashier" />
             <TableColumn fx:id="status" editable="false" prefWidth="60.0" text="Status" />
         </columns>
       </TableView>

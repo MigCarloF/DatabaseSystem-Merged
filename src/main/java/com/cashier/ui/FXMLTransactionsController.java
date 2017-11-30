@@ -48,6 +48,9 @@ public class FXMLTransactionsController implements Initializable {
     private TableColumn<FeeTable, String> transactOR;
 
     @FXML
+    private TableColumn<FeeTable, String> transactPlateNum;
+
+    @FXML
     private TableColumn<FeeTable, String> transactFee;
 
     @FXML
