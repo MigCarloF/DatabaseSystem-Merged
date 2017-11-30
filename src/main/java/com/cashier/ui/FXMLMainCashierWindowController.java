@@ -24,6 +24,7 @@ import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.swing.*;
 import javax.xml.crypto.Data;
+import java.awt.*;
 import java.awt.print.PrinterAbortException;
 import java.awt.print.PrinterException;
 import java.io.*;
@@ -234,19 +235,48 @@ public class FXMLMainCashierWindowController implements Initializable {
             /**
              * Setting up strings for print arrangement
              */
+            String province = "CEBU";
             String date = f.getDatePaid();
             String payor = f.getBus_plate();
             String nature1 = "Arrival Fee";
             String nature2 = "Loading Fee";
             String arrivalFee = f.getArrivalFee();
             String loadingFee = f.getLoadingFee();
+            String total = "";
+            String cashier = f.getEmployeeID();
+            int tot = 0;
+
+            if(f.getPaidArrival()){
+                tot += 50;
+            }
+            if(f.getPaidLoading()){
+                tot += 150;
+            }
+
+            switch (tot){
+                case 50:  total = "FIFTY PESOS ONLY";
+                    break;
+                case 150:  total = "ONE HUNDRED FIFTY PESOS ONLY";
+                    break;
+                case 200:  total = "TWO HUNDRED PESOS ONLY";
+                    break;
+                default: total = "";
+                    break;
+            }
 
             /**
              * Initializing file writer to write text file
              */
             PrintWriter out = new PrintWriter("filename.txt");
-            out.println("\n\n\n\n\n\n\n   " + date + "\n\n\n   " + payor + "\n\n\n\n\n\n   " + nature1 + "\t\t\t\t\t" +
-                    arrivalFee + "\n\n  " + nature2 + "\t\t\t\t\t" + loadingFee);
+            out.println("\t" + province +
+                    "\n\n\n" + date +
+                    "\n" + payor +
+                    "\n\n\n" + nature1 + "\t\t" + arrivalFee +
+                    "\n" + nature2 + "\t\t" + loadingFee +
+                    "\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t" + tot +
+                    "\n" + total +
+                    "\n" + "X" +
+                    "\n\n\n\n\n\t        " + cashier);
             out.close();
 
             /**
@@ -273,8 +303,13 @@ public class FXMLMainCashierWindowController implements Initializable {
              */
             JEditorPane text = new JEditorPane("file:filename.txt");
             PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+            int two = 2;
+//			Font myFont = new Font("Calibri", Font.PLAIN, 11);
+//			text.setFont(myFont);
+
+            text.setMargin(new Insets(1, (1/3), (1/2), (1/4)));
             text.print(null, null, false, service, null, false);
-            noPlate.setText("");
+//			noPlate.setText("");
             return true;
 
         } catch (FileNotFoundException e) {
@@ -287,7 +322,7 @@ public class FXMLMainCashierWindowController implements Initializable {
             return false;
         } catch (PrinterAbortException e) {
             System.out.println("Printer Aborted");
-            noPlate.setText("* - Printing Aborted!");
+//			noPlate.setText("* - Printing Aborted!");
             System.out.println("Printer Aborted");
             e.printStackTrace();
             return false;
