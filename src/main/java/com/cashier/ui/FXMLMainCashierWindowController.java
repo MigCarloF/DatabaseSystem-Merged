@@ -203,12 +203,15 @@ public class FXMLMainCashierWindowController implements Initializable {
                                          * printing here
                                          */
                                         if(printOutSuccessful(forDatabase)) {
+                                            noPlate.setText("");
                                             //only sets new vale and changes or number if printing is successful
                                             aref.child(forDatabase.getOrNum()).setValue(forDatabase);
 
                                             Map<String, Object> newRange = new HashMap<>();
                                             newRange.put("current", ORNUM += 1);
                                             nref.updateChildren(newRange);
+                                        } else {
+                                            noPlate.setText("* - Printing Cancelled");
                                         }
                                     }
                                 }

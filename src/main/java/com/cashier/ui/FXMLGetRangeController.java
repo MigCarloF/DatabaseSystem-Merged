@@ -46,20 +46,14 @@ public class FXMLGetRangeController implements Initializable {
         stage.close();
     }
 
-    private boolean lowFeeExists() {
+    private boolean feeExists() {
         for(Fee f : fees) {
+            System.out.println(f.getOrNum() + " " + lowRange.getText() + " " + highRange.getText());
             int orInt = Integer.parseInt(f.getOrNum());
-            if (f.getOrNum().equals(lowRange.getText())){
-                return true;
-            }
-        }
-        return false;
-    }
+            int lowInt = Integer.parseInt(lowRange.getText());
+            int highInt = Integer.parseInt(highRange.getText());
 
-    private boolean highFeeExists() {
-        for (Fee f : fees) {
-            int orInt = Integer.parseInt(f.getOrNum());
-            if (f.getOrNum().equals(highRange.getText())) {
+            if (lowInt <= orInt && orInt <= highInt){
                 return true;
             }
         }
@@ -119,10 +113,8 @@ public class FXMLGetRangeController implements Initializable {
                 lock.lock();
                 try { //try block for lock catching
                     cond.await();
-                    if(lowFeeExists()) {
-                        lblError.setText("* - Low Range OR already exists");
-                    } else if(highFeeExists()) {
-                        lblError.setText("* - High Range OR already exists");
+                    if(feeExists()) {
+                        lblError.setText("* - Existing fee in range");
                     } else {
                         lblError.setText("");
                         DatabaseReference ref = database.child("Range");
