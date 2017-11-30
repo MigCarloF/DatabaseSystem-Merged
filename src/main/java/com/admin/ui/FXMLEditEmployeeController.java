@@ -65,13 +65,45 @@ public class FXMLEditEmployeeController implements Initializable {
     }
 
     @FXML
+    void deletePressed(ActionEvent event){
+        String firstNameText = firstName.getText();
+        String lastNameText = lastName.getText();
+        userNameText = userName.getText();
+        String passwordText = password.getText();
+
+
+        if(firstNameText.equals("") || lastNameText.equals("") || userNameText.equals("") || passwordText.equals("")){
+            //todo throw error nga empty
+        }
+
+        DatabaseReference ref = database.child("Employees");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Map<String, Object> newEmployee = new HashMap<>();
+                newEmployee.put("estatus", "INACTIVE");
+                newEmployee.put("activeEmployee", false);
+                ref.child(userNameText).updateChildren(newEmployee);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+        Stage stage = (Stage) delete.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
     void enterPressed(ActionEvent event) {
         String firstNameText = firstName.getText();
         String lastNameText = lastName.getText();
         userNameText = userName.getText();
         String passwordText = password.getText();
 
-        System.out.println(userNameText);
+//        System.out.println(userNameText);
 
         if(firstNameText.equals("") || lastNameText.equals("") || userNameText.equals("") || passwordText.equals("")){
             //todo throw error nga empty

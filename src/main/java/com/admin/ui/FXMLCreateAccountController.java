@@ -56,8 +56,8 @@ public class FXMLCreateAccountController implements Initializable {
         String lastName = createAccountLastName.getText();
         String accountType = createAccountType.getValue().toString();
 
-        System.out.println("Username: " + username + "\nPassword: " + password + "\nAccount type: " + accountType
-        + "\nFirst name: " + firstName + "\nLast name: " + lastName);
+//        System.out.println("Username: " + username + "\nPassword: " + password + "\nAccount type: " + accountType
+//        + "\nFirst name: " + firstName + "\nLast name: " + lastName);
 
         // closes the window
         DatabaseReference ref = database.child("Employees").child(username);
