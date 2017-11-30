@@ -69,6 +69,8 @@ public class FXMLBusProfilesController implements Initializable {
     private ObservableList<Bus> buses;
 
     private void displayAll(){
+//        transactionsTable.setItems(null);
+        buses.clear();
         DatabaseReference ref = database.child("Buses");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -121,7 +123,46 @@ public class FXMLBusProfilesController implements Initializable {
 
             busViewButtonPressed(event);
             anotherStage.show();
+
+//            displayAll();
         }
+    }
+
+//    static void shit(){
+//        dataListener()
+//    }
+
+    void dataListener(){
+        DatabaseReference ref = database.child("Buses");
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+//                buses.clear();
+//                displayAll();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+                buses.clear();
+                displayAll();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot snapshot) {
+//                buses.clear();
+//                displayAll();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 
     @FXML
@@ -282,8 +323,8 @@ public class FXMLBusProfilesController implements Initializable {
             }
         });
 
-
         displayAll();
+        dataListener();
 //        search.getText();
     }
 }

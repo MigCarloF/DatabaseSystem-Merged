@@ -108,7 +108,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <JFXButton fx:id="delete" focusTraversable="false" layoutX="391.0" layoutY="389.0" onAction="#editButtonPressed" prefHeight="42.0" prefWidth="172.0" style="-fx-background-color: #7C1B2E;" text="DELETE" textFill="WHITE">
+      <JFXButton fx:id="delete" focusTraversable="false" layoutX="391.0" layoutY="389.0" onAction="#deleteButtonPressed" prefHeight="42.0" prefWidth="172.0" style="-fx-background-color: #7C1B2E;" text="DELETE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
