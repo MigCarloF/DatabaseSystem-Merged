@@ -99,7 +99,23 @@ public class FXMLEditBusProfileController implements Initializable {
         size.setText(busToEdit.getBusSize());
         rfid.setText(busToEdit.getRfid());
     }
+    
+    private void getExistingBuses(){
+        DatabaseReference ref = database.child("Buses");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for(DataSnapshot snap : snapshot.getChildren()){
+                    Bus bus = snap.getValue(Bus.class);
+                    buses.add(bus);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError error) {}
+        });
+    }
+    
     @FXML
     void cancelButtonPressed(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
