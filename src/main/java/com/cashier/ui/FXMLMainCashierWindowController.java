@@ -80,10 +80,7 @@ public class FXMLMainCashierWindowController implements Initializable {
                 String rfid = exit.getRfid();
                 String status = exit.getStatus();
                 System.out.println(rfid);
-                loaded = false;
-                if (status.equals("loaded")) {
-                    loaded = true;
-                }
+                loaded = status.equals("loaded");
 
                 DatabaseReference bref = database.child("Buses");
                 bref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -96,6 +93,7 @@ public class FXMLMainCashierWindowController implements Initializable {
                             if (bus.getRfid().equals(rfid)) {
                                 arrivalFee.setSelected(true);
                                 if (loaded) loadingFee.setSelected(true);
+                                if(!loaded) loadingFee.setSelected(false);
                                 plateNumber.setText(bus.getPlateNo());
                                 break;
                             }
@@ -203,6 +201,9 @@ public class FXMLMainCashierWindowController implements Initializable {
                                          * printing here
                                          */
                                         if(printOutSuccessful(forDatabase)) {
+                                            loadingFee.setSelected(false);
+                                            arrivalFee.setSelected(false);
+                                            plateNumber.setText("");
                                             noPlate.setText("");
                                             //only sets new vale and changes or number if printing is successful
                                             aref.child(forDatabase.getOrNum()).setValue(forDatabase);
