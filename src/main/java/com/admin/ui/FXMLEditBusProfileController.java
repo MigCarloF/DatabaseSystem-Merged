@@ -80,14 +80,14 @@ public class FXMLEditBusProfileController implements Initializable {
     private Bus busToEdit;
     private DatabaseReference database;
 
-    private Boolean errorFound = false;
-    private String errorStatus = "";
     private Alert alert = new Alert(Alert.AlertType.ERROR);
+    private ArrayList<Bus> buses = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         database = FirebaseDatabase.getInstance().getReference();
         busToEdit = SingletonEditBus.getInstance().getBus();
+        getExistingBuses();
 
         contactPerson.setText(busToEdit.getContactPerson());
         contactNumber.setText(busToEdit.getContactNumber());
@@ -119,26 +119,29 @@ public class FXMLEditBusProfileController implements Initializable {
         if(contactNumberText.equals("") || contactPersonText.equals("") || franchiseText.equals("") ||
                 plateNoText.equals("") || routeText.equals("") || typeText.equals("") || sizeText.equals("") ||
                 RFIDText.equals("")) {
-            //todo throw error nga empty
+            alert.setTitle("INCOMPLETE DATA");
+            alert.setHeaderText("");
+            alert.setContentText("Please fill in all the data needed.");
+            alert.showAndWait();
+        }else{
+            DatabaseReference ref = database.child("Buses");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    Map<String, Object> newEmployee = new HashMap<>();
+                    newEmployee.put("activeBus", true);
+                    ref.child(plateNoText).updateChildren(newEmployee);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+
+                }
+            });
+
+            Stage stage = (Stage) delete.getScene().getWindow();
+            stage.close();
         }
-
-        DatabaseReference ref = database.child("Buses");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                Map<String, Object> newEmployee = new HashMap<>();
-                newEmployee.put("activeBus", true);
-                ref.child(plateNoText).updateChildren(newEmployee);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
-
-        Stage stage = (Stage) delete.getScene().getWindow();
-        stage.close();
     }
 
     @FXML
@@ -151,56 +154,71 @@ public class FXMLEditBusProfileController implements Initializable {
         String typeText = type.getText();
         String sizeText = size.getText();
         String RFIDText = rfid.getText();
-
+        Boolean error = false;
         if(contactNumberText.equals("") || contactPersonText.equals("") || franchiseText.equals("") ||
                 plateNoText.equals("") || routeText.equals("") || typeText.equals("") || sizeText.equals("") ||
                 RFIDText.equals("")) {
-            //todo throw error nga empty
-        }
-
-        DatabaseReference ref = database.child("Buses");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if(plateNoText.equals(busToEdit.getPlateNo())){
-                    Map<String, Object> newBus = new HashMap<>();
-                    newBus.put("plateNo", plateNoText);
-                    newBus.put("franchise", franchiseText);
-                    newBus.put("contactPerson", contactPersonText);
-                    newBus.put("contactNumber", contactNumberText);
-                    newBus.put("busType", typeText);
-                    newBus.put("busSize", sizeText);
-                    newBus.put("busRoute", routeText);
-                    newBus.put("rfid",RFIDText);
-
-                    ref.child(plateNoText).updateChildren(newBus);
-                }else {
-                    if(snapshot.hasChild(plateNoText)){
-                        //todo throw user exist
-                        //System.out.println("geee");
-                    }else {
-                        System.out.println("hello");
-                        boolean isbus = true;
-                        if(sizeText.equals("MINIBUS")){
-                            isbus = false;
-                        }
-                        Bus e = new Bus("",sizeText, franchiseText, isbus, plateNoText,contactPersonText,
-                                contactNumberText, typeText, routeText, "","",true, RFIDText);
-                        ref.child(busToEdit.getPlateNo()).setValue(null);
-                        ref.child(plateNoText).setValue(e);
+            error = true;
+            alert.setTitle("INCOMPLETE DATA");
+            alert.setHeaderText("");
+            alert.setContentText("Please fill in all the data needed.");
+            alert.showAndWait();
+        }else if(!plateNoText.equals("") && plateNoText != null){
+            if(!plateNoText.equals(busToEdit.getPlateNo())){
+                for(Bus b : buses){
+                    if(b.getPlateNo().equals(plateNoText)){
+                        error = true;
+                        alert.setTitle("PLATE NUMBER ALREADY EXISTS");
+                        alert.setHeaderText("");
+                        alert.setContentText("Please input another plate number.");
+                        alert.showAndWait();
                     }
                 }
-
             }
+        }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
+        if(!error){
+            DatabaseReference ref = database.child("Buses");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if(plateNoText.equals(busToEdit.getPlateNo())){
+                        Map<String, Object> newBus = new HashMap<>();
+                        newBus.put("plateNo", plateNoText);
+                        newBus.put("company", franchiseText);
+                        newBus.put("contactPerson", contactPersonText);
+                        newBus.put("contactNumber", contactNumberText);
+                        newBus.put("busType", typeText);
+                        newBus.put("busSize", sizeText);
+                        newBus.put("busRoute", routeText);
+                        newBus.put("rfid",RFIDText);
 
-            }
-        });
+                        ref.child(plateNoText).updateChildren(newBus);
+                    }else {
+                        if(snapshot.hasChild(plateNoText)){
+                            //todo throw user exist
+                            // done above
+                        }else {
+                            System.out.println("hello");
+                            boolean isMinibus = false;
+                            if(sizeText.equals("MINIBUS")){
+                                isMinibus = true;
+                            }
+                            Bus e = new Bus("",sizeText, franchiseText, isMinibus, plateNoText,contactPersonText,
+                                    contactNumberText, typeText, routeText, "","",true, RFIDText);
+                            ref.child(busToEdit.getPlateNo()).setValue(null);
+                            ref.child(plateNoText).setValue(e);
+                        }
+                    }
 
-        // closes the window
-        Stage stage = (Stage) editButton.getScene().getWindow();
-        stage.close();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {}
+            });
+            // closes the window
+            Stage stage = (Stage) editButton.getScene().getWindow();
+            stage.close();
+        }
     }
 }
