@@ -12,7 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.locks.Condition;
@@ -47,13 +49,13 @@ public class FXMLGetRangeController implements Initializable {
     }
 
     private boolean feeExists() {
-        for(Fee f : fees) {
+        for (Fee f : fees) {
             System.out.println(f.getOrNum() + " " + lowRange.getText() + " " + highRange.getText());
             int orInt = Integer.parseInt(f.getOrNum());
             int lowInt = Integer.parseInt(lowRange.getText());
             int highInt = Integer.parseInt(highRange.getText());
 
-            if (lowInt <= orInt && orInt <= highInt){
+            if (lowInt <= orInt && orInt <= highInt) {
                 return true;
             }
         }
@@ -65,73 +67,77 @@ public class FXMLGetRangeController implements Initializable {
         String low = lowRange.getText();
         String high = highRange.getText();
         lblError.setText("Processing");
-        low = low.replaceAll("\\s","");//removes spaces
-        high = high.replaceAll("\\s","");
-        if(low.equals("") || high.equals("")) {
+        low = low.replaceAll("\\s", "");//removes spaces
+        high = high.replaceAll("\\s", "");
+        if (low.equals("") || high.equals("")) {
             lblError.setText("* - Fill in both blanks");
-        }
-        else{
+        } else {
             //String original = "050";
-            int valueLow  = Integer.parseInt(low, 10);
+            int valueLow = Integer.parseInt(low, 10);
             int valueHigh = Integer.parseInt(high, 10);
-            if(valueLow >= valueHigh){
+            if (valueLow >= valueHigh) {
                 lblError.setText("* - Invalid Range");
-            }else {
-                DatabaseReference gatherFeesRef = database.child("Fees");
-                gatherFeesRef.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-                        lock.lock();
+            } else {
+                if (netIsAvailable() == false) {
+                    lblError.setText("No internet! Contact admin");
+                } else {
+                    DatabaseReference gatherFeesRef = database.child("Fees");
+                    gatherFeesRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            lock.lock();
+                            for(DataSnapshot s : snapshot.getChildren()) {
+                                Fee f = s.getValue(Fee.class);
+                                fees.add(f);
+                            }
+                            cond.signal();
+                            lock.unlock();
+                        }
 
-                        Fee fee = snapshot.getValue(Fee.class);
-                        fees.add(fee);
+                        @Override
+                        public void onCancelled(DatabaseError error) {
 
-                        cond.signal();
-                        lock.unlock();
+                        }
+                    });
+                    lock.lock();
+                    try {
+                        cond.await();
+                        //try block for lock catching
+                        if (feeExists()) {
+                            lblError.setText("* - Existing fee in range");
+                        } else {
+                            lblError.setText("");
+                            DatabaseReference ref = database.child("Range");
+                            RangeOR range = new RangeOR(valueLow, valueHigh);
+                            ref.setValue(range);
+                            //FXMLMainCashierWindowController.setRange(valueLow, valueHigh, true);
+                            //close void window then open void request window
+                            Stage stage = (Stage) cancel.getScene().getWindow();
+                            CashierMain.cancelPressed = true;
+                            stage.close();
+                        }
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
 
-                    @Override
-                    public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot snapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-
-                    }
-                });
-                lock.lock();
-                try { //try block for lock catching
-                    cond.await();
-                    if(feeExists()) {
-                        lblError.setText("* - Existing fee in range");
-                    } else {
-                        lblError.setText("");
-                        DatabaseReference ref = database.child("Range");
-                        RangeOR range = new RangeOR(valueLow, valueHigh);
-                        ref.setValue(range);
-                        //FXMLMainCashierWindowController.setRange(valueLow, valueHigh, true);
-                        //close void window then open void request window
-                        Stage stage = (Stage) cancel.getScene().getWindow();
-                        CashierMain.cancelPressed = true;
-                        stage.close();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    lock.unlock();
                 }
-                lock.unlock();
             }
 
+        }
+    }
+
+    private static boolean netIsAvailable() {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
         }
     }
 
@@ -139,6 +145,8 @@ public class FXMLGetRangeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         fees = new ArrayList<>();
         database = FirebaseDatabase.getInstance().getReference();
+        System.out.println(database.child("Fees").getDatabase());
+        System.out.println("LAWL");
         lblError.setText("");
     }
 
