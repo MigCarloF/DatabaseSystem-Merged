@@ -93,7 +93,7 @@ public class FXMLCreateAccountController implements Initializable {
             typeErr.setText("");
             typeErr.setVisible(false);
         } catch (NullPointerException e) {
-            typeErr.setText("How to tell if cashier or admin? Think more la action lo");
+            typeErr.setText("* - Type required");
             typeErr.setVisible(true);
             error = true;
         }
@@ -101,7 +101,7 @@ public class FXMLCreateAccountController implements Initializable {
 //        System.out.println(username);
 
         if(firstName.equals("")) {
-            firstErr.setText("Input first name la you");
+            firstErr.setText("* - First name required");
             firstErr.setVisible(true);
             error = true;
         } else {
@@ -109,7 +109,7 @@ public class FXMLCreateAccountController implements Initializable {
         }
 
         if(lastName.equals("")) {
-            lastErr.setText("What you think no lastname? Impossible what you think ha?");
+            lastErr.setText("* - Last name required");
             lastErr.setVisible(true);
             error = true;
         } else {
@@ -117,7 +117,7 @@ public class FXMLCreateAccountController implements Initializable {
         }
 
         if(username.equals("")) {
-            userErr.setText("You think can log in without username? Smart la you!");
+            userErr.setText("* - Username required");
             userErr.setVisible(true);
             error = true;
         } else {
@@ -125,7 +125,7 @@ public class FXMLCreateAccountController implements Initializable {
         }
 
         if(password.equals("")) {
-            passErr.setText("No password how protect? Nice la");
+            passErr.setText("* - Password required");
             passErr.setVisible(true);
             error = true;
         } else {
@@ -143,6 +143,7 @@ public class FXMLCreateAccountController implements Initializable {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     lock.lock();
+
                     if (snapshot.getChildrenCount() > 0) {
                         //todo throw error or what
                         System.out.println("lolexist");
