@@ -66,6 +66,8 @@ public class FXMLVoidWindowController implements Initializable {
         if (orNo == null || orNo.equals("")) {
             System.out.println("invalid");
             noVoid.setText("* - invalid input");
+        } else if (NetChecker.netIsAvailable() == false) {
+            noVoid.setText("No connection! Check connection");
         } else {
             DatabaseReference ref = database.child("Fees");
             ref.addValueEventListener(new ValueEventListener() {
@@ -144,6 +146,7 @@ public class FXMLVoidWindowController implements Initializable {
         window.setScene(tableViewScene);
         window.show();
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

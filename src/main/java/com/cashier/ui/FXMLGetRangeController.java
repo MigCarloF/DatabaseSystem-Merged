@@ -78,8 +78,8 @@ public class FXMLGetRangeController implements Initializable {
             if (valueLow >= valueHigh) {
                 lblError.setText("* - Invalid Range");
             } else {
-                if (netIsAvailable() == false) {
-                    lblError.setText("No internet! Contact admin");
+                if (NetChecker.netIsAvailable() == false) {
+                    lblError.setText("No Connection! Check connection");
                 } else {
                     DatabaseReference gatherFeesRef = database.child("Fees");
                     gatherFeesRef.addValueEventListener(new ValueEventListener() {
@@ -125,19 +125,6 @@ public class FXMLGetRangeController implements Initializable {
                 }
             }
 
-        }
-    }
-
-    private static boolean netIsAvailable() {
-        try {
-            final URL url = new URL("http://www.google.com");
-            final URLConnection conn = url.openConnection();
-            conn.connect();
-            return true;
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            return false;
         }
     }
 
