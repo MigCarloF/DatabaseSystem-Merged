@@ -12,11 +12,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class FXMLCreateAccountController implements Initializable {
     @FXML
@@ -27,6 +32,27 @@ public class FXMLCreateAccountController implements Initializable {
 
     @FXML
     private TextField createAccountUsername;
+
+    @FXML
+    private Label firstErr;
+
+    @FXML
+    private Label lastErr;
+
+    @FXML
+    private Label userErr;
+
+    @FXML
+    private Label typeErr;
+
+    @FXML
+    private Label passErr;
+
+    @FXML
+    private Label existsErr;
+
+    @FXML
+    private Text errorCheck;
 
     @FXML
     private TextField createAccountPassword;
@@ -42,6 +68,11 @@ public class FXMLCreateAccountController implements Initializable {
 
     private DatabaseReference database;
 
+    private Lock lock = new ReentrantLock();
+    private Condition cond = lock.newCondition();
+
+    private boolean success = false;
+    private String accountType;
     @FXML
     void createAccountCancelPressed(ActionEvent event) {
         Stage stage = (Stage) createAccountCancelButton.getScene().getWindow();
@@ -54,31 +85,96 @@ public class FXMLCreateAccountController implements Initializable {
         String password = createAccountPassword.getText();
         String firstName = createAccountFirstName.getText();
         String lastName = createAccountLastName.getText();
-        String accountType = createAccountType.getValue().toString();
+        accountType = ""; //I set account type outside due to local variable error -Carlo
+        boolean error = false;
+        existsErr.setVisible(false);
+        try {
+            accountType = createAccountType.getValue().toString();
+            typeErr.setText("");
+            typeErr.setVisible(false);
+        } catch (NullPointerException e) {
+            typeErr.setText("How to tell if cashier or admin? Think more la action lo");
+            typeErr.setVisible(true);
+            error = true;
+        }
+        boolean clearType = false;
+//        System.out.println(username);
 
-//        System.out.println("Username: " + username + "\nPassword: " + password + "\nAccount type: " + accountType
-//        + "\nFirst name: " + firstName + "\nLast name: " + lastName);
+        if(firstName.equals("")) {
+            firstErr.setText("Input first name la you");
+            firstErr.setVisible(true);
+            error = true;
+        } else {
+            firstErr.setVisible(false);
+        }
 
-        // closes the window
-        DatabaseReference ref = database.child("Employees").child(username);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if(snapshot.getChildrenCount() > 0){
-                    //todo throw error or what
-                }else{
-                    Employee employee = new Employee(username,password,firstName,lastName,accountType);
-                    ref.setValue(employee);
+        if(lastName.equals("")) {
+            lastErr.setText("What you think no lastname? Impossible what you think ha?");
+            lastErr.setVisible(true);
+            error = true;
+        } else {
+            lastErr.setVisible(false);
+        }
+
+        if(username.equals("")) {
+            userErr.setText("You think can log in without username? Smart la you!");
+            userErr.setVisible(true);
+            error = true;
+        } else {
+            userErr.setVisible(false);
+        }
+
+        if(password.equals("")) {
+            passErr.setText("No password how protect? Nice la");
+            passErr.setVisible(true);
+            error = true;
+        } else {
+            passErr.setVisible(false);
+        }
+
+        if(clearType) {
+            typeErr.setVisible(false);
+        }
+        if(error){
+         //DO NOTHING
+        } else {
+            DatabaseReference ref = database.child("Employees").child(username);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    lock.lock();
+                    if (snapshot.getChildrenCount() > 0) {
+                        //todo throw error or what
+                        System.out.println("lolexist");
+                        existsErr.setText("* - username already exists?");
+                        existsErr.setVisible(true);
+                        success = false;
+                    } else {
+                        Employee employee = new Employee(username, password, firstName, lastName, accountType);
+                        ref.setValue(employee);
+                        success = true;
+                    }
+                    cond.signal();
+                    lock.unlock();
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
+                @Override
+                public void onCancelled(DatabaseError error) {
 
+                }
+            });
+            lock.lock();
+            try {
+                cond.await();
+                if (success) {
+                    Stage stage = (Stage) createAccountCreateButton.getScene().getWindow();
+                    stage.close();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });
-        Stage stage = (Stage) createAccountCreateButton.getScene().getWindow();
-        stage.close();
+            lock.unlock();
+        }
     }
 
 
@@ -87,6 +183,7 @@ public class FXMLCreateAccountController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("HERE");
         createAccountType.getItems().addAll("ADMIN", "CASHIER");
         createAccountType.setVisibleRowCount(3);
         createAccountType.setEditable(false);

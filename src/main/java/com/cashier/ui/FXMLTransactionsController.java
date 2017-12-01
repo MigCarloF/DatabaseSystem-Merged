@@ -3,6 +3,7 @@ package com.cashier.ui;
 import com.database.Bus;
 import com.database.Fee;
 import com.database.FeeTable;
+import com.database.SingletonLogin;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
@@ -219,7 +220,7 @@ public class FXMLTransactionsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cashierUserText.setText("Sir Joey");
+        cashierUserText.setText(SingletonLogin.getInstance().getCurrentLogin());
         transactQuantityAF.setText("9");
         transactQuantityLF.setText("9");
         transactAmountAF.setText("450");
