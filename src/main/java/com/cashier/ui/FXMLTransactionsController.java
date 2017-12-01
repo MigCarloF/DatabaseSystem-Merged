@@ -84,6 +84,7 @@ public class FXMLTransactionsController implements Initializable {
     @FXML
     private JFXButton transactBackButton;
 
+    private String currentLogin;
     private ObservableList<FeeTable> fees;
     private DatabaseReference database;
     private int arrival, load;
@@ -123,8 +124,10 @@ public class FXMLTransactionsController implements Initializable {
                                 public void onDataChange(DataSnapshot bussnapshot) {
                                     Bus bus = bussnapshot.getValue(Bus.class);
                                     //System.out.println(fee.getBus_plate());
-                                    fees.add(new FeeTable(fee,bus));
-                                    transactionsTable.setItems(fees);
+                                    if(fee.getEmployeeID().equals(currentLogin)){
+                                        fees.add(new FeeTable(fee,bus));
+                                        transactionsTable.setItems(fees);
+                                    }
                                 }
 
                                 @Override
@@ -220,6 +223,7 @@ public class FXMLTransactionsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        currentLogin = SingletonLogin.getInstance().getCurrentLogin();
         cashierUserText.setText(SingletonLogin.getInstance().getCurrentLogin());
         transactQuantityAF.setText("9");
         transactQuantityLF.setText("9");

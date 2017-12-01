@@ -1,6 +1,5 @@
 package com.database;
 
-import com.accountant.ui.FXMLAccountantWindowController;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseCredentials;
