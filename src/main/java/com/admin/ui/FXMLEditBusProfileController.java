@@ -165,11 +165,11 @@ public class FXMLEditBusProfileController implements Initializable {
     void editButtonPressed(ActionEvent event) {
         String contactPersonText = contactPerson.getText();
         String contactNumberText = contactNumber.getText();
-        String franchiseText = franchise.getText();
-        String plateNoText = plateNo.getText();
-        String routeText = route.getText();
-        String typeText = type.getText();
-        String sizeText = size.getText();
+        String franchiseText = franchise.getText().toUpperCase();
+        String plateNoText = plateNo.getText().toUpperCase();
+        String routeText = route.getText().toUpperCase();
+        String typeText = type.getText().toUpperCase();
+        String sizeText = size.getText().toUpperCase();
         String RFIDText = rfid.getText();
         Boolean error = false;
         if(contactNumberText.equals("") || contactPersonText.equals("") || franchiseText.equals("") ||
@@ -180,15 +180,30 @@ public class FXMLEditBusProfileController implements Initializable {
             alert.setHeaderText("");
             alert.setContentText("Please fill in all the data needed.");
             alert.showAndWait();
-        }else if(!plateNoText.equals("") && plateNoText != null){
-            if(!plateNoText.equals(busToEdit.getPlateNo())){
-                for(Bus b : buses){
-                    if(b.getPlateNo().equals(plateNoText)){
-                        error = true;
-                        alert.setTitle("PLATE NUMBER ALREADY EXISTS");
-                        alert.setHeaderText("");
-                        alert.setContentText("Please input another plate number.");
-                        alert.showAndWait();
+        }else{
+            if(!plateNoText.equals("") && plateNoText != null){
+                if(!plateNoText.equals(busToEdit.getPlateNo())){
+                    for(Bus b : buses){
+                        if(b.getPlateNo().equals(plateNoText)){
+                            error = true;
+                            alert.setTitle("PLATE NUMBER ALREADY EXISTS");
+                            alert.setHeaderText("");
+                            alert.setContentText("Please input another plate number.");
+                            alert.showAndWait();
+                        }
+                    }
+                }
+            }
+            if(!RFIDText.equals("") && RFIDText != null){
+                if(!RFIDText.equals(busToEdit.getRfid())){
+                    for(Bus b : buses){
+                        if(b.getRfid().equals(RFIDText)){
+                            error = true;
+                            alert.setTitle("RFID already exists.");
+                            alert.setHeaderText("");
+                            alert.setContentText("Please input another value.");
+                            alert.showAndWait();
+                        }
                     }
                 }
             }
