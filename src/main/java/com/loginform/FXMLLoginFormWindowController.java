@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import javax.xml.crypto.Data;
@@ -30,6 +31,12 @@ public class FXMLLoginFormWindowController implements Initializable{
 
     @FXML
     private JFXButton logIn;
+
+    @FXML
+    private Label usernameErr;
+
+    @FXML
+    private Label passwordErr;
 
     private DatabaseReference database;
     private ObservableList<Employee> employees;
@@ -63,45 +70,47 @@ public class FXMLLoginFormWindowController implements Initializable{
     void logInButtonPushed(ActionEvent event) throws IOException {
         String user = usernameTextField.getText();
         String pass = passwordTextField.getText();
-        boolean flag = false;
+        usernameErr.setVisible(false);
+        passwordErr.setVisible(false);
+
+        boolean flag = false; // it becomes true if it sees the username in the list
         System.out.println(employees.size());
-        for(Employee e : employees){
-            if(e.getUsername().equals(user)){
-                if(e.getPassword().equals(pass)){
+        for (Employee e : employees) {
+            if (e.getUsername().equals(user)) {
+                if(e.getEstatus().equals("ACTIVE")){
                     flag = true;
-                    SingletonLogin.getInstance().setCurrentLogin(e.getUsername());
-                    if(e.getWorkType().equals("CASHIER")){
-                        System.out.println("cash");
-                        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
-                        Scene tableViewScene = new Scene(tableViewParent);
+                    if (e.getPassword().equals(pass)) {
+                        SingletonLogin.getInstance().setCurrentLogin(e.getUsername());
+                        if (e.getWorkType().equals("CASHIER")) {
+                            System.out.println("cash");
+                            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLMainCashierWindow.fxml"));
+                            Scene tableViewScene = new Scene(tableViewParent);
 
-                        //This line gets the Stage information
-                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            //This line gets the Stage information
+                            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-                        window.setScene(tableViewScene);
-                        window.show();
+                            window.setScene(tableViewScene);
+                            window.show();
+                        }
+                        if (e.getWorkType().equals("ADMIN")) {
+                            System.out.println("Admin");
+                            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLCurrentWindow.fxml"));
+                            Scene tableViewScene = new Scene(tableViewParent);
+
+                            //This line gets the Stage information
+                            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+                            window.setScene(tableViewScene);
+                            window.show();
+                        }
+                    } else {
+                        passwordErr.setVisible(true);
                     }
-                    if(e.getWorkType().equals("ADMIN")){
-                        System.out.println("Admin");
-                        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLCurrentWindow.fxml"));
-                        Scene tableViewScene = new Scene(tableViewParent);
-
-                        //This line gets the Stage information
-                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-                        window.setScene(tableViewScene);
-                        window.show();
-                    }
-                }else{
-                    //todo password dont match
                 }
             }
         }
         if(!flag){
-            //todo doesnt match
+            usernameErr.setVisible(true);
         }
-
-
     }
-
 }
