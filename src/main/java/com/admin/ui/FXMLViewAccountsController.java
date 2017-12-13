@@ -56,8 +56,8 @@ public class FXMLViewAccountsController implements Initializable {
     @FXML
     private TableColumn<Employee, String> username;
 
-    @FXML
-    private TableColumn<Employee, String> password;
+    /*@FXML
+    private TableColumn<Employee, String> password;*/
 
     @FXML
     private TableColumn<Employee, String> department;
@@ -222,7 +222,7 @@ public class FXMLViewAccountsController implements Initializable {
         firstName.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));
         lastName.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastName"));
         username.setCellValueFactory(new PropertyValueFactory<Employee, String>("username"));
-        password.setCellValueFactory(new PropertyValueFactory<Employee, String>("password"));
+        //password.setCellValueFactory(new PropertyValueFactory<Employee, String>("password"));
         department.setCellValueFactory(new PropertyValueFactory<Employee, String>("workType"));
         status.setCellValueFactory(new PropertyValueFactory<Employee, String>("estatus"));
 
@@ -234,7 +234,7 @@ public class FXMLViewAccountsController implements Initializable {
                 "FIRST NAME",
                 "LAST NAME",
                 "USERNAME",
-                "PASSWORD",
+             //  "PASSWORD",
                 "DEPARTMENT",
                 "STATUS"
         );
@@ -252,9 +252,6 @@ public class FXMLViewAccountsController implements Initializable {
                     sort();
                 }else if(search.getItems().get((Integer) number2).equals("USERNAME")) {
                     column = "username";
-                    sort();
-                }else if(search.getItems().get((Integer) number2).equals("PASSWORD")) {
-                    column = "password";
                     sort();
                 }else if(search.getItems().get((Integer) number2).equals("DEPARTMENT")) {
                     column = "workType";
