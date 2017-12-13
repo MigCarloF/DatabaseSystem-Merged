@@ -85,12 +85,11 @@
       </JFXButton>
       <TableView fx:id="transactionsTable" editable="true" focusTraversable="false" layoutX="334.0" layoutY="154.0" prefHeight="544.0" prefWidth="911.0" style="-fx-border-width: 1.5px; -fx-border-color: #273A84; -fx-border-radius: 4px;">
          <columns>
-            <TableColumn fx:id="firstName" prefWidth="155.0" text="FIRST NAME" />
-            <TableColumn fx:id="lastName" prefWidth="155.0" text="LAST NAME" />
+            <TableColumn fx:id="firstName" prefWidth="200.0" text="FIRST NAME" />
+            <TableColumn fx:id="lastName" prefWidth="200.0" text="LAST NAME" />
             <TableColumn fx:id="username" prefWidth="150.0" text="USERNAME" />
-            <TableColumn fx:id="password" prefWidth="150.0" text="PASSWORD" />
-            <TableColumn fx:id="department" editable="false" prefWidth="150.0" text="DEPARTMENT" />
-            <TableColumn fx:id="status" prefWidth="145.0" text="STATUS" />
+            <TableColumn fx:id="department" editable="false" prefWidth="200.0" text="DEPARTMENT" />
+            <TableColumn fx:id="status" prefWidth="140.0" text="STATUS" />
          </columns>
       </TableView>
       <ComboBox fx:id="search" focusTraversable="false" layoutX="16.0" layoutY="156.0" prefHeight="45.0" prefWidth="87.0" promptText="Filters" style="-fx-border-color: #273A84; -fx-background-color: #ffffff; -fx-border-width: 1.3px;" />
