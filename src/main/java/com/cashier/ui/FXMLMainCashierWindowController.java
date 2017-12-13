@@ -201,6 +201,8 @@ public class FXMLMainCashierWindowController implements Initializable {
                                          * printing here
                                          */
                                         if(printOutSuccessful(forDatabase)) {
+                                            DatabaseReference ref = exitDatabase.child("Exit");
+                                            ref.setValue(null);
                                             loadingFee.setSelected(false);
                                             arrivalFee.setSelected(false);
                                             plateNumber.setText("");

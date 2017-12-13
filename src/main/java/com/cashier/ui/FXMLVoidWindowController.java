@@ -2,6 +2,7 @@ package com.cashier.ui;
 
 import com.database.Fee;
 import com.database.FirebaseDB;
+import com.database.SingletonLogin;
 import com.google.firebase.database.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
@@ -31,6 +32,7 @@ public class FXMLVoidWindowController implements Initializable {
     Stage anotherStage = new Stage();
     String orNo = "";
     ArrayList<Fee> fees;
+    Fee feeToSolve;
 
     @FXML
     private JFXButton voidWindowCancel;
@@ -66,7 +68,7 @@ public class FXMLVoidWindowController implements Initializable {
         if (orNo == null || orNo.equals("")) {
             System.out.println("invalid");
             noVoid.setText("* - invalid input");
-        } else if (NetChecker.netIsAvailable() == false) {
+        } else if (!NetChecker.netIsAvailable()) {
             noVoid.setText("No connection! Check connection");
         } else {
             DatabaseReference ref = database.child("Fees");
@@ -107,20 +109,25 @@ public class FXMLVoidWindowController implements Initializable {
             }
             System.out.println("Done");
             if(hasOr()) {
-                noVoid.setText("");
-                SingletonVoid.getInstance().setOrNo(orNo);
-                FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLVoidRequestWindow.fxml"));
-                Parent anotherRoot = anotherLoader.load();
-                Scene anotherScene = new Scene(anotherRoot);
-                anotherStage.setScene(anotherScene);
-                anotherStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
+                if(feeToSolve.getEmployeeID().equals(SingletonLogin.getInstance().getCurrentLogin())){
+                    noVoid.setText("");
+                    SingletonVoid.getInstance().setOrNo(orNo);
+                    FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLVoidRequestWindow.fxml"));
+                    Parent anotherRoot = anotherLoader.load();
+                    Scene anotherScene = new Scene(anotherRoot);
+                    anotherStage.setScene(anotherScene);
+                    anotherStage.initStyle(StageStyle.UNDECORATED); //removes the title bar of the window
 
-                //close void window then open void request window
-                Stage stage = (Stage) voidWindowCancel.getScene().getWindow();
-                CashierMain.cancelPressed = true;
-                stage.close();
+                    //close void window then open void request window
+                    Stage stage = (Stage) voidWindowCancel.getScene().getWindow();
+                    CashierMain.cancelPressed = true;
+                    stage.close();
 
-                voidWindowVoidPressed(event);
+                    voidWindowVoidPressed(event);
+                }else {
+                    noVoid.setText("* - Cannot void other cashier's transaction");
+                }
+
             } else {
                 noVoid.setText("* - No such OR number");
             }
@@ -131,8 +138,11 @@ public class FXMLVoidWindowController implements Initializable {
         for (Fee f : fees) {
             System.out.println(orNo + " VS " + f.getOrNum());
             System.out.println("LOLITA");
-            if(orNo.equals(f.getOrNum()))
+            if(orNo.equals(f.getOrNum())){
+                feeToSolve = f;
                 return true;
+            }
+
         }
         return false;
     }
