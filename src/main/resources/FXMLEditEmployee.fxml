@@ -45,15 +45,6 @@
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <Text layoutX="464.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <TextField fx:id="password" focusTraversable="false" layoutX="464.0" layoutY="202.0" prefHeight="33.0" prefWidth="249.0" style="-fx-border-color: #a3a3a3;">
-         <font>
-            <Font size="18.0" />
-         </font></TextField>
       <TextField fx:id="lastName" focusTraversable="false" layoutX="83.0" layoutY="203.0" prefHeight="33.0" prefWidth="249.0" style="-fx-border-color: #a3a3a3;">
          <font>
             <Font size="18.0" />
