@@ -15,8 +15,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import jdk.internal.util.xml.impl.Input;
 
+import javax.swing.*;
 import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.net.URL;
@@ -66,8 +70,16 @@ public class FXMLLoginFormWindowController implements Initializable{
 
     }
 
+    public void tabPressedUsername(KeyEvent e) throws IOException {
+        KeyCode f = e.getCode();
+        if(f.toString().equals("TAB")) {
+            passwordTextField.requestFocus();
+        }
+    }
+
+
     @FXML
-    void logInButtonPushed(ActionEvent event) throws IOException {
+    public void logInButtonPushed(ActionEvent event) throws IOException {
         String user = usernameTextField.getText();
         String pass = passwordTextField.getText();
         usernameErr.setVisible(false);
