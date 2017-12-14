@@ -154,7 +154,7 @@ public class FXMLViewAccountsController implements Initializable {
         anotherStage.setScene(anotherScene);
         anotherStage.initStyle(StageStyle.UNDECORATED);
 
-        //employeeViewButtonPressed(event);
+        employeeViewButtonPressed(event);
         anotherStage.show();
     }
 
@@ -178,7 +178,7 @@ public class FXMLViewAccountsController implements Initializable {
             anotherStage.setScene(anotherScene);
             anotherStage.initStyle(StageStyle.UNDECORATED);
 
-            //employeeViewButtonPressed(event);
+            employeeViewButtonPressed(event);
             anotherStage.show();
         }
     }
