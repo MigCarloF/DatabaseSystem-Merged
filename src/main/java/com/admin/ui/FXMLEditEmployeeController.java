@@ -69,10 +69,10 @@ public class FXMLEditEmployeeController implements Initializable {
         String firstNameText = firstName.getText();
         String lastNameText = lastName.getText();
         userNameText = userName.getText();
-        String passwordText = password.getText();
+        //String passwordText = password.getText();
 
 
-        if(firstNameText.equals("") || lastNameText.equals("") || userNameText.equals("") || passwordText.equals("")){
+        if(firstNameText.equals("") || lastNameText.equals("") || userNameText.equals("")){
             //todo throw error nga empty
         }
 
@@ -101,11 +101,11 @@ public class FXMLEditEmployeeController implements Initializable {
         String firstNameText = firstName.getText();
         String lastNameText = lastName.getText();
         userNameText = userName.getText();
-        String passwordText = password.getText();
+        //String passwordText = password.getText();
 
 //        System.out.println(userNameText);
 
-        if(firstNameText.equals("") || lastNameText.equals("") || userNameText.equals("") || passwordText.equals("")){
+        if(firstNameText.equals("") || lastNameText.equals("") || userNameText.equals("")){
             //todo throw error nga empty
         }
 
@@ -117,7 +117,6 @@ public class FXMLEditEmployeeController implements Initializable {
                     Map<String, Object> newEmployee = new HashMap<>();
                     newEmployee.put("firstName", firstNameText);
                     newEmployee.put("lastName", lastNameText);
-                    newEmployee.put("password", passwordText);
 
                     ref.child(userNameText).updateChildren(newEmployee);
                 }else {
@@ -126,7 +125,7 @@ public class FXMLEditEmployeeController implements Initializable {
                         //System.out.println("geee");
                     }else {
                         System.out.println("hello");
-                        Employee e = new Employee(userNameText,passwordText,firstNameText,lastNameText, employeeToEdit.getWorkType(),employeeToEdit.isActiveEmployee());
+                        Employee e = new Employee(userNameText,employeeToEdit.getPassword(),firstNameText,lastNameText, employeeToEdit.getWorkType(),employeeToEdit.isActiveEmployee());
                         ref.child(employeeToEdit.getUsername()).setValue(null);
                         ref.child(userNameText).setValue(e);
                     }
