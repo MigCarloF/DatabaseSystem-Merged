@@ -93,6 +93,9 @@ public class FXMLBusProfilesController implements Initializable {
     }
 
     @FXML
+    /**
+     * Entire block opens a new window
+     */
     void busCreateButtonPressed(ActionEvent event) throws IOException {
         FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLCreateProfile.fxml"));
         Parent anotherRoot = anotherLoader.load();
@@ -106,6 +109,10 @@ public class FXMLBusProfilesController implements Initializable {
     }
 
     @FXML
+    /**
+     * Gets bus data from table and opens it in another window
+     * Utilizes singleton logic
+     */
     void busEditButtonPressed(ActionEvent event) throws IOException {
         if(transactionsTable.getSelectionModel().getSelectedCells().isEmpty()){
             System.out.println("no bus selected!");

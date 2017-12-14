@@ -113,17 +113,22 @@ public class FXMLAccountantWindowController implements Initializable {
     }
 
     public void logoutButtonPushed(ActionEvent event) throws IOException {
+        /**
+         *Entire code switches scene when logout Button is pushed
+         */
+
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/FXMLLoginFormWindow.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
-        //This line gets the Stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         window.setScene(tableViewScene);
         window.show();
     }
 
-    //accepts local date
+    /**
+     * Updates table with firebase data
+     */
     private void updateTable(LocalDate startDate, LocalDate endDate){
         arrival = 0;
         load = 0;
