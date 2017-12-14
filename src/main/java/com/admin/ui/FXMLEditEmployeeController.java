@@ -54,7 +54,7 @@ public class FXMLEditEmployeeController implements Initializable {
         firstName.setText(employeeToEdit.getFirstName());
         lastName.setText(employeeToEdit.getLastName());
         userName.setText(employeeToEdit.getUsername());
-        password.setText(employeeToEdit.getPassword());
+        //password.setText(employeeToEdit.getPassword());
         status.setText(employeeToEdit.getEstatus());
     }
 
