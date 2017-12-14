@@ -154,24 +154,33 @@ public class FXMLViewAccountsController implements Initializable {
         anotherStage.setScene(anotherScene);
         anotherStage.initStyle(StageStyle.UNDECORATED);
 
-        employeeViewButtonPressed(event);
+        //employeeViewButtonPressed(event);
         anotherStage.show();
     }
 
     @FXML
     void employeeEditButtonPressed(ActionEvent event) throws IOException {
-        Employee employee = transactionsTable.getSelectionModel().getSelectedItem();
-        SingletonEditEmployee.getInstance().setEmployee(employee);
-        System.out.println(SingletonEditEmployee.getInstance().getEmployee().getEstatus());
-        FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
-        Parent anotherRoot = anotherLoader.load();
-        //anotherStage.centerOnScreen();  //does not really work idk
-        Scene anotherScene = new Scene(anotherRoot);
-        anotherStage.setScene(anotherScene);
-        anotherStage.initStyle(StageStyle.UNDECORATED);
+        if(transactionsTable.getSelectionModel().getSelectedCells().isEmpty()){
+            System.out.println("no employee selected!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No employee selected.");
+            alert.setContentText("Please select an employee to edit.");
+            alert.showAndWait();
+        }else{
+            Employee employee = transactionsTable.getSelectionModel().getSelectedItem();
+            SingletonEditEmployee.getInstance().setEmployee(employee);
+            System.out.println(SingletonEditEmployee.getInstance().getEmployee().getEstatus());
+            FXMLLoader anotherLoader = new FXMLLoader(getClass().getResource("/FXMLEditEmployee.fxml"));
+            Parent anotherRoot = anotherLoader.load();
+            //anotherStage.centerOnScreen();  //does not really work idk
+            Scene anotherScene = new Scene(anotherRoot);
+            anotherStage.setScene(anotherScene);
+            anotherStage.initStyle(StageStyle.UNDECORATED);
 
-        employeeViewButtonPressed(event);
-        anotherStage.show();
+            //employeeViewButtonPressed(event);
+            anotherStage.show();
+        }
     }
 
     @FXML
