@@ -13,19 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class FXMLExitWindowController {
-
-    @FXML
-    private JFXButton exitWindowPrint;
-
-    @FXML
-    private JFXTextField exitWindowOrNo;
-
-    @FXML
-    private JFXButton exitWindowCashier;
-
-    @FXML
-    private JFXButton exitWindowLogout;
-
     @FXML
     void exitWindowCashierPressed(ActionEvent event) {
         /*Parent tableViewParent = FXMLLoader.load(getClass().getResource(""));
